@@ -24,6 +24,7 @@
       -webkit-overflow-scrolling: touch;
       gap: 2em;
       padding: 1em;
+      scroll-behavior: smooth;
     }
     .card {
       flex: 0 0 80%;
@@ -35,10 +36,23 @@
       transition: transform 0.3s ease, opacity 0.3s ease;
       text-align: center;
       opacity: 0.6;
-      transform: scale
+      transform: scale(0.95);
     }
+    // カーソルを合わせたときの効果
     .card:hover {
       transform: scale(1.02);
+      opacity: 0.9;
+    }
+    // 画面中央(メイン)に来た時の効果
+    .card.active {
+      transform: scale(1.05);
+      opacity: 1;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+    // 画面中央(メイン)かつカーソルを合わせたときの効果
+    .card.active:hover {
+      transform: scale(1.07);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.25);
     }
     .card img {
       width: 100%;
@@ -67,6 +81,7 @@
   <div class="carousel" id="carousel"></div>
 
   <script>
+  //探索者カード生成処理
   fetch('pc-data.json')
     .then(response => response.json())
     .then(data => {
@@ -89,6 +104,28 @@
     .catch(error => {
       console.error('JSON読み込みエラー:', error);
     });
+  </script>
+  <script>
+	// カルーセル中央のカードに .active を付与
+	const container = document.getElementById('carousel');
+
+	container.addEventListener('scroll', () => {
+		const cards = container.querySelectorAll('.card');
+		const containerRect = container.getBoundingClientRect();
+
+		cards.forEach(card => {
+			const cardRect = card.getBoundingClientRect();
+			const cardCenter = cardRect.left + cardRect.width / 2;
+			const containerCenter = containerRect.left + containerRect.width / 2;
+			const distance = Math.abs(containerCenter - cardCenter);
+
+			if (distance < cardRect.width / 2) {
+				card.classList.add('active');
+			} else {
+				card.classList.remove('active');
+			}
+		});
+	});
   </script>
 </body>
 </html>
