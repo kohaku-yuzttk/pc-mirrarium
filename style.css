@@ -1,0 +1,72 @@
+body {
+	background-color: #f5f3ef;
+	font-family: 'Georgia', serif;
+	margin: 0;
+	padding: 2em;
+	overflow-x: hidden;
+}
+h1 {
+	text-align: center;
+	font-size: 2em;
+	margin-bottom: 1em;
+	letter-spacing: 0.05em;
+}
+.carousel {
+	display: flex;
+	overflow-x: auto;
+	scroll-snap-type: x mandatory;
+	-webkit-overflow-scrolling: touch;
+	gap: 2em;
+	padding: 1em;
+	scroll-behavior: smooth;
+	width: 100vw;
+	box-sizing: border-box;
+}
+.card {
+	flex: 0 0 60vw; /* ← PCでも複数枚見えるように調整 */
+	scroll-snap-align: center;
+	background: #fff;
+	border: 1px solid #ccc;
+	box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+	padding: 1em;
+	transition: transform 0.3s ease, opacity 0.3s ease;
+	text-align: center;
+	opacity: 0.6;
+	transform: scale(0.95);
+}
+// カーソルを合わせたときの効果
+.card:hover {
+  transform: scale(1.02);
+  opacity: 0.9;
+}
+// 画面中央(メイン)に来た時の効果
+.card.active {
+  transform: scale(1.05);
+  opacity: 1;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+// 画面中央(メイン)かつカーソルを合わせたときの効果
+.card.active:hover {
+  transform: scale(1.07);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+}
+.card img {
+  width: 100%;
+  height: 400px; /* 表示高さを固定 */
+  object-fit: cover; /* トリミングして枠に収める */
+  object-position: center top; /* 上部中央を切り取る */
+  display: block;
+  margin-bottom: 0.5em;
+  border-radius: 4px; /* 角を少し丸める */
+}
+.card h2 {
+  font-size: 1.2em;
+  margin: 0.5em 0;
+}
+.card p {
+  font-size: 0.9em;
+  opacity: 0.8;
+}
+.carousel::-webkit-scrollbar {
+  display: none;
+}
