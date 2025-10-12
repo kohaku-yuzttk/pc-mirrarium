@@ -1,20 +1,38 @@
 [
   {
-    "name": "水無月 澪",
-    "job": "境界歩き",
-    "scenario": "沈黙の花園",
-    "image": "images/mio.png"
+    "name": "凩 梅衣",
+    "job": "甘味処店員",
+    "scenario": "四季送り",
+    "image": "images/168_20251006183340.png"
   },
   {
-    "name": "朝霧 碧",
-    "job": "夢追い人",
-    "scenario": "水底の鏡",
-    "image": "images/aoi.png"
+    "name": "村雨 結弦",
+    "job": "チェロ奏者",
+    "scenario": "星の神話、エンドロール",
+    "image": "images/181.png"
   },
   {
-    "name": "夜野 灯",
-    "job": "記憶収集者",
-    "scenario": "星の境界",
-    "image": "images/akari.png"
+    "name": "雨宮 遥",
+    "job": "探偵 兼 コンビニ店員",
+    "scenario": "沼男は誰だ？",
+    "image": "images/43_20231110210746.png"
+  }
+  {
+    "name": "ルシア・ローレンス",
+    "job": "学生",
+    "scenario": "アリストステラ魔法学校",
+    "image": "images/IMG_1462.png"
+  }
+  {
+    "name": "羽角 梓",
+    "job": "信者",
+    "scenario": "鰯と柊",
+    "image": "images/ぎゅ.png"
+  }
+  {
+    "name": "太田 ヨツハ",
+    "job": "？？？",
+    "scenario": "片鱗",
+    "image": "images/ムッ_200_20250718123858.png"
   }
 ]
