@@ -7,28 +7,33 @@
     body {
       background-color: #f5f3ef;
       font-family: 'Georgia', serif;
-      color: #333;
       margin: 0;
       padding: 2em;
+      overflow-x: hidden;
     }
     h1 {
       text-align: center;
-      font-size: 2.5em;
+      font-size: 2em;
       margin-bottom: 1em;
       letter-spacing: 0.05em;
     }
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    .carousel {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
       gap: 2em;
       padding: 1em;
     }
     .card {
-      background-color: #fff;
+      flex: 0 0 80%;
+      scroll-snap-align: center;
+      background: #fff;
       border: 1px solid #ccc;
       box-shadow: 0 2px 6px rgba(0,0,0,0.1);
       padding: 1em;
       transition: transform 0.3s ease;
+      text-align: center;
     }
     .card:hover {
       transform: scale(1.02);
@@ -36,7 +41,6 @@
     .card img {
       width: 100%;
       height: auto;
-      display: block;
       margin-bottom: 0.5em;
     }
     .card h2 {
@@ -45,20 +49,33 @@
     }
     .card p {
       font-size: 0.9em;
-      line-height: 1.5;
       opacity: 0.8;
+    }
+    .carousel::-webkit-scrollbar {
+      display: none;
     }
   </style>
 </head>
 <body>
-  <h1>pcmirrarium</h1>
-  <div class="gallery">
-    <div class="card">
-      <img src="sample-character.png" alt="探索者の立ち絵">
-      <h2>探索者A</h2>
-      <p>職業：記憶収集者<br>通過シナリオ：星の境界</p>
-    </div>
-    <!-- 他の探索者カードもここに追加 -->
-  </div>
+  <h1>探索者ミラリウム</h1>
+  <div class="carousel" id="carousel"></div>
+
+  <script>
+    fetch('pc-data.json')
+      .then(response => response.json())
+      .then(data => {
+        const container = document.getElementById('carousel');
+        data.forEach(seeker => {
+          const card = document.createElement('div');
+          card.className = 'card';
+          card.innerHTML = `
+            <img src="${seeker.image}" alt="${seeker.name}">
+            <h2>${seeker.name}</h2>
+            <p>職業：${seeker.job}<br>通過シナリオ：${seeker.scenario}</p>
+          `;
+          container.appendChild(card);
+        });
+      });
+  </script>
 </body>
 </html>
