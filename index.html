@@ -65,21 +65,28 @@
   <div class="carousel" id="carousel"></div>
 
   <script>
-    fetch('pc-data.json')
-      .then(response => response.json())
-      .then(data => {
-        const container = document.getElementById('carousel');
-        data.forEach(seeker => {
-          const card = document.createElement('div');
-          card.className = 'card';
-          card.innerHTML = `
-            <img src="${seeker.image}" alt="${seeker.name}">
-            <h2>${seeker.name}</h2>
-            <p>職業：${seeker.job}<br>通過シナリオ：${seeker.scenario}</p>
-          `;
-          container.appendChild(card);
-        });
-      });
+fetch('pc-data.json')
+  .then(response => response.json())
+  .then(data => {
+    const container = document.getElementById('carousel');
+    data.forEach(seeker => {
+      const card = document.createElement('div');
+      card.className = 'card';
+
+      // focusが指定されていれば使い、なければ center top を使う
+      const focus = seeker.focus || 'center top';
+
+      card.innerHTML = `
+        <img src="${seeker.image}" alt="${seeker.name}" style="width:100%; height:300px; object-fit:cover; object-position:${focus}; border-radius:4px; margin-bottom:0.5em;">
+        <h2>${seeker.name}</h2>
+        <p>職業：${seeker.job}<br>通過シナリオ：${seeker.scenario}</p>
+      `;
+      container.appendChild(card);
+    });
+  })
+  .catch(error => {
+    console.error('JSON読み込みエラー:', error);
+  });
   </script>
 </body>
 </html>
