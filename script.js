@@ -88,12 +88,12 @@ document.getElementById('carousel').addEventListener('scroll', () => {
 
 	// 左端に来たら最後のカードの手前にジャンプ
 	if (scrollLeft < cardWidth / 2) {
-		container.scrollLeft = cardWidth * (cards.length - 2);
+		container.scrollLeft = cardWidth * (cards.length - 1);
 	}
 
 	// 右端に来たら最初のカードの次にジャンプ
 	if (scrollLeft > maxScroll - cardWidth / 2) {
-		container.scrollLeft = cardWidth;
+		container.scrollLeft = cardWidth + 1;
 	}
 
 	updateActiveCard(); // 中央判定を更新
