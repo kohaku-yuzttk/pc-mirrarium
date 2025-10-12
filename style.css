@@ -33,20 +33,22 @@ h1 {
 	text-align: center;
 	opacity: 0.6;
 	transform: scale(0.95);
+	cursor: pointer;
 }
-// カーソルを合わせたときの効果
+/* カーソルを合わせたときの効果 */
 .card:hover {
   transform: scale(1.02);
   opacity: 0.9;
 }
-// 画面中央(メイン)に来た時の効果
+/* 画面中央(メイン)に来た時の効果 */
 .card.active {
   transform: scale(1.2);
   opacity: 1;
   z-index: 1;
   box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  transition: transform 0.3s ease, opacity 0.3s ease;
 }
-// 画面中央(メイン)かつカーソルを合わせたときの効果
+/* 画面中央(メイン)かつカーソルを合わせたときの効果 */
 .card.active:hover {
   transform: scale(1.24);
   box-shadow: 0 6px 16px rgba(0,0,0,0.25);
