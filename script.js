@@ -16,6 +16,7 @@ fetch('pc-data.json')
 			`;
 			container.appendChild(card);
 		});
+		updateActiveCard();
 	})
 	.catch(error => {
 		console.error('JSON読み込みエラー:', error);
@@ -60,4 +61,5 @@ document.getElementById('carousel').addEventListener('click', e => {
 		left: direction * cardRect.width,
 		behavior: 'smooth'
 	});
+	updateActiveCard();
 });
