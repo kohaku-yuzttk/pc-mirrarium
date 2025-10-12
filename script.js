@@ -43,3 +43,21 @@ function updateActiveCard() {
 		}
 	});
 }
+
+//左右カードタップでスクロール
+document.getElementById('carousel').addEventListener('click', e => {
+	const card = e.target.closest('.card');
+	if (!card) return;
+
+	const container = document.getElementById('carousel');
+	const containerRect = container.getBoundingClientRect();
+	const cardRect = card.getBoundingClientRect();
+	const cardCenter = cardRect.left + cardRect.width / 2;
+	const containerCenter = containerRect.left + containerRect.width / 2;
+
+	const direction = cardCenter < containerCenter ? -1 : 1;
+	container.scrollBy({
+		left: direction * cardRect.width,
+		behavior: 'smooth'
+	});
+});
