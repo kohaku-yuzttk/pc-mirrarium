@@ -9,6 +9,10 @@ fetch('pc-data.json')
 			card.className = 'card';
       		// focusが指定されていれば使い、なければ center top を使う
 			const focus = seeker.focus || 'center top';
+			// カードタイプ：ダミーの場合ダミークラス適用
+			if (seeker.type === 'dummy') {
+				card.classList.add('dummy');
+			}
 
 			card.innerHTML = `
 				<img src="${seeker.image}" alt="${seeker.name}" style="object-position:${focus};">
