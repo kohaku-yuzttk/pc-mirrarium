@@ -18,27 +18,27 @@
     "job": "探偵 兼 コンビニ店員",
     "scenario": "沼男は誰だ？",
     "image": "images/43_20231110210746.png",
-    "focus": "center 8%"
+    "focus": "center top"
   },
   {
     "name": "ルシア・ローレンス",
     "job": "学生",
     "scenario": "アリストステラ魔法学校",
     "image": "images/IMG_1462.png",
-    "focus": "center 20%"
+    "focus": "center 9%"
   },
   {
     "name": "羽角 梓",
     "job": "信者",
     "scenario": "鰯と柊",
     "image": "images/ぎゅ.png",
-    "focus": "center 15%"
+    "focus": "center 3%"
   },
   {
     "name": "太田 ヨツハ",
     "job": "？？？",
     "scenario": "片鱗",
     "image": "images/ムッ_200_20250718123858.png",
-    "focus": "center 15%"
+    "focus": "center top"
   }
 ]
