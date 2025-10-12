@@ -63,3 +63,27 @@ document.getElementById('carousel').addEventListener('click', e => {
 	});
 	updateActiveCard();
 });
+
+const container = document.getElementById('carousel');
+const cards = Array.from(container.children);
+
+// 最初と最後のカードを複製
+const firstClone = cards[0].cloneNode(true);
+const lastClone = cards[cards.length - 1].cloneNode(true);
+
+// 前後に追加
+container.insertBefore(lastClone, cards[0]);
+container.appendChild(firstClone);
+
+// スクロールが端に来たら中央に戻す
+container.addEventListener('scroll', () => {
+	const scrollLeft = container.scrollLeft;
+	const maxScroll = container.scrollWidth - container.clientWidth;
+
+	if (scrollLeft < 10) {
+		container.scrollLeft = maxScroll / 2;
+	}
+	if (scrollLeft > maxScroll - 10) {
+		container.scrollLeft = maxScroll / 2;
+	}
+});
