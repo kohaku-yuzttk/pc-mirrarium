@@ -17,13 +17,13 @@ h1 {
 	scroll-snap-type: x mandatory;
 	-webkit-overflow-scrolling: touch;
 	gap: 2em;
-	padding: 1em;
+	padding: 1em 10vw; /* 左右に余白を加えて中央を際立たせる */
 	scroll-behavior: smooth;
 	width: 100vw;
 	box-sizing: border-box;
 }
 .card {
-	flex: 0 0 60vw; /* ← PCでも複数枚見えるように調整 */
+	flex: 0 0 33.333vw; /* 画面幅の1/3ずつ */
 	scroll-snap-align: center;
 	background: #fff;
 	border: 1px solid #ccc;
@@ -41,13 +41,14 @@ h1 {
 }
 // 画面中央(メイン)に来た時の効果
 .card.active {
-  transform: scale(1.05);
+  transform: scale(1.2);
   opacity: 1;
+  z-index: 1;
   box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 // 画面中央(メイン)かつカーソルを合わせたときの効果
 .card.active:hover {
-  transform: scale(1.07);
+  transform: scale(1.24);
   box-shadow: 0 6px 16px rgba(0,0,0,0.25);
 }
 .card img {
