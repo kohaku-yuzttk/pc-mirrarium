@@ -17,7 +17,10 @@ fetch('pc-data.json')
 			`;
 			container.appendChild(card);
 		});
-		updateActiveCard(); // 初期の中央判定
+		// カード生成後の初期判定は少し遅らせる
+		setTimeout(() => {
+			updateActiveCard(); // 初期の中央判定
+		}, 100);
 	})
 	.catch(error => {
 		console.error('JSON読み込みエラー:', error);
@@ -62,5 +65,4 @@ document.getElementById('carousel').addEventListener('click', e => {
 		left: direction * cardRect.width,
 		behavior: 'smooth'
 	});
-	updateActiveCard();
 });
