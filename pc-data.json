@@ -1,0 +1,20 @@
+[
+  {
+    "name": "水無月 澪",
+    "job": "境界歩き",
+    "scenario": "沈黙の花園",
+    "image": "images/mio.png"
+  },
+  {
+    "name": "朝霧 碧",
+    "job": "夢追い人",
+    "scenario": "水底の鏡",
+    "image": "images/aoi.png"
+  },
+  {
+    "name": "夜野 灯",
+    "job": "記憶収集者",
+    "scenario": "星の境界",
+    "image": "images/akari.png"
+  }
+]
