@@ -1,5 +1,6 @@
 [
   {
+    "type": "dummy",
     "name": "　",
     "job": "　",
     "scenario": "　",
@@ -49,6 +50,7 @@
     "focus": "center top"
   },
   {
+    "type": "dummy",
     "name": "　",
     "job": "　",
     "scenario": "　",
