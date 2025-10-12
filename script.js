@@ -17,19 +17,7 @@ fetch('pc-data.json')
 			`;
 			container.appendChild(card);
 		});
-		// 最初と最後のカードを複製して前後に追加
-		const cards = container.querySelectorAll('.card');
-		const firstClone = cards[0].cloneNode(true);
-		const lastClone = cards[cards.length - 1].cloneNode(true);
-		container.insertBefore(lastClone, cards[0]);
-		container.appendChild(firstClone);
-
-		// 初期位置を2枚目（本来の最初）にスクロール
-		setTimeout(() => {
-			const cardWidth = cards[0].offsetWidth + 32; // gap分も加味
-			container.scrollLeft = cardWidth;
-			updateActiveCard(); // 初期の中央判定
-		}, 100);
+		updateActiveCard(); // 初期の中央判定
 	})
 	.catch(error => {
 		console.error('JSON読み込みエラー:', error);
@@ -75,26 +63,4 @@ document.getElementById('carousel').addEventListener('click', e => {
 		behavior: 'smooth'
 	});
 	updateActiveCard();
-});
-
-//端に来たら中央に戻す
-document.getElementById('carousel').addEventListener('scroll', () => {
-	const container = document.getElementById('carousel');
-	const cards = container.querySelectorAll('.card');
-	const cardWidth = cards[0].offsetWidth + 32; // gap分
-
-	const scrollLeft = container.scrollLeft;
-	const maxScroll = container.scrollWidth - container.clientWidth;
-
-	// 左端に来たら最後のカードの手前にジャンプ
-	if (scrollLeft < cardWidth / 2) {
-		container.scrollLeft = cardWidth * (cards.length - 1);
-	}
-
-	// 右端に来たら最初のカードの次にジャンプ
-	if (scrollLeft > maxScroll - cardWidth / 2) {
-		container.scrollLeft = cardWidth + 1;
-	}
-
-	updateActiveCard(); // 中央判定を更新
 });
