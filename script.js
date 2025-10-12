@@ -21,7 +21,7 @@ fetch('pc-data.json')
 			`;
 			container.appendChild(card);
 		});
-		// カード生成後の初期判定は少し遅らせる
+		// 判定タイミング調整
 		setTimeout(() => {
 			updateActiveCard(); // 初期の中央判定
 		}, 100);
@@ -69,4 +69,8 @@ document.getElementById('carousel').addEventListener('click', e => {
 		left: direction * cardRect.width,
 		behavior: 'smooth'
 	});
+	// 判定タイミング調整
+	setTimeout(() => {
+		updateActiveCard(); // 初期の中央判定
+	}, 100);
 });
