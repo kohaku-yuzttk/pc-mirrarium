@@ -1,6 +1,6 @@
 body {
 	background-color: #f5f3ef;
-	linear-gradient(to bottom, #f5f3ef, #eae7e2);
+	background: linear-gradient(to bottom, #f5f3ef, #eae7e2);
 	font-family: 'Georgia', serif;
 	margin: 0;
 	padding: 2em 0;
