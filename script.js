@@ -23,8 +23,10 @@ fetch('pc-data.json')
 		});
 		// 判定タイミング調整
 		setTimeout(() => {
-			const firstCard = container.querySelectorAll('.card')[1]; // 0番目をダミーとして1枚目にフォーカスする
-			const cardWidth = firstCard.offsetWidth + parseFloat(getComputedStyle(container).gap || 0);
+			// 0番目をダミーとして1枚目にスクロールする
+			const style = getComputedStyle(container);
+			const gap = parseFloat(style.gap.replace('px', '')) || 0;
+			const cardWidth = firstCard.offsetWidth + gap;
 			container.scrollLeft = cardWidth;
 			updateActiveCard(); // 初期の中央判定
 		}, 100);
@@ -33,8 +35,12 @@ fetch('pc-data.json')
 		console.error('JSON読み込みエラー:', error);
 	});
 
-// 中央カードに .active を付与
-window.addEventListener('scroll', updateActiveCard);
+// スクロールイベント後、中央カードに .active を付与
+let scrollTimeout;
+window.addEventListener('scroll', () => {
+	clearTimeout(scrollTimeout);
+	scrollTimeout = setTimeout(updateActiveCard, 50);
+});
 window.addEventListener('resize', updateActiveCard);
 
 function updateActiveCard() {
@@ -43,12 +49,17 @@ function updateActiveCard() {
 	const containerRect = container.getBoundingClientRect();
 
 	cards.forEach(card => {
+		if (card.classList.contains('dummy')) {
+			card.classList.remove('active');
+			return;
+		}
 		const cardRect = card.getBoundingClientRect();
 		const cardCenter = cardRect.left + cardRect.width / 2;
 		const containerCenter = containerRect.left + containerRect.width / 2;
 		const distance = Math.abs(containerCenter - cardCenter);
 
-		if (distance < cardRect.width / 2) {
+		const threshold = cardRect.width * 0.6;
+		if (distance < threshold) {
 			card.classList.add('active');
 		} else {
 			card.classList.remove('active');
