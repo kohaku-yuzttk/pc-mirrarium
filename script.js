@@ -23,14 +23,6 @@ fetch('pc-data.json')
 		});
 		// 判定タイミング調整
 		setTimeout(() => {
-			// 0番目をダミーとして1枚目にスクロールする
-			const cards = container.querySelectorAll('.card');
-			const style = getComputedStyle(container);
-			const gap = parseFloat(style.gap.replace('px', '')) || 0;
-			const cardWidth = cards[1].offsetWidth + gap;
-
-			const targetIndex = 1;
-			//container.scrollLeft = cardWidth * targetIndex;
 			updateActiveCard(); // 初期の中央判定
 		}, 100);
 	})
