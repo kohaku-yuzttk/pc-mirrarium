@@ -33,6 +33,8 @@ h1 {
 	text-align: center;
 	opacity: 0.6;
 	transform: scale(0.85);
+	transform-origin: center center;
+	will-change: transform;
 	cursor: pointer;
 }
 /* カーソルを合わせたときの効果 */
