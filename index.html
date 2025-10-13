@@ -71,8 +71,28 @@
 <!-- 👤 探索者詳細画面 -->
 <section id="detail" style="display:none;">
   <h2>探索者詳細</h2>
-  <div id="seeker-detail">
-    <!-- JavaScriptで探索者データを表示 -->
+  <div class="detail-container">
+    <div class="detail-left">
+      <img id="portrait" src="" alt="肖像" class="portrait">
+      <h2 id="name"></h2>
+      <p id="occupation"></p>
+      <p id="scenario"></p>
+      <p id="sheet-url"><a href="#" target="_blank">キャラシートを見る</a></p>
+    </div>
+
+    <div class="detail-right">
+      <h3>能力値</h3>
+      <ul id="status-list"></ul>
+
+      <h3>タグ</h3>
+      <div id="tags"></div>
+
+      <h3>メモ</h3>
+      <p id="memo"></p>
+
+      <h3>通過シナリオ</h3>
+      <ul id="scenario-list"></ul>
+    </div>
   </div>
   <button onclick="showScreen('search')">← 検索結果に戻る</button>
   <button onclick="showScreen('home')">← ホームに戻る</button>
