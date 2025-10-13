@@ -1,9 +1,9 @@
 [
   {
     "type": "dummy",
-    "name": "　",
-    "job": "　",
-    "scenario": "　",
+    "name": "",
+    "job": "",
+    "scenario": "",
     "image": "images/726522_s.jpg",
     "focus": "center top"
   },
@@ -51,9 +51,9 @@
   },
   {
     "type": "dummy",
-    "name": "　",
-    "job": "　",
-    "scenario": "　",
+    "name": "",
+    "job": "",
+    "scenario": "",
     "image": "images/726522_s.jpg",
     "focus": "center top"
   }
