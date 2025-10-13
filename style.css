@@ -20,6 +20,8 @@ h1 {
     padding-left: 0;
   }
 }
+
+/* カルーセルエリア */
 .carousel {
 	background: linear-gradient(to bottom, #f5f3ef, #eae7e2);
 	display: flex;
@@ -91,4 +93,42 @@ h1 {
 }
 .carousel::-webkit-scrollbar {
   display: none;
+}
+
+/* 検索エリア */
+.search-area {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  margin: 2em 0;
+  padding: 1em;
+  background: #f8f6f2;
+  border-radius: 1em;
+}
+
+.search-block {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  font-size: 1em;
+}
+
+.search-block .label {
+  min-width: 10em;
+  font-weight: bold;
+}
+
+.search-block select,
+.search-block input {
+  padding: 0.4em;
+  font-size: 1em;
+  border: 1px solid #ccc;
+  border-radius: 0.5em;
+}
+
+.search-block button {
+  font-size: 1.2em;
+  background: none;
+  border: none;
+  cursor: pointer;
 }
