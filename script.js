@@ -22,13 +22,19 @@ async function initCarousel() {
     const card = document.createElement('div');
     card.className = 'card';
     card.dataset.id = seeker.id || seeker.name; // 詳細画面用にIDを保持
+	
+	// focusが指定されていれば使い、なければ center top を使う
+	const focus = seeker.focus || 'center top';
+	// カードタイプ：ダミーの場合ダミークラス適用
+	if (seeker.type === 'dummy') {
+		card.classList.add('dummy');
+	}
 
     // カードの中身をHTMLで構築
     card.innerHTML = `
-      <h3>${seeker.name}</h3>
-      <p>STR: ${seeker.str} / DEX: ${seeker.dex} / SAN: ${seeker.pow * 5}</p>
-      <p class="tags">${(seeker.tags || []).map(tag => `<span class="tag">${tag}</span>`).join(' ')}</p>
-      <p class="memo">${seeker.memo || ''}</p>
+      <img src="${seeker.image}" alt="${seeker.name}" style="object-position:${focus};">
+      <h2>${seeker.name}</h2>
+      <p>職業：${seeker.job}<br>通過シナリオ：${seeker.scenario}</p>
     `;
 
     // アクティブカードクリックで詳細画面へ
@@ -40,10 +46,10 @@ async function initCarousel() {
 
     carousel.appendChild(card);
   });
-
-  // 最初のカードをアクティブにする（任意）
-  const firstCard = carousel.querySelector('.card');
-  if (firstCard) firstCard.classList.add('active');
+  // 判定タイミング調整
+	setTimeout(() => {
+		updateActiveCard(); // 初期の中央判定
+	}, 100);
 }
 // 探索者カード生成(ローカル)
 async function loadSeekerData_local() {
@@ -78,6 +84,7 @@ fetch('pc-data.json')
 		console.error('JSON読み込みエラー:', error);
 	});
 }
+
 // スクロールイベント後、中央カードに .active を付与
 let scrollTimeout;
 window.addEventListener('scroll', () => {
