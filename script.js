@@ -5,14 +5,48 @@ function showScreen(id) {
   });
   document.getElementById(id).style.display = 'block';
 }
-//スプレッドシートから探索者情報読み込み
+// スプレッドシートから探索者情報読み込み
 async function loadSeekerData() {
   const response = await fetch("https://script.google.com/macros/s/AKfycbyA5hyeyEuZQonR4ZyRjmk1lQIKB9RRFPuObIy0dxksPQPKTU72QrINVnOlhhgzWIQB/exec");
   const data = await response.json();
   console.log(data); // データ確認用
   return data;
 }
-// 探索者カード生成
+// カルーセル初期化
+async function initCarousel() {
+  const seekers = await loadSeekerData();
+  const carousel = document.getElementById('carousel');
+  carousel.innerHTML = ''; // 既存のカードをクリア
+
+  seekers.forEach(seeker => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.dataset.id = seeker.id || seeker.name; // 詳細画面用にIDを保持
+
+    // カードの中身をHTMLで構築
+    card.innerHTML = `
+      <h3>${seeker.name}</h3>
+      <p>STR: ${seeker.str} / DEX: ${seeker.dex} / SAN: ${seeker.pow * 5}</p>
+      <p class="tags">${(seeker.tags || []).map(tag => `<span class="tag">${tag}</span>`).join(' ')}</p>
+      <p class="memo">${seeker.memo || ''}</p>
+    `;
+
+    // アクティブカードクリックで詳細画面へ
+    card.addEventListener('click', () => {
+      if (card.classList.contains('active')) {
+        showSeekerDetail(seeker);
+      }
+    });
+
+    carousel.appendChild(card);
+  });
+
+  // 最初のカードをアクティブにする（任意）
+  const firstCard = carousel.querySelector('.card');
+  if (firstCard) firstCard.classList.add('active');
+}
+// 探索者カード生成(ローカル)
+async function loadSeekerData_local() {
 fetch('pc-data.json')
 	.then(response => response.json())
 	.then(data => {
@@ -43,7 +77,7 @@ fetch('pc-data.json')
 	.catch(error => {
 		console.error('JSON読み込みエラー:', error);
 	});
-
+}
 // スクロールイベント後、中央カードに .active を付与
 let scrollTimeout;
 window.addEventListener('scroll', () => {
