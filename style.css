@@ -17,13 +17,13 @@ h1 {
 	scroll-snap-type: x mandatory;
 	-webkit-overflow-scrolling: touch;
 	gap: 2em;
-	padding: 1em 10vw; /* 左右に余白を加えて中央を際立たせる */
+	padding: 1em 0;
 	scroll-behavior: smooth;
 	width: 100vw;
 	box-sizing: border-box;
 }
 .card {
-	flex: 0 0 33.333vw; /* 画面幅の1/3ずつ */
+	flex: 0 0 calc(33.333vw - 2em); /* gap分を引いて調整 */
 	scroll-snap-align: center;
 	background: #fff;
 	border: 1px solid #ccc;
