@@ -142,3 +142,14 @@ h1 {
   border: none;
   cursor: pointer;
 }
+
+/* 結果・詳細表示エリア */
+.tag {
+  display: inline-block;
+  background: #eee;
+  padding: 0.2em 0.5em;
+  margin: 0 0.2em;
+  border-radius: 0.5em;
+  font-size: 0.8em;
+}
+
