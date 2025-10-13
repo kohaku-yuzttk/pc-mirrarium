@@ -27,7 +27,7 @@ fetch('pc-data.json')
 			const cards = container.querySelectorAll('.card');
 			const style = getComputedStyle(container);
 			const gap = parseFloat(style.gap.replace('px', '')) || 0;
-			const cardWidth = cards[0].offsetWidth + gap;
+			const cardWidth = cards[1].offsetWidth + gap;
 
 			const targetIndex = 1;
 			container.scrollLeft = cardWidth * targetIndex;
