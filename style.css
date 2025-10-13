@@ -42,6 +42,7 @@ h1 {
 	scroll-behavior: smooth;
 	width: 100vw;
 	box-sizing: border-box;
+	font-family: "Yu Mincho", "游明朝", "Hiragino Mincho ProN", serif;
 }
 .card {
 	flex: 0 0 calc(33.333vw - 2em); /* gap分を引いて調整 */
