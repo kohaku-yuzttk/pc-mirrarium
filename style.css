@@ -13,7 +13,12 @@ h1 {
 	letter-spacing: 0.05em;
     margin: 0 auto;
     padding: 0 1.5em;
-
+}
+@media (max-width: 600px) {
+  h1 {
+    text-align: center;
+    padding-left: 0;
+  }
 }
 .carousel {
 	background: linear-gradient(to bottom, #f5f3ef, #eae7e2);
