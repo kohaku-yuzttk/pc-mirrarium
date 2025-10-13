@@ -79,6 +79,7 @@ document.getElementById('carousel').addEventListener('click', e => {
 	const card = e.target.closest('.card');
 	if (!card) return;
 	if (card.classList.contains('dummy')) return;
+	if (card.classList.contains('active')) return;
 
 	const container = document.getElementById('carousel');
 	const containerRect = container.getBoundingClientRect();
@@ -91,7 +92,6 @@ document.getElementById('carousel').addEventListener('click', e => {
 	// gapの取得（px単位）
 	const style = getComputedStyle(container);
 	const gap = parseFloat(style.gap) || 0;
-
 	// gapを含めたスクロール量
 	const scrollAmount = cardRect.width + gap;
 
@@ -99,4 +99,7 @@ document.getElementById('carousel').addEventListener('click', e => {
 		left: direction * scrollAmount,
 		behavior: 'smooth'
 	});
+	setTimeout(() => {
+		updateActiveCard();
+	}, 100);
 });
