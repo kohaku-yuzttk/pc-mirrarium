@@ -5,6 +5,13 @@ function showScreen(id) {
   });
   document.getElementById(id).style.display = 'block';
 }
+// ロード画面
+function showLoading() {
+  document.getElementById('loading').style.display = 'flex';
+}
+function hideLoading() {
+  document.getElementById('loading').style.display = 'none';
+}
 // スプレッドシートから探索者情報読み込み
 async function loadSeekerData() {
   const response = await fetch("https://script.google.com/macros/s/AKfycbyA5hyeyEuZQonR4ZyRjmk1lQIKB9RRFPuObIy0dxksPQPKTU72QrINVnOlhhgzWIQB/exec");
@@ -14,6 +21,7 @@ async function loadSeekerData() {
 }
 // カルーセル初期化
 async function initCarousel() {
+  showLoading(); // ロード画面表示
   const seekers = await loadSeekerData();
   const carousel = document.getElementById('carousel');
   carousel.innerHTML = ''; // 既存のカードをクリア
@@ -50,6 +58,7 @@ async function initCarousel() {
 	setTimeout(() => {
 		updateActiveCard(); // 初期の中央判定
 	}, 100);
+  hideLoading(); // ロード画面非表示
 }
 // 探索者カード生成(ローカル)
 async function loadSeekerData_local() {
