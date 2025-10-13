@@ -66,12 +66,21 @@ document.getElementById('carousel').addEventListener('click', e => {
 	const containerCenter = containerRect.left + containerRect.width / 2;
 
 	const direction = cardCenter < containerCenter ? -1 : 1;
+
+	// gapの取得（px単位）
+	const style = getComputedStyle(container);
+	const gap = parseFloat(style.gap) || 0;
+
+	// gapを含めたスクロール量
+	const scrollAmount = cardRect.width + gap;
+
 	container.scrollBy({
-		left: direction * cardRect.width,
+		left: direction * scrollAmount,
 		behavior: 'smooth'
 	});
+
 	// 判定タイミング調整
 	setTimeout(() => {
-		updateActiveCard(); // 初期の中央判定
+		updateActiveCard();
 	}, 100);
 });
