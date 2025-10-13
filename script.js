@@ -23,6 +23,9 @@ fetch('pc-data.json')
 		});
 		// 判定タイミング調整
 		setTimeout(() => {
+			const firstCard = container.querySelectorAll('.card')[1]; // 0番目をダミーとして1枚目にフォーカスする
+			const cardWidth = firstCard.offsetWidth + parseFloat(getComputedStyle(container).gap || 0);
+			container.scrollLeft = cardWidth;
 			updateActiveCard(); // 初期の中央判定
 		}, 100);
 	})
