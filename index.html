@@ -73,7 +73,12 @@
   <button onclick="showScreen('search')">← 検索結果に戻る</button>
   <button onclick="showScreen('home')">← ホームに戻る</button>
 </section>
-
+<script>
+  window.addEventListener('DOMContentLoaded', async () => {
+    const seekers = await loadSeekerData();
+    console.log(seekers); // データ確認用（あとでカルーセルや検索に使えます）
+  });
+</script>
 <script src="script.js"></script>
 </body>
 <footer class="copyright">
