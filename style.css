@@ -1,5 +1,6 @@
 body {
 	background-color: #f5f3ef;
+	linear-gradient(to bottom, #f5f3ef, #eae7e2);
 	font-family: 'Georgia', serif;
 	margin: 0;
 	padding: 2em 0;
@@ -20,7 +21,7 @@ h1 {
 	scroll-snap-type: x mandatory;
 	-webkit-overflow-scrolling: touch;
 	gap: 2em;
-	padding: 1em 0;
+	padding: 2em 0;
 	scroll-behavior: smooth;
 	width: 100vw;
 	box-sizing: border-box;
