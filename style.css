@@ -101,7 +101,7 @@ h1 {
   flex-direction: column;
   gap: 1em;
   margin: 2em 0;
-  padding: 1em;
+  padding: 0 2em;
   background: #f8f6f2;
   border-radius: 1em;
 }
