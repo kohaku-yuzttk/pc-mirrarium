@@ -30,7 +30,7 @@ fetch('pc-data.json')
 			const cardWidth = cards[1].offsetWidth + gap;
 
 			const targetIndex = 1;
-			container.scrollLeft = cardWidth * targetIndex;
+			//container.scrollLeft = cardWidth * targetIndex;
 			updateActiveCard(); // 初期の中央判定
 		}, 100);
 	})
