@@ -176,18 +176,23 @@ function showSeekerDetail(seeker) {
   const statusList = document.getElementById('status-list');
   statusList.innerHTML = `
     <li>STR: ${seeker.STR ?? '―'}</li>
-    <li>DEX: ${seeker.DEX ?? '―'}</li>
-    <li>INT: ${seeker.INT ?? '―'}</li>
+    <li>CON: ${seeker.CON ?? '―'}</li>
     <li>POW: ${seeker.POW ?? '―'}</li>
+    <li>DEX: ${seeker.DEX ?? '―'}</li>
+    <li>APP: ${seeker.APP ?? '―'}</li>
+    <li>SIZ: ${seeker.SIZ ?? '―'}</li>
+    <li>INT: ${seeker.INT ?? '―'}</li>
+    <li>EDU: ${seeker.EDU ?? '―'}</li>
+	<p>HP: ${seeker.HP}  /  MP: ${seeker.MP}  /  SAN: ${seeker.SAN_now} / ${seeker.SAN_ini}</p>
   `;
 
   // タグ
   const tags = document.getElementById('tags');
-  tags.innerHTML = (seeker.tags || []).map(tag => `<span class="tag">${tag}</span>`).join('');
+  tags.innerHTML = (seeker.tag_list || []).map(tag => `<span class="tag">${tag}</span>`).join('');
 
   // 通過シナリオ
   const scenarioList = document.getElementById('scenario-list');
-  scenarioList.innerHTML = (seeker.scenarios || []).map(s =>
+  scenarioList.innerHTML = (seeker.scenario_list || []).map(s =>
     `<li>${s.date} - ${s.title}（${s.HO}）</li>`
   ).join('');
 }
