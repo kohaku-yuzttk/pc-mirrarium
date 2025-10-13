@@ -44,22 +44,15 @@ async function initCarousel() {
       <h2>${seeker.name}</h2>
       <p>職業：${seeker.job}<br>出身シナリオ：${seeker.scenario}</p>
     `;
-
-    // アクティブカードクリックで詳細画面へ
-    card.addEventListener('click', () => {
-      if (card.classList.contains('active')) {
-        showSeekerDetail(seeker);
-      }
-    });
-
-    carousel.appendChild(card);
   });
+  carousel.appendChild(card);
   // 判定タイミング調整
 	setTimeout(() => {
 		updateActiveCard(); // 初期の中央判定
 	}, 100);
   hideLoading(); // ロード画面非表示
-}
+});
+
 // 探索者カード生成(ローカル)
 async function loadSeekerData_local() {
 fetch('pc-data.json')
@@ -160,3 +153,42 @@ document.getElementById('carousel').addEventListener('click', e => {
 		updateActiveCard();
 	}, 100);
 });
+
+// 探索者データ照会画面表示
+card.addEventListener('click', () => {
+  if (card.classList.contains('active')) {
+    showSeekerDetail(seeker);
+  }
+});
+function showSeekerDetail(seeker) {
+  showScreen('detail'); // 他の画面を非表示にして詳細画面を表示
+
+  // 基本情報
+  document.getElementById('name').textContent = seeker.name;
+  document.getElementById('occupation').textContent = seeker.occupation || '―';
+  document.getElementById('scenario').textContent = seeker.scenario || '―';
+  document.getElementById('memo').textContent = seeker.memo || '―';
+
+  // 画像とキャラシートURL（あれば）
+  document.getElementById('portrait').src = seeker.image || 'default.png';
+  document.querySelector('#sheet-url a').href = seeker.sheetUrl || '#';
+
+  // 能力値
+  const statusList = document.getElementById('status-list');
+  statusList.innerHTML = `
+    <li>STR: ${seeker.str ?? '―'}</li>
+    <li>DEX: ${seeker.dex ?? '―'}</li>
+    <li>INT: ${seeker.int ?? '―'}</li>
+    <li>POW: ${seeker.pow ?? '―'}</li>
+  `;
+
+  // タグ
+  const tags = document.getElementById('tags');
+  tags.innerHTML = (seeker.tags || []).map(tag => `<span class="tag">${tag}</span>`).join('');
+
+  // 通過シナリオ
+  const scenarioList = document.getElementById('scenario-list');
+  scenarioList.innerHTML = (seeker.scenarios || []).map(s =>
+    `<li>${s.date} - ${s.title}（${s.ho}）</li>`
+  ).join('');
+}
