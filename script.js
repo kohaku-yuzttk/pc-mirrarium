@@ -31,7 +31,7 @@ fetch('pc-data.json')
 
 			const targetIndex = 1;
 			container.scrollLeft = cardWidth * targetIndex;
-			//スクロールするからいらない？ updateActiveCard(); // 初期の中央判定
+			updateActiveCard(); // 初期の中央判定
 		}, 100);
 	})
 	.catch(error => {
