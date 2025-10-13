@@ -24,6 +24,7 @@ fetch('pc-data.json')
 		// 判定タイミング調整
 		setTimeout(() => {
 			// 0番目をダミーとして1枚目にスクロールする
+			const firstCard = container.querySelectorAll('.card')[1];
 			const style = getComputedStyle(container);
 			const gap = parseFloat(style.gap.replace('px', '')) || 0;
 			const cardWidth = firstCard.offsetWidth + gap;
