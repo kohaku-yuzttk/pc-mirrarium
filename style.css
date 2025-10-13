@@ -32,14 +32,14 @@ h1 {
 	transition: transform 0.3s ease, opacity 0.3s ease;
 	text-align: center;
 	opacity: 0.6;
-	transform: scale(0.85);
+	transform: scale(0.9);
 	transform-origin: center center;
 	will-change: transform;
 	cursor: pointer;
 }
 /* カーソルを合わせたときの効果 */
 .card:hover {
-  transform: scale(0.88);
+  transform: scale(0.92);
   opacity: 0.9;
 }
 /* 画面中央(メイン)に来た時の効果 */
@@ -59,7 +59,7 @@ h1 {
 .card.dummy {
 	opacity: 0;
 	pointer-events: none;
-	transform: scale(0.8);
+	transform: scale(0.85);
 	box-shadow: none;
 }
 .card img {
