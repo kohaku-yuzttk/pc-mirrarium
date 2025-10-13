@@ -32,17 +32,17 @@ h1 {
 	transition: transform 0.3s ease, opacity 0.3s ease;
 	text-align: center;
 	opacity: 0.6;
-	transform: scale(0.95);
+	transform: scale(0.85);
 	cursor: pointer;
 }
 /* カーソルを合わせたときの効果 */
 .card:hover {
-  transform: scale(1.02);
+  transform: scale(0.88);
   opacity: 0.9;
 }
 /* 画面中央(メイン)に来た時の効果 */
 .card.active {
-  transform: scale(1.2);
+  transform: scale(1.0);
   opacity: 1;
   z-index: 1;
   box-shadow: 0 4px 12px rgba(0,0,0,0.2);
@@ -50,8 +50,15 @@ h1 {
 }
 /* 画面中央(メイン)かつカーソルを合わせたときの効果 */
 .card.active:hover {
-  transform: scale(1.24);
+  transform: scale(1.03);
   box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+}
+/* ダミーカードの効果 */
+.card.dummy {
+	opacity: 0;
+	pointer-events: none;
+	transform: scale(0.8);
+	box-shadow: none;
 }
 .card img {
   width: 100%;
@@ -72,10 +79,4 @@ h1 {
 }
 .carousel::-webkit-scrollbar {
   display: none;
-}
-.card.dummy {
-	opacity: 0;
-	pointer-events: none;
-	transform: scale(0.95);
-	box-shadow: none;
 }
