@@ -54,13 +54,23 @@
   	</div>
   </section>
 </section>
+
 <!-- 🔍 検索結果画面 -->
 <section id="search" style="display:none;">
-	
+  <h2>検索結果</h2>
+  <div id="search-results">
+    <!-- JavaScriptで探索者一覧を表示 -->
+  </div>
+  <button onclick="showScreen('home')">← ホームに戻る</button>
 </section>
+
 <!-- 👤 探索者詳細画面 -->
 <section id="detail" style="display:none;">
-	
+  <h2>探索者詳細</h2>
+  <div id="seeker-detail">
+    <!-- JavaScriptで探索者データを表示 -->
+  </div>
+  <button onclick="showScreen('search-screen')">← 検索結果に戻る</button>
 </section>
 
 <script src="script.js"></script>
