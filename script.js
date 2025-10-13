@@ -44,14 +44,19 @@ async function initCarousel() {
       <h2>${seeker.name}</h2>
       <p>職業：${seeker.job}<br>出身シナリオ：${seeker.scenario}</p>
     `;
-  });
+    // 詳細画面表示イベント
+    card.addEventListener('click', () => {
+      if (card.classList.contains('active')) {
+        showSeekerDetail(seeker);
+      }
+    });
   carousel.appendChild(card);
-  // 判定タイミング調整
-	setTimeout(() => {
-		updateActiveCard(); // 初期の中央判定
-	}, 100);
+  });
+  setTimeout(() => {
+	updateActiveCard(); // 初期の中央判定
+  }, 100);
   hideLoading(); // ロード画面非表示
-});
+}
 
 // 探索者カード生成(ローカル)
 async function loadSeekerData_local() {
