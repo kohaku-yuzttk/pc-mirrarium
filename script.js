@@ -165,21 +165,20 @@ function showSeekerDetail(seeker) {
 
   // 基本情報
   document.getElementById('name').textContent = seeker.name;
-  document.getElementById('occupation').textContent = seeker.occupation || '―';
+  document.getElementById('occupation').textContent = seeker.job || '―';
   document.getElementById('scenario').textContent = seeker.scenario || '―';
-  document.getElementById('memo').textContent = seeker.memo || '―';
 
   // 画像とキャラシートURL（あれば）
-  document.getElementById('portrait').src = seeker.image || 'default.png';
-  document.querySelector('#sheet-url a').href = seeker.sheetUrl || '#';
+  document.getElementById('portrait').src = seeker.image || 'images/726522_s.jpg';
+  document.querySelector('#sheet-url a').href = seeker.ia_url || seeker.bl_url || '#';
 
   // 能力値
   const statusList = document.getElementById('status-list');
   statusList.innerHTML = `
-    <li>STR: ${seeker.str ?? '―'}</li>
-    <li>DEX: ${seeker.dex ?? '―'}</li>
-    <li>INT: ${seeker.int ?? '―'}</li>
-    <li>POW: ${seeker.pow ?? '―'}</li>
+    <li>STR: ${seeker.STR ?? '―'}</li>
+    <li>DEX: ${seeker.DEX ?? '―'}</li>
+    <li>INT: ${seeker.INT ?? '―'}</li>
+    <li>POW: ${seeker.POW ?? '―'}</li>
   `;
 
   // タグ
@@ -189,6 +188,6 @@ function showSeekerDetail(seeker) {
   // 通過シナリオ
   const scenarioList = document.getElementById('scenario-list');
   scenarioList.innerHTML = (seeker.scenarios || []).map(s =>
-    `<li>${s.date} - ${s.title}（${s.ho}）</li>`
+    `<li>${s.date} - ${s.title}（${s.HO}）</li>`
   ).join('');
 }
