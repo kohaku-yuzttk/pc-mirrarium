@@ -1,6 +1,5 @@
 body {
 	background-color: #f5f3ef;
-	background: linear-gradient(to bottom, #f5f3ef, #eae7e2);
 	font-family: 'Georgia', serif;
 	margin: 0;
 	padding: 2em 0;
@@ -17,6 +16,7 @@ h1 {
 
 }
 .carousel {
+	background: linear-gradient(to bottom, #f5f3ef, #eae7e2);
 	display: flex;
 	overflow-x: auto;
 	scroll-snap-type: x mandatory;
