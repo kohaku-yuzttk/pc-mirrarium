@@ -34,7 +34,7 @@ async function initCarousel() {
     card.innerHTML = `
       <img src="${seeker.image}" alt="${seeker.name}" style="object-position:${focus};">
       <h2>${seeker.name}</h2>
-      <p>職業：${seeker.job}<br>通過シナリオ：${seeker.scenario}</p>
+      <p>職業：${seeker.job}<br>出身シナリオ：${seeker.scenario}</p>
     `;
 
     // アクティブカードクリックで詳細画面へ
