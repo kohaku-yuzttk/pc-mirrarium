@@ -10,6 +10,50 @@
 <body>
   <h1>探索者ミラリウム</h1>
   <div class="carousel" id="carousel"></div>
+  <section class="search-area">
+    <!-- 📝 一覧から探す -->
+    <div class="search-block">
+    	<span class="label">📝 一覧から探す</span>
+    	<select name="sort50">
+      	<option value="a">50音順</option>
+      	<option value="scenario">通過シナリオ順</option>
+    	</select>
+    	<button>🔍</button>
+    </div>
+
+  	<!-- 🏷 タグから探す -->
+  	<div class="search-block">
+    	<span class="label">🏷 タグから探す</span>
+    	<select name="tag">
+      	<option value="">なし</option>
+      	<option value="孤独">孤独</option>
+      	<option value="音楽">音楽</option>
+    	</select>
+		<button>🔍</button>
+    </div>
+
+    <!-- 🎲 ステータスから探す -->
+    <div class="search-block">
+    	<span class="label">🎲 ステータスから探す</span>
+    	<select name="status">
+      	<option value="STR">STR</option>
+      	<option value="DEX">DEX</option>
+      	<option value="SAN">SAN</option>
+    	</select>
+    	<select name="order">
+      	<option value="desc">降順</option>
+      	<option value="asc">昇順</option>
+    	</select>
+    	<button>🔍</button>
+    </div>
+
+  	<!-- 👤 名前で探す -->
+  	<div class="search-block">
+    	<span class="label">👤 名前で探す</span>
+    	<input type="text" name="name" placeholder="名前を入力">
+    	<button>🔍</button>
+  	</div>
+  </section>
 	
   <script src="script.js"></script>
 
