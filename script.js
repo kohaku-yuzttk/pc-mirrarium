@@ -5,7 +5,13 @@ function showScreen(id) {
   });
   document.getElementById(id).style.display = 'block';
 }
-
+//スプレッドシートから探索者情報読み込み
+async function loadSeekerData() {
+  const response = await fetch("https://script.google.com/macros/s/AKfycbyA5hyeyEuZQonR4ZyRjmk1lQIKB9RRFPuObIy0dxksPQPKTU72QrINVnOlhhgzWIQB/exec");
+  const data = await response.json();
+  console.log(data); // データ確認用
+  return data;
+}
 // 探索者カード生成
 fetch('pc-data.json')
 	.then(response => response.json())
