@@ -8,6 +8,8 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<!-- 🏠 ホーム画面 -->
+<section id="home">
   <h1>探索者ミラリウム</h1>
   <div class="carousel" id="carousel"></div>
   <section class="search-area">
@@ -20,7 +22,6 @@
     	</select>
     	<button>🔍</button>
     </div>
-
   	<!-- 🏷 タグから探す -->
   	<div class="search-block">
     	<span class="label">🏷 タグから探す</span>
@@ -31,7 +32,6 @@
     	</select>
 		<button>🔍</button>
     </div>
-
     <!-- 🎲 ステータスから探す -->
     <div class="search-block">
     	<span class="label">🎲 ステータスから探す</span>
@@ -46,7 +46,6 @@
     	</select>
     	<button>🔍</button>
     </div>
-
   	<!-- 👤 名前で探す -->
   	<div class="search-block">
     	<span class="label">👤 名前で探す</span>
@@ -54,9 +53,17 @@
     	<button>🔍</button>
   	</div>
   </section>
+</section>
+<!-- 🔍 検索結果画面 -->
+<section id="search" style="display:none;">
 	
-  <script src="script.js"></script>
+</section>
+<!-- 👤 探索者詳細画面 -->
+<section id="detail" style="display:none;">
+	
+</section>
 
+<script src="script.js"></script>
 </body>
 <footer class="copyright">
   <p>
