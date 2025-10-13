@@ -160,11 +160,6 @@ document.getElementById('carousel').addEventListener('click', e => {
 });
 
 // 探索者データ照会画面表示
-card.addEventListener('click', () => {
-  if (card.classList.contains('active')) {
-    showSeekerDetail(seeker);
-  }
-});
 function showSeekerDetail(seeker) {
   showScreen('detail'); // 他の画面を非表示にして詳細画面を表示
 
