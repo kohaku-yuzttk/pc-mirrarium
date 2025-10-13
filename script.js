@@ -1,3 +1,11 @@
+// 画面呼び出し
+function showScreen(id) {
+  document.querySelectorAll('section').forEach(sec => {
+    sec.style.display = 'none';
+  });
+  document.getElementById(id).style.display = 'block';
+}
+
 // 探索者カード生成
 fetch('pc-data.json')
 	.then(response => response.json())
@@ -38,6 +46,7 @@ window.addEventListener('scroll', () => {
 });
 window.addEventListener('resize', updateActiveCard);
 
+// 中央カードに .active を付与
 function updateActiveCard() {
 	const container = document.getElementById('carousel');
 	const cards = container.querySelectorAll('.card');
