@@ -57,6 +57,7 @@ function updateActiveCard() {
 document.getElementById('carousel').addEventListener('click', e => {
 	const card = e.target.closest('.card');
 	if (!card) return;
+	if (card.classList.contains('dummy')) return;
 
 	const container = document.getElementById('carousel');
 	const containerRect = container.getBoundingClientRect();
