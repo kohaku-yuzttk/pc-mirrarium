@@ -23,6 +23,10 @@ h1 {
     margin: 0 auto;
     padding: 0 1.5em;
 }
+h2 {
+  margin-bottom: 0.5em;
+  font-family: 'Cormorant Garamond', serif;
+}
 @media (max-width: 600px) {
   h1 {
     text-align: center;
