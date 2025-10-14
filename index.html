@@ -16,13 +16,17 @@
     <div class="loading-text">探索者カードを読み込んでいます…</div>
   </div>
   <div class="carousel" id="carousel"></div>
-  <div class="search-area">
+  <div class="search-area" id="search-area">
     <!-- 📝 一覧から探す -->
     <div class="search-block">
     	<span class="label">📝 一覧から探す</span>
-    	<select name="sort50">
-      	<option value="a">50音順</option>
-      	<option value="scenario">通過シナリオ順</option>
+    	<select name="sort">
+      	<option value="yomi">50音順</option>
+      	<option value="age">年齢順</option>
+    	</select>
+    	<select name="order">
+      	<option value="asc">昇順</option>
+      	<option value="desc">降順</option>
     	</select>
     	<button>🔍</button>
     </div>
@@ -61,8 +65,8 @@
 
 <!-- 🔍 検索結果画面 -->
 <section id="search" style="display:none;">
+  <h2>検索結果</h2>
   <div class="search-container">
-    <h2>検索結果</h2>
 	  <table class="seeker-table">
   		<thead id="search-header"></thead>
   		<tbody id="search-results"></tbody>
