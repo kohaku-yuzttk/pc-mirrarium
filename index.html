@@ -20,45 +20,51 @@
     <!-- 📝 一覧から探す -->
     <div class="search-block">
     	<span class="label">📝 一覧から探す</span>
-    	<select name="sort">
-      	<option value="yomi">50音順</option>
+    	<select id="sort-tpye">
+      	<option value="yomi">名前50音順</option>
       	<option value="age">年齢順</option>
-    	</select>
-    	<select name="order">
-      	<option value="asc">昇順</option>
-      	<option value="desc">降順</option>
-    	</select>
-    	<button>🔍</button>
-    </div>
-    <!-- 🎲 ステータスから探す -->
-    <div class="search-block">
-    	<span class="label">🎲 ステータスから探す</span>
-    	<select name="status">
+      	<option value="SAN_now">現在SAN</option>
+      	<option value="SAN_ini">初期SAN</option>
       	<option value="STR">STR</option>
       	<option value="DEX">DEX</option>
-      	<option value="SAN">SAN</option>
     	</select>
-    	<select name="order">
-      	<option value="desc">降順</option>
+    	<select id="sort-order">
       	<option value="asc">昇順</option>
+      	<option value="desc">降順</option>
     	</select>
-    	<button>🔍</button>
+    	<button id="search-button">🔍</button>
+    </div>
+    <!-- 🎲 技能から探す -->
+    <div class="search-block">
+    	<span class="label">🎲 技能から探す</span>
+    	<select id="search-skill" name="status">
+      	<option value="idea">アイデア</option>
+      	<option value="luck">幸運</option>
+      	<option value="know">知識</option>
+    	</select>
+    	<select id="search-val">
+      	<option value="30up">30以上</option>
+      	<option value="50up">50以上</option>
+		<option value="75up">75以上</option>
+		<option value="90up">90以上</option>
+    	</select>
+    	<button id="search-button">🔍</button>
     </div>
   	<!-- 🏷 タグから探す -->
   	<div class="search-block">
     	<span class="label">🏷 タグから探す</span>
-    	<select name="tag">
+    	<select id="search-tag" name="tag">
       	<option value="">なし</option>
-      	<option value="孤独">孤独</option>
-      	<option value="音楽">音楽</option>
+      	<option value="ロスト">ロスト</option>
+      	<option value="後遺症">後遺症</option>
     	</select>
-		<button>🔍</button>
+		<button id="search-button">🔍</button>
     </div>
   	<!-- 👤 名前で探す -->
   	<div class="search-block">
     	<span class="label">👤 名前で探す</span>
-    	<input type="text" name="name" placeholder="名前を入力">
-    	<button>🔍</button>
+    	<input type="text" id="search-name" placeholder="名前を入力">
+    	<button id="search-button">🔍</button>
   	</div>
   </div>
 </section>
