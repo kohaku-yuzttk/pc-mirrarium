@@ -1,3 +1,6 @@
+// グローバル変数定義
+let allSeekers = [];
+
 // 画面呼び出し
 function showScreen(id) {
   document.querySelectorAll('section').forEach(sec => {
@@ -16,6 +19,7 @@ function hideLoading() {
 async function loadSeekerData() {
   const response = await fetch("https://script.google.com/macros/s/AKfycbyA5hyeyEuZQonR4ZyRjmk1lQIKB9RRFPuObIy0dxksPQPKTU72QrINVnOlhhgzWIQB/exec");
   const data = await response.json();
+  allSeekers = data;
   console.log(data); // データ確認用
   return data;
 }
@@ -185,11 +189,13 @@ function showSeekerDetail(seeker) {
 
   // タグ
   const tags = document.getElementById('tags');
-  tags.innerHTML = (seeker.tag_list || []).map(tag => `<span class="tag">${tag}</span>`).join('');
+  const tagList = Array.isArray(seeker.tag_list) ? seeker.tag_list : [];
+  tags.innerHTML = tagList.map(tag => `<span class="tag">${tag}</span>`).join('');
 
   // 通過シナリオ
   const scenarioList = document.getElementById('scenario-list');
-  scenarioList.innerHTML = (seeker.scenario_list || []).map(s =>
+  const list = Array.isArray(seeker.scenario_list) ? seeker.scenario_list : [];
+  scenarioList.innerHTML = list.map(s =>
     `<li>${s.date} - ${s.title}（${s.HO}）</li>`
   ).join('');
 }
