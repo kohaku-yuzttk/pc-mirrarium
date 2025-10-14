@@ -184,27 +184,27 @@ h1 {
   padding: 1em;
 }
 
-.result-card {
+.seeker-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'Cormorant Garamond', serif;
+  background: #f9f8f6;
+}
+
+.seeker-table th, .seeker-table td {
   border: 1px solid #ccc;
-  border-radius: 1em;
-  padding: 1em;
-  width: 220px;
-  background: #fff;
-  cursor: pointer;
-  transition: box-shadow 0.3s ease;
+  padding: 0.6em;
+  text-align: center;
 }
 
-.result-card:hover {
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-}
-
-.result-card .tag {
-  display: inline-block;
+.seeker-table th {
   background: #eee;
-  padding: 0.2em 0.5em;
-  margin: 0.2em;
-  border-radius: 0.5em;
-  font-size: 0.8em;
+  font-weight: normal;
+}
+
+.seeker-table tr:hover {
+  background: #f0f0f0;
+  cursor: pointer;
 }
 
 
