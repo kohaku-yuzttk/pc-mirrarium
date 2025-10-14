@@ -193,3 +193,34 @@ function showSeekerDetail(seeker) {
     `<li>${s.date} - ${s.title}（${s.HO}）</li>`
   ).join('');
 }
+// 検索結果一覧画面表示
+function showSearchResults(filteredSeekers) {
+  showScreen('search');
+  const container = document.getElementById('search-results');
+  container.innerHTML = '';
+
+  filteredSeekers.forEach(seeker => {
+    const card = document.createElement('div');
+    card.className = 'result-card';
+
+    card.innerHTML = `
+      <h3>${seeker.name}</h3>
+      <p>職業：${seeker.job}<br>出身：${seeker.scenario}</p>
+      <div class="tags">${(seeker.tag_list || []).map(tag => `<span class="tag">${tag}</span>`).join('')}</div>
+    `;
+
+    card.addEventListener('click', () => {
+      showSeekerDetail(seeker);
+    });
+
+    container.appendChild(card);
+  });
+}
+// 絞り込み
+function searchSeekers(keyword, allSeekers) {
+  const lower = keyword.toLowerCase();
+  return allSeekers.filter(seeker =>
+    seeker.name.toLowerCase().includes(lower) ||
+    (seeker.tag_list || []).some(tag => tag.toLowerCase().includes(lower))
+  );
+}
