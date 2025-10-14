@@ -200,11 +200,6 @@ function showSeekerDetail(seeker) {
   ).join('');
 }
 
-// デフォルト検索結果表示
-window.addEventListener('DOMContentLoaded', () => {
-  const sorted = sortSeekers(allSeekers, 'kana', 'asc');
-  showSearchResults(sorted, 'kana');
-});
 // 検索ボタンクリックイベント
 document.getElementById('search-button').addEventListener('click', () => {
   const type = document.getElementById('sort-type').value;
