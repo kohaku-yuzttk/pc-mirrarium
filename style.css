@@ -23,7 +23,11 @@ h1 {
     margin: 0 auto;
     padding: 0 1.5em;
 }
-
+h2 {
+  padding-left: 1.5em;
+  margin-bottom: 0.5em;
+  font-family: 'Cormorant Garamond', serif;
+}
 @media (max-width: 600px) {
   h1 {
     text-align: center;
@@ -173,6 +177,7 @@ h1 {
 .search-container {
   display: flex;
   gap: 2em;
+  margin: 2em 0;
   padding: 2em;
   background: #f9f8f6;
   font-family: 'Cormorant Garamond', serif;
@@ -226,6 +231,7 @@ h1 {
 .detail-container {
   display: flex;
   gap: 2em;
+  margin: 2em 0;
   padding: 2em;
   background: #f9f8f6;
   font-family: 'Cormorant Garamond', serif;
