@@ -193,10 +193,29 @@ function showSeekerDetail(seeker) {
     `<li>${s.date} - ${s.title}（${s.HO}）</li>`
   ).join('');
 }
+
 // デフォルト検索結果表示
 window.addEventListener('DOMContentLoaded', () => {
   const sorted = sortSeekers(allSeekers, 'kana', 'asc');
   showSearchResults(sorted, 'kana');
+});
+// 検索ボタンクリックイベント
+document.getElementById('search-button').addEventListener('click', () => {
+  const type = document.getElementById('sort-type').value;
+  const order = document.getElementById('sort-order').value;
+  const skill = document.getElementById('search-skill').value;
+  const skill_val = document.getElementById('search-val').value;
+  const tag = document.getElementById('search-tag').value;
+  const nameKeyword = document.getElementById('search-name').value.trim();
+
+  // データ取得（すでに読み込まれていると仮定）
+  const filtered = allSeekers.filter(seeker => {
+    if (!nameKeyword) return true;
+    return seeker.name.includes(nameKeyword) || (seeker.kana || '').includes(nameKeyword);
+  });
+
+  const sorted = sortSeekers(filtered, type, order);
+  showSearchResults(sorted, type); // 表示項目は type に応じて切り替え
 });
 // 検索結果一覧画面表示
 function showSearchResults(seekers, Key = 'yomi', order = 'asc') {
