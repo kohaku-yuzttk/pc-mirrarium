@@ -23,13 +23,7 @@ h1 {
     margin: 0 auto;
     padding: 0 1.5em;
 }
-h2 {
-	display: block;
-    font-size: 1.5em;
-	margin-bottom: 1em;
-    margin: 0 auto;
-    padding: 0 1.5em;
-}
+
 @media (max-width: 600px) {
   h1 {
     text-align: center;
@@ -176,6 +170,13 @@ h2 {
   cursor: pointer;
 }
 /* 検索結果一覧エリア */
+.search-container {
+  display: flex;
+  gap: 2em;
+  padding: 2em;
+  background: #f9f8f6;
+  font-family: 'Cormorant Garamond', serif;
+}	
 .results-list {
   display: flex;
   flex-wrap: wrap;
