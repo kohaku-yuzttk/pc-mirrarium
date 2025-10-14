@@ -170,9 +170,6 @@ h1 {
   cursor: pointer;
 }
 /* 検索結果一覧エリア */
-.search {
-  padding: 2em;
-}
 .search-container {
   display: flex;
   gap: 2em;
