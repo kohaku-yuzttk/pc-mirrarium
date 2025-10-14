@@ -284,7 +284,7 @@ function searchSeekers(keyword, allSeekers) {
   );
 }
 // ソート
-function sortSeekers(seekers, Key = 'kana', order = 'asc') {
+function sortSeekers(seekers, key = 'kana', order = 'asc') {
   const sorted = [...seekers];
   sorted.sort((a, b) => {
     const valA = a[key] ?? 0;
