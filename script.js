@@ -83,10 +83,6 @@ fetch('pc-data.json')
 			`;
 			container.appendChild(card);
 		});
-		// 判定タイミング調整
-		setTimeout(() => {
-			updateActiveCard(); // 初期の中央判定
-		}, 100);
 	})
 	.catch(error => {
 		console.error('JSON読み込みエラー:', error);
