@@ -168,8 +168,39 @@ h1 {
   border: none;
   cursor: pointer;
 }
+/* 検索結果一覧エリア */
+.results-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1em;
+  padding: 1em;
+}
 
-/* 結果・詳細表示エリア */
+.result-card {
+  border: 1px solid #ccc;
+  border-radius: 1em;
+  padding: 1em;
+  width: 220px;
+  background: #fff;
+  cursor: pointer;
+  transition: box-shadow 0.3s ease;
+}
+
+.result-card:hover {
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.result-card .tag {
+  display: inline-block;
+  background: #eee;
+  padding: 0.2em 0.5em;
+  margin: 0.2em;
+  border-radius: 0.5em;
+  font-size: 0.8em;
+}
+
+
+/* 詳細表示エリア */
 .tag {
   display: inline-block;
   background: #eee;
@@ -204,13 +235,4 @@ h1 {
 .status-list, .scenario-list {
   list-style: none;
   padding: 0;
-}
-
-.tag {
-  display: inline-block;
-  background: #eee;
-  padding: 0.3em 0.6em;
-  margin: 0.2em;
-  border-radius: 0.5em;
-  font-size: 0.9em;
 }
