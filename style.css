@@ -24,7 +24,7 @@ h1 {
     padding: 0 1.5em;
 }
 h2 {
-  padding-left: 1.5em;
+  padding-left: 3em;
   margin-bottom: 0.5em;
   font-family: 'Cormorant Garamond', serif;
 }
@@ -231,7 +231,7 @@ h2 {
 .detail-container {
   display: flex;
   gap: 2em;
-  margin: 2em 0;
+  margin: 2em;
   padding: 2em;
   background: #f9f8f6;
   font-family: 'Cormorant Garamond', serif;
