@@ -8,45 +8,10 @@
     "focus": "center top"
   },
   {
-    "name": "凩 梅衣",
-    "job": "甘味処店員",
-    "scenario": "四季送り",
-    "image": "images/168_20251006183340.png",
-    "focus": "center 25%"
-  },
-  {
-    "name": "村雨 結弦",
-    "job": "チェロ奏者",
-    "scenario": "星の神話、エンドロール",
-    "image": "images/181.png",
-    "focus": "center 8%"
-  },
-  {
-    "name": "雨宮 遥",
-    "job": "探偵 兼 コンビニ店員",
-    "scenario": "沼男は誰だ？",
-    "image": "images/43_20231110210746.png",
-    "focus": "center top"
-  },
-  {
-    "name": "ルシア・ローレンス",
-    "job": "学生",
-    "scenario": "アリストステラ魔法学校",
-    "image": "images/IMG_1462.png",
-    "focus": "center 9%"
-  },
-  {
-    "name": "羽角 梓",
-    "job": "信者",
-    "scenario": "鰯と柊",
-    "image": "images/ぎゅ.png",
-    "focus": "center 3%"
-  },
-  {
-    "name": "太田 ヨツハ",
-    "job": "？？？",
-    "scenario": "片鱗",
-    "image": "images/ムッ_200_20250718123858.png",
+    "name": "探索者名",
+    "job": "",
+    "scenario": "",
+    "image": "images/726522_s.jpg",
     "focus": "center top"
   },
   {
