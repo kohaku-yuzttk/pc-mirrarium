@@ -256,8 +256,9 @@ function showSearchResults(seekers, Key = 'yomi', order = 'asc') {
     const row = document.createElement('tr');
 
     columns.forEach(col => {
-      const td = document.createElement('td');
+	  if (seeker.type === 'dummy') return; // ダミーなら何もせず次へ
 
+      const td = document.createElement('td');
       if (col.key === 'image') {
         td.innerHTML = `<img src="${seeker.image}" alt="${seeker.name}" class="thumb">`;
       } else if (col.key === 'SAN_now') {
