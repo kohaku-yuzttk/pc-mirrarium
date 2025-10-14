@@ -21,6 +21,7 @@ async function loadSeekerData() {
 }
 // カルーセル初期化
 async function initCarousel() {
+  loadSeekerData_local(); // ローカルデータ表示
   showLoading(); // ロード画面表示
   const seekers = await loadSeekerData();
   const carousel = document.getElementById('carousel');
