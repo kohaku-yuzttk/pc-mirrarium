@@ -194,26 +194,60 @@ function showSeekerDetail(seeker) {
   ).join('');
 }
 // 検索結果一覧画面表示
-function showSearchResults(filteredSeekers) {
+function showSearchResults(seekers, Key = 'yomi', order = 'asc') {
   showScreen('search');
-  const container = document.getElementById('search-results');
-  container.innerHTML = '';
 
-  filteredSeekers.forEach(seeker => {
-    const card = document.createElement('div');
-    card.className = 'result-card';
+  const header = document.getElementById('search-header');
+  const body = document.getElementById('search-results');
+  header.innerHTML = '';
+  body.innerHTML = '';
 
-    card.innerHTML = `
-      <h3>${seeker.name}</h3>
-      <p>職業：${seeker.job}<br>出身：${seeker.scenario}</p>
-      <div class="tags">${(seeker.tag_list || []).map(tag => `<span class="tag">${tag}</span>`).join('')}</div>
-    `;
+  // ✅ 表示項目を条件に応じて切り替え
+  let columns = [
+    { key: 'image', label: '画像' },
+    { key: 'name', label: '名前' },
+    { key: 'yomi', label: 'よみ' },
+    { key: 'HP', label: 'HP' },
+    { key: 'MP', label: 'MP' },
+    { key: 'SAN_now', label: '現在SAN' },
+    { key: 'SAN_ini', label: '初期SAN' }
+  ];
 
-    card.addEventListener('click', () => {
+  if (Key === 'STR') {
+    columns.push({ key: 'STR', label: 'STR' });
+  }
+
+  // ✅ ヘッダー生成
+  const headerRow = document.createElement('tr');
+  columns.forEach(col => {
+    const th = document.createElement('th');
+    th.textContent = col.label;
+    headerRow.appendChild(th);
+  });
+  header.appendChild(headerRow);
+
+  // ✅ データ行生成
+  seekers.forEach(seeker => {
+    const row = document.createElement('tr');
+
+    columns.forEach(col => {
+      const td = document.createElement('td');
+
+      if (col.key === 'image') {
+        td.innerHTML = `<img src="${seeker.image}" alt="${seeker.name}" class="thumb">`;
+      } else if (col.key === 'SAN_now') {
+        td.textContent = seeker.SAN_now ?? '―';
+      } else if (col.key === 'SAN_ini') {
+        td.textContent = seeker.SAN_ini ?? '―';
+      } else {
+        td.textContent = seeker[col.key] ?? '―';
+      }
+      row.appendChild(td);
+    });
+    row.addEventListener('click', () => {
       showSeekerDetail(seeker);
     });
-
-    container.appendChild(card);
+    body.appendChild(row);
   });
 }
 // 絞り込み
@@ -223,4 +257,14 @@ function searchSeekers(keyword, allSeekers) {
     seeker.name.toLowerCase().includes(lower) ||
     (seeker.tag_list || []).some(tag => tag.toLowerCase().includes(lower))
   );
+}
+// ソート
+function sortSeekers(seekers, Key = 'kana', order = 'asc') {
+  const sorted = [...seekers];
+  sorted.sort((a, b) => {
+    const valA = a[key] ?? 0;
+    const valB = b[key] ?? 0;
+    return order === 'asc' ? valA - valB : valB - valA;
+  });
+  return sorted;
 }
