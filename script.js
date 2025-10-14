@@ -221,7 +221,6 @@ document.getElementById('search-button').addEventListener('click', () => {
 // 検索結果一覧画面表示
 function showSearchResults(seekers, Key = 'yomi', order = 'asc') {
   showScreen('search');
-　document.getElementById('search-area').style.display = 'block';
 
   const header = document.getElementById('search-header');
   const body = document.getElementById('search-results');
