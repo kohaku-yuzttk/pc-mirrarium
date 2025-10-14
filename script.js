@@ -193,6 +193,11 @@ function showSeekerDetail(seeker) {
     `<li>${s.date} - ${s.title}（${s.HO}）</li>`
   ).join('');
 }
+// デフォルト検索結果表示
+window.addEventListener('DOMContentLoaded', () => {
+  const sorted = sortSeekers(allSeekers, 'kana', 'asc');
+  showSearchResults(sorted, 'kana');
+});
 // 検索結果一覧画面表示
 function showSearchResults(seekers, Key = 'yomi', order = 'asc') {
   showScreen('search');
