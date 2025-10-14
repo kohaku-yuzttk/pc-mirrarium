@@ -206,7 +206,13 @@ h1 {
   background: #f0f0f0;
   cursor: pointer;
 }
-
+.thumb {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  object-position: center top;
+  border-radius: 0.5em;
+}
 
 /* 詳細表示エリア */
 .tag {
