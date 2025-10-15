@@ -58,10 +58,6 @@ async function initCarousel() {
   carousel.appendChild(card);
   });
   setTimeout(() => {
-  	const container = document.getElementById('carousel');
-  	const style = getComputedStyle(container);
-  	const gap = parseFloat(style.gap) || 0;
-  	container.scrollLeft = gap; // gap分だけ右にスクロール
 	updateActiveCard(); // 初期の中央判定
   }, 100);
   hideLoading(); // ロード画面非表示
