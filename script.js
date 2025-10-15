@@ -57,6 +57,7 @@ async function initCarousel() {
     });
   carousel.appendChild(card);
   });
+  carousel.scrollLeft = gap; // gap分だけ右にスクロール
   setTimeout(() => {
 	updateActiveCard(); // 初期の中央判定
   }, 100);
