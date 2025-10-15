@@ -354,7 +354,9 @@ function showSearchResults(seekers, Key = 'yomi', order = 'asc') {
         td.textContent = seeker.SAN_ini ?? '―';
   	  } else if (col.key === 'tag_list') {
     	const tags = Array.isArray(seeker.tag_list) ? seeker.tag_list : [];
-    	td.textContent = tags.length > 0 ? tags.join(', ') : '―';
+    	td.innerHTML = tags.length > 0
+		  ? tags.map(tag => `<span class="tag">${tag}</span>`).join(' ')
+		  : '―';
   	  } else {
     	td.textContent = seeker[col.key] ?? '―';
   	  }
