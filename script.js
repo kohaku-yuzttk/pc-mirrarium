@@ -93,12 +93,44 @@ fetch('pc-data.json')
 	});
 }
 
-// スクロールイベント後、アクティブカード更新
-const carousel = document.getElementById('carousel');
+
+// 画面読み込み時、スクロールイベント定義
 let scrollTimeout;
-carousel.addEventListener('scroll', () => {
-  clearTimeout(scrollTimeout);
-  scrollTimeout = setTimeout(updateActiveCard, 50); // スクロール終了後に中央判定
+let isDown = false;
+let startX;
+let scrollLeft;
+
+document.addEventListener('DOMContentLoaded', () => {
+  const carousel = document.getElementById('carousel');
+	
+  // スクロールイベント後、アクティブカード更新
+  carousel.addEventListener('scroll', () => {
+  	clearTimeout(scrollTimeout);
+  	scrollTimeout = setTimeout(updateActiveCard, 50); // スクロール終了後に中央判定
+  });
+	
+  // カルーセル内ドラッグでスクロール
+  carousel.addEventListener('mousedown', (e) => {
+  	isDown = true;
+  	carousel.classList.add('dragging');
+  	startX = e.pageX - carousel.offsetLeft;
+  	scrollLeft = carousel.scrollLeft;
+  });
+  carousel.addEventListener('mouseleave', () => {
+  	isDown = false;
+  	carousel.classList.remove('dragging');
+  });
+  carousel.addEventListener('mouseup', () => {
+  	isDown = false;
+  	carousel.classList.remove('dragging');
+  });
+  carousel.addEventListener('mousemove', (e) => {
+  	if (!isDown) return;
+  	e.preventDefault();
+  	const x = e.pageX - carousel.offsetLeft;
+  	const walk = (x - startX) * 1.5; // スクロール速度調整
+  	carousel.scrollLeft = scrollLeft - walk;
+  });
 });
 // 画面リサイズ時、アクティブカード更新
 window.addEventListener('resize', updateActiveCard);
@@ -131,36 +163,7 @@ function updateActiveCard() {
 		closestCard.classList.add('active');
 	}
 }
-// カルーセル内ドラッグでスクロール
-const carousel = document.getElementById('carousel');
-let isDown = false;
-let startX;
-let scrollLeft;
-
-carousel.addEventListener('mousedown', (e) => {
-  isDown = true;
-  carousel.classList.add('dragging');
-  startX = e.pageX - carousel.offsetLeft;
-  scrollLeft = carousel.scrollLeft;
-});
-
-carousel.addEventListener('mouseleave', () => {
-  isDown = false;
-  carousel.classList.remove('dragging');
-});
-
-carousel.addEventListener('mouseup', () => {
-  isDown = false;
-  carousel.classList.remove('dragging');
-});
-
-carousel.addEventListener('mousemove', (e) => {
-  if (!isDown) return;
-  e.preventDefault();
-  const x = e.pageX - carousel.offsetLeft;
-  const walk = (x - startX) * 1.5; // スクロール速度調整
-  carousel.scrollLeft = scrollLeft - walk;
-});
+/*
 //左右カードタップでスクロール
 document.getElementById('carousel').addEventListener('click', e => {
 	const card = e.target.closest('.card');
@@ -190,7 +193,7 @@ document.getElementById('carousel').addEventListener('click', e => {
 		updateActiveCard();
 	}, 100);
 });
-
+*/
 // 探索者データ照会画面表示
 function showSeekerDetail(seeker) {
   showScreen('detail'); // 他の画面を非表示にして詳細画面を表示
