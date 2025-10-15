@@ -93,12 +93,14 @@ fetch('pc-data.json')
 	});
 }
 
-// スクロールイベント後、中央カードに .active を付与
+// スクロールイベント後、アクティブカード更新
+const carousel = document.getElementById('carousel');
 let scrollTimeout;
-window.addEventListener('scroll', () => {
-	clearTimeout(scrollTimeout);
-	scrollTimeout = setTimeout(updateActiveCard, 50);
+carousel.addEventListener('scroll', () => {
+  clearTimeout(scrollTimeout);
+  scrollTimeout = setTimeout(updateActiveCard, 50); // スクロール終了後に中央判定
 });
+// 画面リサイズ時、アクティブカード更新
 window.addEventListener('resize', updateActiveCard);
 
 // 中央カードに .active を付与
