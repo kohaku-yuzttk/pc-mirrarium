@@ -108,7 +108,9 @@ document.addEventListener('DOMContentLoaded', () => {
   	clearTimeout(scrollTimeout);
   	scrollTimeout = setTimeout(updateActiveCard, 50); // スクロール終了後に中央判定
   });
-	
+
+  //【PCのみ】
+  if (isPointerDevice) {
   // カルーセル内ドラッグでスクロール
   carousel.addEventListener('mousedown', (e) => {
   	isDown = true;
@@ -131,6 +133,36 @@ document.addEventListener('DOMContentLoaded', () => {
   	const walk = (x - startX) * 1.5; // スクロール速度調整
   	carousel.scrollLeft = scrollLeft - walk;
   });
+  //左右カードタップでスクロール
+  document.getElementById('carousel').addEventListener('click', e => {
+	const card = e.target.closest('.card');
+	if (!card) return;
+	if (card.classList.contains('dummy')) return;
+	if (card.classList.contains('active')) return;
+
+	const container = document.getElementById('carousel');
+	const containerRect = container.getBoundingClientRect();
+	const cardRect = card.getBoundingClientRect();
+	const cardCenter = cardRect.left + cardRect.width / 2;
+	const containerCenter = containerRect.left + containerRect.width / 2;
+
+	const direction = cardCenter < containerCenter ? -1 : 1;
+
+	// gapの取得（px単位）
+	const style = getComputedStyle(container);
+	const gap = parseFloat(style.gap) || 0;
+	// gapを含めたスクロール量
+	const scrollAmount = cardRect.width + gap;
+
+	container.scrollBy({
+		left: direction * scrollAmount,
+		behavior: 'smooth'
+		});
+		setTimeout(() => {
+			updateActiveCard();
+		}, 100);
+  	});
+  }
 });
 // 画面リサイズ時、アクティブカード更新
 window.addEventListener('resize', updateActiveCard);
@@ -162,38 +194,6 @@ function updateActiveCard() {
 	if (closestCard) {
 		closestCard.classList.add('active');
 	}
-}
-
-//【PCのみ】左右カードタップでスクロール
-if (isPointerDevice) {
-  document.getElementById('carousel').addEventListener('click', e => {
-	const card = e.target.closest('.card');
-	if (!card) return;
-	if (card.classList.contains('dummy')) return;
-	if (card.classList.contains('active')) return;
-
-	const container = document.getElementById('carousel');
-	const containerRect = container.getBoundingClientRect();
-	const cardRect = card.getBoundingClientRect();
-	const cardCenter = cardRect.left + cardRect.width / 2;
-	const containerCenter = containerRect.left + containerRect.width / 2;
-
-	const direction = cardCenter < containerCenter ? -1 : 1;
-
-	// gapの取得（px単位）
-	const style = getComputedStyle(container);
-	const gap = parseFloat(style.gap) || 0;
-	// gapを含めたスクロール量
-	const scrollAmount = cardRect.width + gap;
-
-	container.scrollBy({
-		left: direction * scrollAmount,
-		behavior: 'smooth'
-	});
-	setTimeout(() => {
-		updateActiveCard();
-	}, 100);
-  });
 }
 
 // 探索者データ照会画面表示
