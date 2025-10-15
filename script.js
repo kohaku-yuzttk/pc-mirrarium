@@ -299,19 +299,34 @@ function showSearchResults(seekers, Key = 'yomi', order = 'asc') {
   header.innerHTML = '';
   body.innerHTML = '';
 
-  // ✅ 表示項目を条件に応じて切り替え
+  // デフォルト表示項目
   let columns = [
     { key: 'image', label: '画像' },
     { key: 'name', label: '名前' },
     { key: 'yomi', label: 'よみ' },
+    { key: 'tag', label: 'タグ' },
     { key: 'HP', label: 'HP' },
     { key: 'MP', label: 'MP' },
     { key: 'SAN_now', label: '現在SAN' },
     { key: 'SAN_ini', label: '初期SAN' }
   ];
 
-  if (Key === 'STR') {
-    columns.push({ key: 'STR', label: 'STR' });
+  // ✅ 条件に応じて表示項目追加
+  const labelMap = {
+  	STR: 'STR',
+  	CON: 'CON',
+  	POW: 'POW',
+  	DEX: 'DEX',
+  	APP: 'APP',
+  	SIZ: 'SIZ',
+  	INT: 'INT',
+  	EDU: 'EDU',
+  	idea: 'アイデア',
+  	luck: '幸運',
+  	know: '知識'
+  };
+  if (Key in labelMap) {
+  	columns.push({ key: Key, label: labelMap[Key] });
   }
 
   // ✅ ヘッダー生成
