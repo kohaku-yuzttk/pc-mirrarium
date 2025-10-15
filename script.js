@@ -304,7 +304,7 @@ function showSearchResults(seekers, Key = 'yomi', order = 'asc') {
     { key: 'image', label: '画像' },
     { key: 'name', label: '名前' },
     { key: 'yomi', label: 'よみ' },
-    { key: 'tag', label: 'タグ' },
+    { key: 'tag_list', label: 'タグ' },
     { key: 'HP', label: 'HP' },
     { key: 'MP', label: 'MP' },
     { key: 'SAN_now', label: '現在SAN' },
@@ -352,9 +352,12 @@ function showSearchResults(seekers, Key = 'yomi', order = 'asc') {
         td.textContent = seeker.SAN_now ?? '―';
       } else if (col.key === 'SAN_ini') {
         td.textContent = seeker.SAN_ini ?? '―';
-      } else {
-        td.textContent = seeker[col.key] ?? '―';
-      }
+  	  } else if (col.key === 'tag_list') {
+    	const tags = Array.isArray(seeker.tag_list) ? seeker.tag_list : [];
+    	td.textContent = tags.length > 0 ? tags.join(', ') : '―';
+  	  } else {
+    	td.textContent = seeker[col.key] ?? '―';
+  	  }
       row.appendChild(td);
     });
     row.addEventListener('click', () => {
