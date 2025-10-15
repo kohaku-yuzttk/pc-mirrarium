@@ -66,13 +66,16 @@ h2 {
 	display: flex;
 	overflow-x: auto;
 	scroll-snap-type: x mandatory;
-	scroll-padding-left: 2em;
+	scroll-behavior: smooth;
 	-webkit-overflow-scrolling: touch;
 	gap: 2em;
 	padding: 2em 0;
-	scroll-behavior: smooth;
 	width: 100vw;
 	box-sizing: border-box;
+}
+.carousel.dragging {
+  cursor: grabbing;
+  user-select: none;
 }
 .card {
 	flex: 0 0 calc(33.333vw - 2em); /* gap分を引いて調整 */
