@@ -1,5 +1,10 @@
-// グローバル変数定義
+// グローバル要素定義
 let allSeekers = [];
+let scrollTimeout;
+let isDown = false;
+let startX;
+let scrollLeft;
+const isPointerDevice = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
 // 画面呼び出し
 function showScreen(id) {
@@ -95,11 +100,6 @@ fetch('pc-data.json')
 
 
 // 画面読み込み時、スクロールイベント定義
-let scrollTimeout;
-let isDown = false;
-let startX;
-let scrollLeft;
-
 document.addEventListener('DOMContentLoaded', () => {
   const carousel = document.getElementById('carousel');
 	
@@ -163,9 +163,10 @@ function updateActiveCard() {
 		closestCard.classList.add('active');
 	}
 }
-/*
-//左右カードタップでスクロール
-document.getElementById('carousel').addEventListener('click', e => {
+
+//【PCのみ】左右カードタップでスクロール
+if (isPointerDevice) {
+  document.getElementById('carousel').addEventListener('click', e => {
 	const card = e.target.closest('.card');
 	if (!card) return;
 	if (card.classList.contains('dummy')) return;
@@ -192,8 +193,9 @@ document.getElementById('carousel').addEventListener('click', e => {
 	setTimeout(() => {
 		updateActiveCard();
 	}, 100);
-});
-*/
+  });
+}
+
 // 探索者データ照会画面表示
 function showSeekerDetail(seeker) {
   showScreen('detail'); // 他の画面を非表示にして詳細画面を表示
