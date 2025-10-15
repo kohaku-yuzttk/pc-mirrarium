@@ -236,24 +236,60 @@ function showSeekerDetail(seeker) {
   ).join('');
 }
 
-// 検索ボタンクリックイベント
+// 📝 一覧から探す 検索ボタンクリックイベント
 document.getElementById('search-button').addEventListener('click', () => {
   const type = document.getElementById('sort-type').value;
   const order = document.getElementById('sort-order').value;
-  const skill = document.getElementById('search-skill').value;
-  const skill_val = document.getElementById('search-val').value;
-  const tag = document.getElementById('search-tag').value;
-  const nameKeyword = document.getElementById('search-name').value.trim();
-
-  // データ取得（すでに読み込まれていると仮定）
-  const filtered = allSeekers.filter(seeker => {
-    if (!nameKeyword) return true;
-    return seeker.name.includes(nameKeyword) || (seeker.kana || '').includes(nameKeyword);
-  });
 
   const sorted = sortSeekers(filtered, type, order);
-  showSearchResults(sorted, type); // 表示項目は type に応じて切り替え
+  showSearchResults(sorted, type);
 });
+// 🎲 技能から探す 検索ボタンクリックイベント
+document.getElementById('search-button-by-skill').addEventListener('click', () => {
+  const skill = document.getElementById('search-skill').value;
+  const val = document.getElementById('search-val').value;
+  let filtered;
+  if (skill === 'non' || val === 'non') {
+    filtered = sortSeekers(allSeekers, 'yomi', 'asc');
+  } else {
+    const threshold = {
+      '30up': 30,
+      '50up': 50,
+      '75up': 75,
+      '90up': 90
+    }[val];
+    filtered = allSeekers.filter(seeker => (seeker[skill] ?? 0) >= threshold);
+  }
+  showSearchResults(filtered, skill);
+});
+// 🏷 タグから探す 検索ボタンクリックイベント
+document.getElementById('search-button-by-tag').addEventListener('click', () => {
+  const tag = document.getElementById('search-tag').value;
+  let filtered;
+  if (!tag) {
+    filtered = sortSeekers(allSeekers, 'yomi', 'asc');
+  } else {
+    filtered = allSeekers.filter(seeker =>
+      (seeker.tag_list || []).includes(tag)
+    );
+  }
+  showSearchResults(filtered, 'tag');
+});
+// 👤 名前で探す 検索ボタンクリックイベント
+document.getElementById('search-button-by-name').addEventListener('click', () => {
+  const keyword = document.getElementById('search-name').value.trim();
+  let filtered;
+  if (!keyword) {
+    // 🔍 デフォルト表示（名前順）
+    filtered = sortSeekers(allSeekers, 'yomi', 'asc');
+  } else {
+    filtered = allSeekers.filter(seeker =>
+      seeker.name.includes(keyword) || (seeker.kana || '').includes(keyword)
+    );
+  }
+  showSearchResults(filtered, 'name');
+});
+
 // 検索結果一覧画面表示
 function showSearchResults(seekers, Key = 'yomi', order = 'asc') {
   showScreen('search');
