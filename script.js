@@ -241,7 +241,7 @@ document.getElementById('search-button').addEventListener('click', () => {
   const type = document.getElementById('sort-type').value;
   const order = document.getElementById('sort-order').value;
 
-  const sorted = sortSeekers(filtered, type, order);
+  const sorted = sortSeekers(allSeekers, type, order);
   showSearchResults(sorted, type);
 });
 // 🎲 技能から探す 検索ボタンクリックイベント
