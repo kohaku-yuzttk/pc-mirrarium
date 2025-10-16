@@ -268,7 +268,18 @@ h2 {
   font-style: italic;
   color: #666;
 }
+/* キャラシートリンク */
+#sheet-url a {
+  display: inline-block;
+  margin-top: 0.5em;
+  font-size: 0.9em;
+  color: #336;
+  text-decoration: underline;
+}
 /* ステータス部 */
+.status-block h2 {
+  margin-bottom: 0.5em;
+}
 .status-block ul {
   list-style: none;
   padding: 0;
@@ -297,6 +308,9 @@ h2 {
   font-size: 0.85em;
 }
 /* シナリオ履歴 */
+.scenario-block h2 {
+  margin-top: 2em;
+}
 .scenario-block ul {
   list-style: none;
   padding: 0;
