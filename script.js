@@ -187,29 +187,37 @@ function scrollToActiveCard() {
 
 // 探索者データ照会画面表示
 function showSeekerDetail(seeker) {
-  showScreen('detail'); // 他の画面を非表示にして詳細画面を表示
+  showScreen('detail');
 
   // 基本情報
   document.getElementById('name').textContent = seeker.name;
   document.getElementById('occupation').textContent = seeker.job || '―';
   document.getElementById('scenario').textContent = seeker.scenario || '―';
+  document.getElementById('memo').textContent = seeker.memo || '―';
 
-  // 画像とキャラシートURL（あれば）
+  // 画像とキャラシートURL
   document.getElementById('portrait').src = seeker.image || 'images/726522_s.jpg';
-  document.querySelector('#sheet-url a').href = seeker.ia_url || seeker.bl_url || '#';
+  const sheetLink = document.querySelector('#sheet-url a');
+  if (seeker.ia_url || seeker.bl_url) {
+    sheetLink.href = seeker.ia_url || seeker.bl_url;
+    sheetLink.style.display = 'inline';
+  } else {
+  	sheetLink.style.display = 'none';
+  }
 
-  // 能力値
+
+  // 能力値とステータス
   const statusList = document.getElementById('status-list');
   statusList.innerHTML = `
-    <li>STR: ${seeker.STR ?? '―'}</li>
-    <li>CON: ${seeker.CON ?? '―'}</li>
-    <li>POW: ${seeker.POW ?? '―'}</li>
-    <li>DEX: ${seeker.DEX ?? '―'}</li>
-    <li>APP: ${seeker.APP ?? '―'}</li>
-    <li>SIZ: ${seeker.SIZ ?? '―'}</li>
-    <li>INT: ${seeker.INT ?? '―'}</li>
-    <li>EDU: ${seeker.EDU ?? '―'}</li>
-	<p>HP: ${seeker.HP}  /  MP: ${seeker.MP}  /  SAN: ${seeker.SAN_now} / ${seeker.SAN_ini}</p>
+  	<li>STR: ${seeker.STR ?? '―'}</li>
+  	<li>CON: ${seeker.CON ?? '―'}</li>
+  	<li>POW: ${seeker.POW ?? '―'}</li>
+  	<li>DEX: ${seeker.DEX ?? '―'}</li>
+  	<li>APP: ${seeker.APP ?? '―'}</li>
+  	<li>SIZ: ${seeker.SIZ ?? '―'}</li>
+  	<li>INT: ${seeker.INT ?? '―'}</li>
+  	<li>EDU: ${seeker.EDU ?? '―'}</li>
+  	<li>HP: ${seeker.HP ?? '―'} / MP: ${seeker.MP ?? '―'} / SAN: ${seeker.SAN_now ?? '―'} / ${seeker.SAN_ini ?? '―'}</li>
   `;
 
   // タグ
@@ -217,12 +225,13 @@ function showSeekerDetail(seeker) {
   const tagList = Array.isArray(seeker.tag_list) ? seeker.tag_list : [];
   tags.innerHTML = tagList.map(tag => `<span class="tag">${tag}</span>`).join('');
 
-  // 通過シナリオ
+  // シナリオ履歴
   const scenarioList = document.getElementById('scenario-list');
   const list = Array.isArray(seeker.scenario_list) ? seeker.scenario_list : [];
   scenarioList.innerHTML = list.map(s =>
     `<li>${s.date} - ${s.title}（${s.HO}）</li>`
   ).join('');
+
 }
 
 // 📝 一覧から探す 検索ボタンクリックイベント
