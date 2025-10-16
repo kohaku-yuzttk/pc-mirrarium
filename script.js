@@ -190,7 +190,12 @@ function showSeekerDetail(seeker) {
   showScreen('detail');
 
   // 基本情報
-  document.getElementById('name').textContent = seeker.name;
+  const nameElem = document.getElementById('name');
+  if (seeker.yomi) {
+    nameElem.innerHTML = `<ruby>${seeker.name}<rt>${seeker.yomi}</rt></ruby>`;
+  } else {
+    nameElem.textContent = seeker.name;
+  }
   document.getElementById('occupation').textContent = seeker.job || '―';
   document.getElementById('age').textContent = seeker.age || '―';
   document.getElementById('scenario').textContent = seeker.scenario || '―';
@@ -209,7 +214,6 @@ function showSeekerDetail(seeker) {
   	sheetLink.style.display = 'none';
   }
 
-
   // 能力値
   document.getElementById('HP').textContent = seeker.HP || '―';
   document.getElementById('MP').textContent = seeker.MP || '―';
@@ -217,14 +221,14 @@ function showSeekerDetail(seeker) {
   document.getElementById('SAN_ini').textContent = seeker.SAN_ini || '―';  
   const statusList = document.getElementById('status-list');
   statusList.innerHTML = `
-  	<li>STR: ${seeker.STR ?? '―'}</li>
-  	<li>CON: ${seeker.CON ?? '―'}</li>
-  	<li>POW: ${seeker.POW ?? '―'}</li>
-  	<li>DEX: ${seeker.DEX ?? '―'}</li>
-  	<li>APP: ${seeker.APP ?? '―'}</li>
-  	<li>SIZ: ${seeker.SIZ ?? '―'}</li>
-  	<li>INT: ${seeker.INT ?? '―'}</li>
-  	<li>EDU: ${seeker.EDU ?? '―'}</li>
+    <li class="left">STR: ${seeker.STR ?? '―'}</li>
+    <li class="left">CON: ${seeker.CON ?? '―'}</li>
+    <li class="left">POW: ${seeker.POW ?? '―'}</li>
+    <li class="left">DEX: ${seeker.DEX ?? '―'}</li>
+  	<li class="right">APP: ${seeker.APP ?? '―'}</li>
+    <li class="right">SIZ: ${seeker.SIZ ?? '―'}</li>
+    <li class="right">INT: ${seeker.INT ?? '―'}</li>
+    <li class="right">EDU: ${seeker.EDU ?? '―'}</li>
   `;
 	
   // 通過シナリオ
