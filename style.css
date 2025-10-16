@@ -33,6 +33,14 @@ h2 {
     padding-left: 0;
   }
 }
+ruby {
+  font-size: 1.8em;
+}
+rt {
+  font-size: 0.6em;
+  color: #666;
+  letter-spacing: 0.05em;
+}
 
 /* ロード */
 .loading-overlay {
@@ -296,6 +304,12 @@ h2 {
   padding: 0.6em 1em;
   border-radius: 6px;
   box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+.status-block li.left {
+  grid-column: 1;
+}
+.status-block li.right {
+  grid-column: 2;
 }
 /* タグ表示 */
 #tags {
