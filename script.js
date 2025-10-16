@@ -64,6 +64,7 @@ async function initCarousel() {
   });
   setTimeout(() => {
 	updateActiveCard(); // 初期の中央判定
+	scrollToActiveCard();
   }, 100);
   hideLoading(); // ロード画面非表示
 }
@@ -106,7 +107,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // スクロールイベント後、アクティブカード更新
   carousel.addEventListener('scroll', () => {
   	clearTimeout(scrollTimeout);
-  	scrollTimeout = setTimeout(updateActiveCard, 50); // スクロール終了後に中央判定
+  	scrollTimeout = setTimeout(updateActiveCard, 50);
+	scrollTimeout = setTimeout(scrollToActiveCard, 50);
   });
 
   //【PCのみ】
@@ -145,9 +147,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     cards.forEach(c => c.classList.remove('active'));
     card.classList.add('active');
-
-    scrollToActiveCard();
-
   	});
   }
 });
@@ -181,9 +180,6 @@ function updateActiveCard() {
 	if (closestCard) {
 		closestCard.classList.add('active');
 	}
-	setTimeout(() => {
-  		scrollToActiveCard();
-	}, 100);
 }
 // アクティブカードを中央にスクロール
 function scrollToActiveCard() {
