@@ -243,14 +243,13 @@ rt {
 }
 /* 詳細画面全体 */
 #detail {
-  padding: 3em 5vw;
+  padding: 1em 5vw;
   background: linear-gradient(to bottom, #f5f3ef, #eae7e2);
   color: #333;
   font-family: 'Helvetica Neue', sans-serif;
 }
 /* ヘッダー部：画像＋基本情報 */
-.name-block h1 {
-  margin-top: 2em;
+.name-block {
   font-size: 1.5em;
 }
 .detail-header {
