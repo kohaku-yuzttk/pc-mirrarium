@@ -106,12 +106,14 @@
   			<div class="status-block">
     			<h2>ステータス</h2>
     			<ul id="status-list"></ul>
-				<p>HP: ${seeker.HP ?? '―'} / MP: ${seeker.MP ?? '―'} / SAN: ${seeker.SAN_now ?? '―'} / ${seeker.SAN_ini ?? '―'}</p>
+				<p>HP: <span id="HP"></span></p>
+				<p>MP: <span id="MP"></span></p>
+				<p>SAN: <span id="SAN_now"></span> / <span id="SAN_ini"></span></p>
   			</div>
  		</div>
 	</div>  
   <div class="scenario-block">
-    <h2>参加シナリオ</h2>
+    <h2>通過シナリオ</h2>
     <ul id="scenario-list"></ul>
   </div>
   <button onclick="showScreen('search')">← 検索結果に戻る</button>
