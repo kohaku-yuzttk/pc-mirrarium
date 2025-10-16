@@ -255,7 +255,7 @@ rt {
 }
 .detail-header {
   display: flex;
-  gap: 2em;
+  gap: 3em;
   padding: 0 1.5em;
 }
 .portrait {
