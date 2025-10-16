@@ -221,14 +221,14 @@ function showSeekerDetail(seeker) {
   document.getElementById('SAN_ini').textContent = seeker.SAN_ini || '―';  
   const statusList = document.getElementById('status-list');
   statusList.innerHTML = `
-    <li class="left">STR: ${seeker.STR ?? '―'}</li>
-    <li class="left">CON: ${seeker.CON ?? '―'}</li>
-    <li class="left">POW: ${seeker.POW ?? '―'}</li>
-    <li class="left">DEX: ${seeker.DEX ?? '―'}</li>
-  	<li class="right">APP: ${seeker.APP ?? '―'}</li>
-    <li class="right">SIZ: ${seeker.SIZ ?? '―'}</li>
-    <li class="right">INT: ${seeker.INT ?? '―'}</li>
-    <li class="right">EDU: ${seeker.EDU ?? '―'}</li>
+    <li class="str">STR: ${seeker.STR ?? '―'}</li>
+    <li class="app">APP: ${seeker.APP ?? '―'}</li>
+    <li class="con">CON: ${seeker.CON ?? '―'}</li>
+    <li class="siz">SIZ: ${seeker.SIZ ?? '―'}</li>
+    <li class="pow">POW: ${seeker.POW ?? '―'}</li>
+    <li class="int">INT: ${seeker.INT ?? '―'}</li>
+    <li class="dex">DEX: ${seeker.DEX ?? '―'}</li>
+    <li class="edu">EDU: ${seeker.EDU ?? '―'}</li>
   `;
 	
   // 通過シナリオ
