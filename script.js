@@ -194,7 +194,6 @@ function showSeekerDetail(seeker) {
   document.getElementById('occupation').textContent = seeker.job || '―';
   document.getElementById('age').textContent = seeker.age || '―';
   document.getElementById('scenario').textContent = seeker.scenario || '―';
-  document.getElementById('memo').textContent = seeker.memo || '―';
 
   // 画像とキャラシートURL
   document.getElementById('portrait').src = seeker.image || 'images/726522_s.jpg';
