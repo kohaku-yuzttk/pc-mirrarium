@@ -255,6 +255,12 @@ h2 {
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
+/* 画像＋リンクをまとめる */
+.portrait-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 .basic-info h1 {
   font-size: 2em;
   margin-bottom: 0.5em;
@@ -264,15 +270,12 @@ h2 {
   font-size: 1em;
   opacity: 0.8;
 }
-.memo {
-  font-style: italic;
-  color: #666;
-}
 /* キャラシートリンク */
-#sheet-url a {
-  display: inline-block;
+#sheet-url {
   margin-top: 0.5em;
-  font-size: 0.9em;
+}
+#sheet-url a {
+  font-size: 0.85em;
   color: #336;
   text-decoration: underline;
 }
@@ -306,6 +309,11 @@ h2 {
   margin: 0.2em;
   border-radius: 4px;
   font-size: 0.85em;
+}
+.memo {
+  margin-top: 0.3em;
+  font-style: italic;
+  color: #666;
 }
 /* シナリオ履歴 */
 .scenario-block h2 {
