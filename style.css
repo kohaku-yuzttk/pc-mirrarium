@@ -66,7 +66,7 @@ h2 {
 	display: flex;
 	overflow-x: auto;
 	scroll-snap-type: x mandatory;
-	scroll-padding-left: 50%;
+	scroll-padding: 0 50%;
 	scroll-behavior: smooth;
 	-webkit-overflow-scrolling: touch;
 	gap: 2em;
