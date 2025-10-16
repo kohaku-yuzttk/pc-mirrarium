@@ -194,6 +194,10 @@ function showSeekerDetail(seeker) {
   document.getElementById('occupation').textContent = seeker.job || '―';
   document.getElementById('age').textContent = seeker.age || '―';
   document.getElementById('scenario').textContent = seeker.scenario || '―';
+  // タグ
+  const tags = document.getElementById('tags');
+  const tagList = Array.isArray(seeker.tag_list) ? seeker.tag_list : [];
+  tags.innerHTML = tagList.map(tag => `<span class="tag">${tag}</span>`).join('');
 
   // 画像とキャラシートURL
   document.getElementById('portrait').src = seeker.image || 'images/726522_s.jpg';
@@ -206,7 +210,11 @@ function showSeekerDetail(seeker) {
   }
 
 
-  // 能力値とステータス
+  // 能力値
+  document.getElementById('HP').textContent = seeker.HP || '―';
+  document.getElementById('MP').textContent = seeker.MP || '―';
+  document.getElementById('SAN_now').textContent = seeker.SAN_now || '―';
+  document.getElementById('SAN_ini').textContent = seeker.SAN_ini || '―';  
   const statusList = document.getElementById('status-list');
   statusList.innerHTML = `
   	<li>STR: ${seeker.STR ?? '―'}</li>
@@ -217,15 +225,9 @@ function showSeekerDetail(seeker) {
   	<li>SIZ: ${seeker.SIZ ?? '―'}</li>
   	<li>INT: ${seeker.INT ?? '―'}</li>
   	<li>EDU: ${seeker.EDU ?? '―'}</li>
-  	<li>HP: ${seeker.HP ?? '―'} / MP: ${seeker.MP ?? '―'} / SAN: ${seeker.SAN_now ?? '―'} / ${seeker.SAN_ini ?? '―'}</li>
   `;
-
-  // タグ
-  const tags = document.getElementById('tags');
-  const tagList = Array.isArray(seeker.tag_list) ? seeker.tag_list : [];
-  tags.innerHTML = tagList.map(tag => `<span class="tag">${tag}</span>`).join('');
-
-  // シナリオ履歴
+	
+  // 通過シナリオ
   const scenarioList = document.getElementById('scenario-list');
   const list = Array.isArray(seeker.scenario_list) ? seeker.scenario_list : [];
   scenarioList.innerHTML = list.map(s =>
