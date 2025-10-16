@@ -225,14 +225,6 @@ h2 {
 }
 
 /* 詳細表示エリア */
-.tag {
-  display: inline-block;
-  background: #eee;
-  padding: 0.2em 0.5em;
-  margin: 0 0.2em;
-  border-radius: 0.5em;
-  font-size: 0.8em;
-}
 .detail-container {
   display: flex;
   gap: 2em;
@@ -241,23 +233,77 @@ h2 {
   background: #f9f8f6;
   font-family: 'Cormorant Garamond', serif;
 }
-
-.detail-left {
-  flex: 1;
-  text-align: center;
+/* 詳細画面全体 */
+#detail {
+  padding: 3em 5vw;
+  background: linear-gradient(to bottom, #f5f3ef, #eae7e2);
+  color: #333;
+  font-family: 'Helvetica Neue', sans-serif;
 }
-
+/* ヘッダー部：画像＋基本情報 */
+.detail-header {
+  display: flex;
+  gap: 2em;
+  align-items: center;
+  margin-bottom: 2em;
+}
 .portrait {
-  width: 200px;
-  border-radius: 1em;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  width: 240px;
+  height: 320px;
+  object-fit: cover;
+  object-position: center top;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
-
-.detail-right {
-  flex: 2;
+.basic-info h1 {
+  font-size: 2em;
+  margin-bottom: 0.5em;
 }
-
-.status-list, .scenario-list {
+.basic-info p {
+  margin: 0.3em 0;
+  font-size: 1em;
+  opacity: 0.8;
+}
+.memo {
+  font-style: italic;
+  color: #666;
+}
+/* ステータス部 */
+.status-block ul {
   list-style: none;
   padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 0.5em 2em;
+  margin-bottom: 2em;
+}
+.status-block li {
+  background: #fff;
+  padding: 0.6em 1em;
+  border-radius: 6px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+/* タグ表示 */
+#tags {
+  margin: 1em 0;
+}
+.tag {
+  display: inline-block;
+  background: #dde;
+  color: #334;
+  padding: 0.3em 0.6em;
+  margin: 0.2em;
+  border-radius: 4px;
+  font-size: 0.85em;
+}
+/* シナリオ履歴 */
+.scenario-block ul {
+  list-style: none;
+  padding: 0;
+  margin: 1em 0;
+}
+.scenario-block li {
+  padding: 0.4em 0;
+  border-bottom: 1px dotted #ccc;
+  font-size: 0.95em;
 }
