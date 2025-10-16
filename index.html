@@ -92,27 +92,29 @@
 <!-- 👤 探索者詳細画面 -->
 <section id="detail" style="display:none;">
   <div class="detail-container">
-    <div class="detail-left">
-      <img id="portrait" src="" alt="立ち絵" class="portrait">
-      <h2 id="name"></h2>
-      <p id="occupation"></p>
-      <p id="scenario"></p>
+  <div class="detail-header">
+    <img id="portrait" class="portrait">
+    <div class="basic-info">
+      <h1 id="name"></h1>
+      <p>職業：<span id="occupation"></span></p>
+      <p>出身シナリオ：<span id="scenario"></span></p>
+      <p class="memo" id="memo"></p>
       <p id="sheet-url"><a href="#" target="_blank">キャラシートを見る</a></p>
     </div>
+  </div>
 
-    <div class="detail-right">
-      <h3>能力値</h3>
-      <ul id="status-list"></ul>
+  <div class="status-block">
+    <h2>ステータス</h2>
+    <ul id="status-list"></ul>
+  </div>
 
-      <h3>タグ</h3>
-      <div id="tags"></div>
+  <div id="tags"></div>
 
-      <h3>メモ</h3>
-      <p id="memo"></p>
+  <div class="scenario-block">
+    <h2>参加シナリオ</h2>
+    <ul id="scenario-list"></ul>
+  </div>
 
-      <h3>通過シナリオ</h3>
-      <ul id="scenario-list"></ul>
-    </div>
   </div>
   <button onclick="showScreen('search')">← 検索結果に戻る</button>
   <button onclick="showScreen('home')">← ホームに戻る</button>
