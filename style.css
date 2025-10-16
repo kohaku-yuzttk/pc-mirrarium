@@ -251,6 +251,7 @@ rt {
 /* ヘッダー部：画像＋基本情報 */
 .name-block {
   font-size: 1.5em;
+  padding-left: 1.2em;
 }
 .detail-header {
   display: flex;
