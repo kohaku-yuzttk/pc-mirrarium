@@ -179,7 +179,6 @@ function updateActiveCard() {
 	});
 	if (closestCard) {
 		closestCard.classList.add('active');
-		scrollToActiveCard();
 	}
 }
 // アクティブカードを中央にスクロール
