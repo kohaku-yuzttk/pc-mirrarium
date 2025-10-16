@@ -249,7 +249,7 @@ rt {
   font-family: 'Helvetica Neue', sans-serif;
 }
 /* ヘッダー部：画像＋基本情報 */
-.name-block {
+.name-block h1 {
   margin-top: 2em;
   font-size: 1.5em;
 }
