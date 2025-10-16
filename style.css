@@ -34,7 +34,7 @@ h2 {
   }
 }
 ruby {
-  font-size: 1.8em;
+  font-size: 1.5em;
 }
 rt {
   font-size: 0.6em;
@@ -252,7 +252,7 @@ rt {
 .detail-header {
   display: flex;
   gap: 2em;
-  align-items: center;
+  align-items: flex-start;
   margin-bottom: 2em;
 }
 .portrait {
@@ -270,7 +270,7 @@ rt {
   align-items: center;
 }
 .basic-info h1 {
-  font-size: 2em;
+  font-size: 1.5em;
   margin-bottom: 0.5em;
 }
 .basic-info p {
@@ -301,6 +301,7 @@ rt {
 }
 .status-block li {
   background: #fff;
+  align-items: flex-start;
   padding: 0.6em 1em;
   border-radius: 6px;
   box-shadow: 0 1px 4px rgba(0,0,0,0.05);
