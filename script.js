@@ -140,27 +140,14 @@ document.addEventListener('DOMContentLoaded', () => {
 	if (card.classList.contains('dummy')) return;
 	if (card.classList.contains('active')) return;
 
-	const container = document.getElementById('carousel');
-	const containerRect = container.getBoundingClientRect();
-	const cardRect = card.getBoundingClientRect();
-	const cardCenter = cardRect.left + cardRect.width / 2;
-	const containerCenter = containerRect.left + containerRect.width / 2;
+    const container = document.getElementById('carousel');
+    const cards = container.querySelectorAll('.card');
 
-	const direction = cardCenter < containerCenter ? -1 : 1;
+    cards.forEach(c => c.classList.remove('active'));
+    card.classList.add('active');
 
-	// gapの取得（px単位）
-	const style = getComputedStyle(container);
-	const gap = parseFloat(style.gap) || 0;
-	// gapを含めたスクロール量
-	const scrollAmount = cardRect.width + gap;
+    scrollToActiveCard();
 
-	container.scrollBy({
-		left: direction * scrollAmount,
-		behavior: 'smooth'
-		});
-		setTimeout(() => {
-			updateActiveCard();
-		}, 100);
   	});
   }
 });
@@ -194,6 +181,26 @@ function updateActiveCard() {
 	if (closestCard) {
 		closestCard.classList.add('active');
 	}
+	setTimeout(() => {
+  		scrollToActiveCard();
+	}, 100);
+}
+// アクティブカードを中央にスクロール
+function scrollToActiveCard() {
+  const container = document.getElementById('carousel');
+  const activeCard = container.querySelector('.card.active');
+  if (!activeCard) return;
+
+  const containerRect = container.getBoundingClientRect();
+  const cardRect = activeCard.getBoundingClientRect();
+  const cardCenter = cardRect.left + cardRect.width / 2;
+  const containerCenter = containerRect.left + containerRect.width / 2;
+  const offset = cardCenter - containerCenter;
+
+  container.scrollBy({
+    left: offset,
+    behavior: 'smooth'
+  });
 }
 
 // 探索者データ照会画面表示
