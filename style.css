@@ -251,12 +251,12 @@ rt {
 /* ヘッダー部：画像＋基本情報 */
 .name-block {
   margin-top: 2em;
+  font-size: 1.5em;
 }
 .detail-header {
   display: flex;
   gap: 2em;
-  align-items: flex-start;
-  margin-bottom: 2em;
+  padding: 1.5em;
 }
 .portrait {
   width: 240px;
