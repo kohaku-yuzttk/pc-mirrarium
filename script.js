@@ -108,7 +108,6 @@ document.addEventListener('DOMContentLoaded', () => {
   carousel.addEventListener('scroll', () => {
   	clearTimeout(scrollTimeout);
   	scrollTimeout = setTimeout(updateActiveCard, 50);
-	scrollTimeout = setTimeout(scrollToActiveCard, 50);
   });
 
   //【PCのみ】
@@ -147,6 +146,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     cards.forEach(c => c.classList.remove('active'));
     card.classList.add('active');
+	scrollToActiveCard();
   	});
   }
 });
