@@ -64,7 +64,7 @@ async function initCarousel() {
   });
   setTimeout(() => {
 	updateActiveCard(); // 初期の中央判定
-	scrollToActiveCard();
+	scrollToActiveCard(); // 初期中央寄せ
   }, 100);
   hideLoading(); // ロード画面非表示
 }
@@ -110,44 +110,39 @@ document.addEventListener('DOMContentLoaded', () => {
   	scrollTimeout = setTimeout(updateActiveCard, 50);
   });
 
-  //【PCのみ】
+  // PCのみ：クリックで中央寄せ
   if (isPointerDevice) {
-  // カルーセル内ドラッグでスクロール
-  carousel.addEventListener('mousedown', (e) => {
-  	isDown = true;
-  	carousel.classList.add('dragging');
-  	startX = e.pageX - carousel.offsetLeft;
-  	scrollLeft = carousel.scrollLeft;
-  });
-  carousel.addEventListener('mouseleave', () => {
-  	isDown = false;
-  	carousel.classList.remove('dragging');
-  });
-  carousel.addEventListener('mouseup', () => {
-  	isDown = false;
-  	carousel.classList.remove('dragging');
-  });
-  carousel.addEventListener('mousemove', (e) => {
-  	if (!isDown) return;
-  	e.preventDefault();
-  	const x = e.pageX - carousel.offsetLeft;
-  	const walk = (x - startX) * 1.5; // スクロール速度調整
-  	carousel.scrollLeft = scrollLeft - walk;
-  });
-  //左右カードタップでスクロール
-  document.getElementById('carousel').addEventListener('click', e => {
-	const card = e.target.closest('.card');
-	if (!card) return;
-	if (card.classList.contains('dummy')) return;
-	if (card.classList.contains('active')) return;
+    carousel.addEventListener('click', e => {
+      const card = e.target.closest('.card');
+      if (!card || card.classList.contains('dummy') || card.classList.contains('active')) return;
 
-    const container = document.getElementById('carousel');
-    const cards = container.querySelectorAll('.card');
+      document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
+      card.classList.add('active');
+      scrollToActiveCard();
+    });
 
-    cards.forEach(c => c.classList.remove('active'));
-    card.classList.add('active');
-	scrollToActiveCard();
-  	});
+    // ドラッグスクロール
+    carousel.addEventListener('mousedown', e => {
+      isDown = true;
+      carousel.classList.add('dragging');
+      startX = e.pageX - carousel.offsetLeft;
+      scrollLeft = carousel.scrollLeft;
+    });
+    carousel.addEventListener('mouseleave', () => {
+      isDown = false;
+      carousel.classList.remove('dragging');
+    });
+    carousel.addEventListener('mouseup', () => {
+      isDown = false;
+      carousel.classList.remove('dragging');
+    });
+    carousel.addEventListener('mousemove', e => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - carousel.offsetLeft;
+      const walk = (x - startX) * 1.5;
+      carousel.scrollLeft = scrollLeft - walk;
+    });
   }
 });
 // 画面リサイズ時、アクティブカード更新
@@ -155,47 +150,38 @@ window.addEventListener('resize', updateActiveCard);
 
 // 中央カードに .active を付与
 function updateActiveCard() {
-	const container = document.getElementById('carousel');
-	const cards = container.querySelectorAll('.card');
-	const containerRect = container.getBoundingClientRect();
+  const container = document.getElementById('carousel');
+  const cards = container.querySelectorAll('.card');
+  const containerRect = container.getBoundingClientRect();
 
-	let closestCard = null;
-	let minDistance = Infinity;
+  let closestCard = null;
+  let minDistance = Infinity;
 
-	cards.forEach(card => {
-		if (card.classList.contains('dummy')) return;
-		const cardRect = card.getBoundingClientRect();
-		const cardCenter = cardRect.left + cardRect.width / 2;
-		const containerCenter = containerRect.left + containerRect.width / 2;
-		const distance = Math.abs(containerCenter - cardCenter);
-		if (distance < minDistance) {
-			minDistance = distance;
-			closestCard = card;
-		}
-	});
+  cards.forEach(card => {
+    if (card.classList.contains('dummy')) return;
+    const cardRect = card.getBoundingClientRect();
+    const cardCenter = cardRect.left + cardRect.width / 2;
+    const containerCenter = containerRect.left + containerRect.width / 2;
+    const distance = Math.abs(containerCenter - cardCenter);
+    if (distance < minDistance) {
+      minDistance = distance;
+      closestCard = card;
+    }
+  });
 
-	cards.forEach(card => {
-		card.classList.remove('active');
-	});
-	if (closestCard) {
-		closestCard.classList.add('active');
-	}
+  cards.forEach(card => card.classList.remove('active'));
+  if (closestCard) closestCard.classList.add('active');
 }
+
 // アクティブカードを中央にスクロール
 function scrollToActiveCard() {
-  const container = document.getElementById('carousel');
-  const activeCard = container.querySelector('.card.active');
+  const activeCard = document.querySelector('.card.active');
   if (!activeCard) return;
 
-  const containerRect = container.getBoundingClientRect();
-  const cardRect = activeCard.getBoundingClientRect();
-  const cardCenter = cardRect.left + cardRect.width / 2;
-  const containerCenter = containerRect.left + containerRect.width / 2;
-  const offset = cardCenter - containerCenter;
-
-  container.scrollBy({
-    left: offset,
-    behavior: 'smooth'
+  activeCard.scrollIntoView({
+    behavior: 'smooth',
+    inline: 'center',
+    block: 'nearest'
   });
 }
 
