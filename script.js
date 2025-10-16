@@ -192,6 +192,7 @@ function showSeekerDetail(seeker) {
   // 基本情報
   document.getElementById('name').textContent = seeker.name;
   document.getElementById('occupation').textContent = seeker.job || '―';
+  document.getElementById('age').textContent = seeker.age || '―';
   document.getElementById('scenario').textContent = seeker.scenario || '―';
   document.getElementById('memo').textContent = seeker.memo || '―';
 
