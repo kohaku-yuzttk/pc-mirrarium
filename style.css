@@ -291,30 +291,35 @@ rt {
   text-decoration: underline;
 }
 /* ステータス部 */
-.status-block h2 {
-  margin-bottom: 0.5em;
-}
-.status-block ul {
+#status-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas:
+    "str app"
+    "con siz"
+    "pow int"
+    "dex edu";
+  gap: 0.5em 2em;
   list-style: none;
   padding: 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: 0.5em 2em;
   margin-bottom: 2em;
 }
-.status-block li {
+#status-list li {
   background: #fff;
-  align-items: flex-start;
   padding: 0.6em 1em;
   border-radius: 6px;
   box-shadow: 0 1px 4px rgba(0,0,0,0.05);
 }
-.status-block li.left {
-  grid-column: 1;
-}
-.status-block li.right {
-  grid-column: 2;
-}
+/* 各ステータスの配置 */
+.str { grid-area: str; }
+.app { grid-area: app; }
+.con { grid-area: con; }
+.siz { grid-area: siz; }
+.pow { grid-area: pow; }
+.int { grid-area: int; }
+.dex { grid-area: dex; }
+.edu { grid-area: edu; }
+
 /* タグ表示 */
 #tags {
   margin: 1em 0;
