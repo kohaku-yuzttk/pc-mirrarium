@@ -91,28 +91,27 @@
 
 <!-- 👤 探索者詳細画面 -->
 <section id="detail" style="display:none;">
-  <div class="detail-header">
-    <img id="portrait" class="portrait">
-    <div class="basic-info">
-      <h1 id="name"></h1>
-      <p>職業：<span id="occupation"></span></p>
-      <p>出身シナリオ：<span id="scenario"></span></p>
-      <p class="memo" id="memo"></p>
-      <p id="sheet-url"><a href="#" target="_blank">キャラシートを見る</a></p>
-    </div>
-  </div>
+	<div class="detail-header">
+  		<div class="portrait-block">
+    		<img id="portrait" class="portrait">
+    		<p id="sheet-url"><a href="#" target="_blank">キャラシートを見る</a></p>
+  		</div>
+  		<div class="basic-info">
+    		<h1 id="name"></h1>
+    		<p>職業：<span id="occupation"></span></p>
+    		<p>出身シナリオ：<span id="scenario"></span></p>
+  			<div id="tags"></div>
 
-  <div class="status-block">
-    <h2>ステータス</h2>
-    <ul id="status-list"></ul>
-  </div>
-
-  <div id="tags"></div>
-
+  			<div class="status-block">
+    			<h2>ステータス</h2>
+    			<ul id="status-list"></ul>
+				<li>HP: ${seeker.HP ?? '―'} / MP: ${seeker.MP ?? '―'} / SAN: ${seeker.SAN_now ?? '―'} / ${seeker.SAN_ini ?? '―'}</li>
+  			</div>
+ 		</div>
+	</div>  
   <div class="scenario-block">
     <h2>参加シナリオ</h2>
     <ul id="scenario-list"></ul>
-	<li>HP: ${seeker.HP ?? '―'} / MP: ${seeker.MP ?? '―'} / SAN: ${seeker.SAN_now ?? '―'} / ${seeker.SAN_ini ?? '―'}</li>
   </div>
   <button onclick="showScreen('search')">← 検索結果に戻る</button>
   <button onclick="showScreen('home')">← ホームに戻る</button>
