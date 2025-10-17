@@ -231,19 +231,16 @@ function showSeekerDetail(seeker) {
     <li class="edu">EDU: ${seeker.EDU ?? '―'}</li>
   `;
 	
-  /*// 通過シナリオ
-  const scenarioList = document.getElementById('scenario-list');
-  const list = Array.isArray(seeker.scenario_list) ? seeker.scenario_list : [];
-  scenarioList.innerHTML = list.map(s =>
-    `<li>${s.date} - ${s.title}（${s.HO}）</li>`
-  ).join('');*/
-	
   // タイムライン生成
 	const timeline = document.getElementById('scenario-timeline');
-	const list = Array.isArray(seeker.scenario_list) ? seeker.scenario_list : [];
+	//const list = Array.isArray(seeker.scenario_list) ? seeker.scenario_list : [];
 	list.sort((a, b) => new Date(a.date) - new Date(b.date));
 
-	console.log(seeker);
+const list = [
+  { date: "2024/02/17", title: "四季送り", HO: "HO肆 冬" },
+  { date: "2024/05/06", title: "風呂が冷えているんだが？", HO: "HO2" },
+  { date: "2024/06/15", title: "夏に逃げ水" }
+];
 
 	timeline.innerHTML = list.map(s => `
   		<li class="timeline-item">
