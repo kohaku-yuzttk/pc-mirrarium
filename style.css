@@ -352,6 +352,37 @@ rt {
   border-bottom: 1px dotted #ccc;
   font-size: 0.95em;
 }
+// タイムライン
+.timeline {
+  list-style: none;
+  padding-left: 1em;
+  border-left: 2px solid #ccc;
+  margin: 2em 0;
+}
+.timeline-item {
+  position: relative;
+  margin-bottom: 1.5em;
+  padding-left: 1em;
+}
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -0.6em;
+  top: 0.3em;
+  width: 0.8em;
+  height: 0.8em;
+  background: #999;
+  border-radius: 50%;
+}
+.timeline-date {
+  font-size: 0.85em;
+  color: #666;
+  margin-bottom: 0.2em;
+}
+.timeline-content {
+  font-size: 1em;
+  color: #333;
+}
 /* 戻るボタン */
 #detail button {
   margin: 1em 1em 0 0;
