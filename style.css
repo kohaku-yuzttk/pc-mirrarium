@@ -339,21 +339,7 @@ rt {
   font-style: italic;
   color: #666;
 }
-/* シナリオ履歴 */
-.scenario-block h2 {
-  margin-top: 2em;
-}
-.scenario-block ul {
-  list-style: none;
-  padding: 0;
-  margin: 1em 0;
-}
-.scenario-block li {
-  padding: 0.4em 0;
-  border-bottom: 1px dotted #ccc;
-  font-size: 0.95em;
-}
-// タイムライン
+/* タイムライン */
 .timeline {
   list-style: none;
   padding-left: 1em;
