@@ -20,6 +20,14 @@ window.addEventListener('popstate', event => {
   const screenId = event.state?.screen || 'home';
   showScreen(screenId);
 });
+// 戻るボタン押下時、前画面に戻る
+document.getElementById('back-button').addEventListener('click', () => {
+	if (history.length > 1) {
+  	history.back();
+	} else {
+  	showScreen('home');
+	}
+});
 // ヘッダクリックでホーム画面へ
 document.getElementById('header-title').addEventListener('click', () => {
   showScreen('home'); // 画面切り替え
