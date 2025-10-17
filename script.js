@@ -243,6 +243,9 @@ function showSeekerDetail(seeker) {
 	const list = Array.isArray(seeker.scenario_list) ? seeker.scenario_list : [];
 	list.sort((a, b) => new Date(a.date) - new Date(b.date));
 
+	console.log(list);
+	console.log(timeline);
+
 	timeline.innerHTML = list.map(s => `
   		<li class="timeline-item">
     		<div class="timeline-date">${s.date}</div>
@@ -251,6 +254,8 @@ function showSeekerDetail(seeker) {
     		</div>
   		</li>
 	`).join('');
+
+	console.log(timeline);
 
 }
 
