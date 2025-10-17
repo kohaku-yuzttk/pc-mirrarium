@@ -13,7 +13,7 @@ function showScreen(id) {
   });
   document.getElementById(id).style.display = 'block';
 	// 履歴に追加
-  history.pushState({ screen: screenId }, '', `#${screenId}`);
+  history.pushState({ screen: id }, '', `#${id}`);
 }
 // 前の画面に戻る
 window.addEventListener('popstate', event => {
