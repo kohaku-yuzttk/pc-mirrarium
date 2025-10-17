@@ -233,6 +233,13 @@ function showSeekerDetail(seeker) {
 	
   // タイムライン生成
 	const timeline = document.getElementById('scenario-timeline');
+	if (typeof seeker.scenario_list === 'string') {
+  		try {
+    		seeker.scenario_list = JSON.parse(seeker.scenario_list);
+  		} catch (e) {
+    		console.error('JSONのパースに失敗しました', e);
+  		}
+	}
 	const list = Array.isArray(seeker.scenario_list) ? seeker.scenario_list : [];
 	list.sort((a, b) => new Date(a.date) - new Date(b.date));
 
