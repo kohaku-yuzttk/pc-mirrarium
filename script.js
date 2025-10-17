@@ -97,7 +97,7 @@ async function initCarousel() {
   }, 100);
   hideLoading(); // ロード画面非表示
   // 履歴に追加
-  history.pushState({ screen: screenId }, '', `#${screenId}`);
+  history.replaceState({ screen: 'home' }, '', '#home');
 }
 
 // 探索者カード生成(ローカル)
