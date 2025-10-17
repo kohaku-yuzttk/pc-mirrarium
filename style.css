@@ -257,7 +257,6 @@ rt {
   display: flex;
   gap: 3em;
   padding: 0 1.5em;
-  align-self: start;
 }
 .portrait {
   width: 240px;
@@ -271,7 +270,7 @@ rt {
 .portrait-block {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  padding-top: 1.5em;
 }
 .basic-info h1 {
   font-size: 1.5em;
@@ -287,6 +286,7 @@ rt {
   margin-top: 0.5em;
 }
 #sheet-url a {
+  text-align: center;
   font-size: 0.85em;
   color: #336;
   text-decoration: underline;
