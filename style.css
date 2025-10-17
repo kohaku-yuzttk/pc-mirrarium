@@ -257,6 +257,7 @@ rt {
   display: flex;
   gap: 3em;
   padding: 0 1.5em;
+  align-self: start;
 }
 .portrait {
   width: 240px;
