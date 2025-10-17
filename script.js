@@ -241,12 +241,13 @@ function showSeekerDetail(seeker) {
   // タイムライン生成
 	const timeline = document.getElementById('scenario-timeline');
 	const list = Array.isArray(seeker.scenario_list) ? seeker.scenario_list : [];
+	list.sort((a, b) => new Date(a.date) - new Date(b.date));
 
 	timeline.innerHTML = list.map(s => `
   		<li class="timeline-item">
     		<div class="timeline-date">${s.date}</div>
     		<div class="timeline-content">
-      		<strong>${s.title}</strong>（${s.HO}）
+      		<strong>${s.title}</strong>${s.HO ? `（${s.HO}）` : ''}
     		</div>
   		</li>
 	`).join('');
