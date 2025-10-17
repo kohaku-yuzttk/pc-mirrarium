@@ -334,6 +334,11 @@ rt {
   border-radius: 4px;
   font-size: 0.85em;
 }
+.tag-empty {
+  background: transparent;
+  color: #999;
+  font-style: italic;
+}
 .memo {
   margin-top: 0.3em;
   font-style: italic;
