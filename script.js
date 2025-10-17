@@ -243,8 +243,7 @@ function showSeekerDetail(seeker) {
 	const list = Array.isArray(seeker.scenario_list) ? seeker.scenario_list : [];
 	list.sort((a, b) => new Date(a.date) - new Date(b.date));
 
-	console.log(list);
-	console.log(timeline);
+	console.log(seeker);
 
 	timeline.innerHTML = list.map(s => `
   		<li class="timeline-item">
@@ -254,9 +253,6 @@ function showSeekerDetail(seeker) {
     		</div>
   		</li>
 	`).join('');
-
-	console.log(timeline);
-
 }
 
 // 📝 一覧から探す 検索ボタンクリックイベント
