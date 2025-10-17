@@ -231,12 +231,12 @@ function showSeekerDetail(seeker) {
     <li class="edu">EDU: ${seeker.EDU ?? '―'}</li>
   `;
 	
-  // 通過シナリオ
+  /*// 通過シナリオ
   const scenarioList = document.getElementById('scenario-list');
   const list = Array.isArray(seeker.scenario_list) ? seeker.scenario_list : [];
   scenarioList.innerHTML = list.map(s =>
     `<li>${s.date} - ${s.title}（${s.HO}）</li>`
-  ).join('');
+  ).join('');*/
 	
   // タイムライン生成
 	const timeline = document.getElementById('scenario-timeline');
