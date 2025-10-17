@@ -283,10 +283,10 @@ rt {
 }
 /* キャラシートリンク */
 #sheet-url {
+  text-align: center;
   margin-top: 0.5em;
 }
 #sheet-url a {
-  text-align: center;
   font-size: 0.85em;
   color: #336;
   text-decoration: underline;
