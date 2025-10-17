@@ -356,7 +356,6 @@ function showSearchResults(seekers, Key = 'yomi', order = 'asc') {
   let columns = [
     { key: 'image', label: '画像' },
     { key: 'name', label: '名前' },
-    { key: 'yomi', label: 'よみ' },
     { key: 'tag_list', label: 'タグ' },
     { key: 'HP', label: 'HP' },
     { key: 'MP', label: 'MP' },
@@ -402,12 +401,9 @@ function showSearchResults(seekers, Key = 'yomi', order = 'asc') {
       if (col.key === 'image') {
         td.innerHTML = `<img src="${seeker.image}" alt="${seeker.name}" class="thumb">`;
       } else if (col.key === 'name') {
-  		const nameElem = document.getElementById('name');
-  		if (seeker.yomi) {
-    		nameElem.innerHTML = `<ruby>${seeker.name}<rt>${seeker.yomi}</rt></ruby>`;
-  		} else {
-    		nameElem.textContent = seeker.name;
-  		}
+  		td.innerHTML = seeker.yomi
+    	  ? `<ruby>${seeker.name}<rt>${seeker.yomi}</rt></ruby>`
+    	  : seeker.name;
       } else if (col.key === 'SAN_now') {
         td.textContent = seeker.SAN_now ?? '―';
       } else if (col.key === 'SAN_ini') {
