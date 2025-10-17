@@ -29,6 +29,7 @@ async function loadSeekerData() {
 	
 	// 配列形式に変換
 	allSeekers.forEach(seeker => {
+	if (seeker.type === 'dummy') return;
   	if (typeof seeker.tag_list === 'string') {
     	try {
       	seeker.tag_list = JSON.parse(seeker.tag_list);
