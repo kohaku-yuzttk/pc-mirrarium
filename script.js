@@ -233,14 +233,8 @@ function showSeekerDetail(seeker) {
 	
   // タイムライン生成
 	const timeline = document.getElementById('scenario-timeline');
-	//const list = Array.isArray(seeker.scenario_list) ? seeker.scenario_list : [];
-	//list.sort((a, b) => new Date(a.date) - new Date(b.date));
-
-const list = [
-  { date: "2024/02/17", title: "四季送り", HO: "HO肆 冬" },
-  { date: "2024/05/06", title: "風呂が冷えているんだが？", HO: "HO2" },
-  { date: "2024/06/15", title: "夏に逃げ水" }
-];
+	const list = Array.isArray(seeker.scenario_list) ? seeker.scenario_list : [];
+	list.sort((a, b) => new Date(a.date) - new Date(b.date));
 
 	timeline.innerHTML = list.map(s => `
   		<li class="timeline-item">
