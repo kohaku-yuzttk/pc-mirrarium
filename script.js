@@ -26,6 +26,27 @@ async function loadSeekerData() {
   const data = await response.json();
   allSeekers = data;
   console.log(data); // データ確認用
+	
+	// 配列形式に変換
+	allSeekers.forEach(seeker => {
+  	if (typeof seeker.tag_list === 'string') {
+    	try {
+      	seeker.tag_list = JSON.parse(seeker.tag_list);
+    	} catch (e) {
+      	console.warn(`タグのパースに失敗しました（${seeker.name}）`, e);
+      	seeker.tag_list = [];
+    	}
+  	}
+  	if (typeof seeker.scenario_list === 'string') {
+    	try {
+      	seeker.scenario_list = JSON.parse(seeker.scenario_list);
+    	} catch (e) {
+      	console.warn(`シナリオリストのパースに失敗しました（${seeker.name}）`, e);
+      	seeker.scenario_list = [];
+    	}
+  	}
+	});
+
   return data;
 }
 // カルーセル初期化
@@ -233,13 +254,6 @@ function showSeekerDetail(seeker) {
 	
   // タイムライン生成
 	const timeline = document.getElementById('scenario-timeline');
-	if (typeof seeker.scenario_list === 'string') {
-  		try {
-    		seeker.scenario_list = JSON.parse(seeker.scenario_list);
-  		} catch (e) {
-    		console.error('JSONのパースに失敗しました', e);
-  		}
-	}
 	const list = Array.isArray(seeker.scenario_list) ? seeker.scenario_list : [];
 	list.sort((a, b) => new Date(a.date) - new Date(b.date));
 
