@@ -20,6 +20,10 @@ window.addEventListener('popstate', event => {
   const screenId = event.state?.screen || 'home';
   showScreen(screenId);
 });
+// ヘッダクリックでホーム画面へ
+document.getElementById('header-title').addEventListener('click', () => {
+  showScreen('home'); // 画面切り替え
+});
 // ロード画面
 function showLoading() {
   document.getElementById('loading').style.display = 'flex';
