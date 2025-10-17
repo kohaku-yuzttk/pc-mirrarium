@@ -12,7 +12,14 @@ function showScreen(id) {
     sec.style.display = 'none';
   });
   document.getElementById(id).style.display = 'block';
+	// 履歴に追加
+  history.pushState({ screen: screenId }, '', `#${screenId}`);
 }
+// 前の画面に戻る
+window.addEventListener('popstate', event => {
+  const screenId = event.state?.screen || 'home';
+  showScreen(screenId);
+});
 // ロード画面
 function showLoading() {
   document.getElementById('loading').style.display = 'flex';
@@ -89,6 +96,8 @@ async function initCarousel() {
 	scrollToActiveCard(); // 初期中央寄せ
   }, 100);
   hideLoading(); // ロード画面非表示
+  // 履歴に追加
+  history.pushState({ screen: screenId }, '', `#${screenId}`);
 }
 
 // 探索者カード生成(ローカル)
