@@ -390,3 +390,15 @@ function sortSeekers(seekers, key = 'kana', order = 'asc') {
   });
   return sorted;
 }
+// タイムライン
+const timeline = document.getElementById('scenario-timeline');
+const list = Array.isArray(seeker.scenario_list) ? seeker.scenario_list : [];
+
+timeline.innerHTML = list.map(s => `
+  <li class="timeline-item">
+    <div class="timeline-date">${s.date}</div>
+    <div class="timeline-content">
+      <strong>${s.title}</strong>（${s.HO}）
+    </div>
+  </li>
+`).join('');
