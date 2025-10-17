@@ -234,7 +234,7 @@ function showSeekerDetail(seeker) {
   // タイムライン生成
 	const timeline = document.getElementById('scenario-timeline');
 	//const list = Array.isArray(seeker.scenario_list) ? seeker.scenario_list : [];
-	list.sort((a, b) => new Date(a.date) - new Date(b.date));
+	//list.sort((a, b) => new Date(a.date) - new Date(b.date));
 
 const list = [
   { date: "2024/02/17", title: "四季送り", HO: "HO肆 冬" },
