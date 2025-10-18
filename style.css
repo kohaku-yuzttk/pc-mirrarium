@@ -267,6 +267,8 @@ rt {
 }
 .detail-header {
   display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
   gap: 3em;
   padding: 0 1.5em;
 }
