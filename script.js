@@ -189,6 +189,14 @@ async function loadSeekerData() {
       	seeker.color_list = [];
     	}
   	}
+  	if (typeof seeker.skill_list === 'string') {
+    	try {
+      	seeker.skill_list = JSON.parse(seeker.skill_list);
+    	} catch (e) {
+      	console.warn(`技能リストのパースに失敗しました（${seeker.name}）`, e);
+      	seeker.color_list = [];
+    	}
+  	}
 	});
 
   return data;
