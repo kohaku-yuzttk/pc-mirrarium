@@ -349,7 +349,7 @@ rt {
 /* タイムライン */
 .timeline {
   list-style: none;
-  width: max-content;
+  width: 225px;
   padding-left: 1em;
   padding-right: 1.5em;
   border-left: 2px solid #ccc;
