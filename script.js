@@ -85,6 +85,7 @@ document.getElementById('search-button').addEventListener('click', () => {
   const order = document.getElementById('sort-order').value;
 
   const sorted = sortSeekers(allSeekers, type, order);
+  console.log(sorted, type);
   showSearchResults(sorted, type);
 });
 // 🎲 技能から探す 検索ボタンクリックイベント
