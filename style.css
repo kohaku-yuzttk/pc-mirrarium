@@ -254,7 +254,6 @@ rt {
 }
 .detail-header {
   display: flex;
-  width: 70%;
   gap: 3em;
   padding: 0 1.5em;
 }
@@ -350,7 +349,9 @@ rt {
 /* タイムライン */
 .timeline {
   list-style: none;
+  width: max-content;
   padding-left: 1em;
+  padding-right: 1.5em;
   border-left: 2px solid #ccc;
   margin: 2em 0;
 }
