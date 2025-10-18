@@ -227,7 +227,7 @@ rt {
 
 /* 詳細表示エリア */
 .detail-container {
-  display: flex;
+  display: block;
   gap: 2em;
   margin: 2em;
   padding: 2em;
