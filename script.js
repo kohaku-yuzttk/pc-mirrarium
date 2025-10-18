@@ -367,30 +367,38 @@ function showSeekerDetail(seeker) {
   // カラータグ生成
 	const colors = Array.isArray(seeker.color_list) ? seeker.color_list : [];
 	const colortags = document.getElementById('color-tags');
+	const colorTagContainer = document.getElementById('color-tag');
+	const colorParagraph = colorTagContainer?.parentElement;
 
 	// 前回の表示をクリア
-	if (colortags) colortags.innerHTML = '';
-	colors.forEach(code => {
-  		const span = document.createElement('span');
-  		span.className = 'color-tag';
-  		span.style.backgroundColor = code;
-		span.style.color = getTextColor(code);
-  		span.dataset.color = code;
-  		span.textContent = code;
-  		// クリックでコードをコピー
-  		span.addEventListener('click', () => {
-    		navigator.clipboard.writeText(code).then(() => {
-      		span.textContent = 'コピーしました';
-      		setTimeout(() => {
-        		span.textContent = code;
-      		}, 1500);
-    		}).catch(err => {
-      		console.error('コピーに失敗しました:', err);
-    		});
-  		});
-  		colortags.appendChild(span);
-	});
-
+	if (colorTagContainer) colorTagContainer.innerHTML = '';
+	if (!colors) colortags.innerHTML = '<P>';
+	if (colors.length > 0 && colorTagContainer) {
+		colors.forEach(code => {
+  			const span = document.createElement('span');
+  			span.className = 'color-tag';
+  			span.style.backgroundColor = code;
+			span.style.color = getTextColor(code);
+  			span.dataset.color = code;
+  			span.textContent = code;
+  			// クリックでコードをコピー
+  			span.addEventListener('click', () => {
+    			navigator.clipboard.writeText(code).then(() => {
+      				span.textContent = 'コピーしました';
+      				setTimeout(() => span.textContent = code, 1500);
+    			}).catch(err => {
+      				console.error('コピーに失敗しました:', err);
+    			});
+  			});
+  			colortags.appendChild(span);
+		});
+	 });
+  // カラータグがあるときのみ表示
+  if (colortags.childElementCount > 0) {
+	  colorParagraph.style.display = 'block';
+  } else {
+	  colorParagraph.style.display = 'none';
+  }
 }
 
 // 検索結果一覧画面表示
