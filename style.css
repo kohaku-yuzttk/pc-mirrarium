@@ -269,8 +269,8 @@ rt {
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
-  gap: 3em;
-  padding: 0 1.5em;
+  gap: 2.5em;
+  padding-left: 1.5em;
 }
 .portrait {
   width: 100%;
