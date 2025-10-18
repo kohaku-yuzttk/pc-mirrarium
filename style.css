@@ -244,8 +244,10 @@ rt {
 }
 /* ヘッダー部：画像＋基本情報 */
 .name-block {
+  display: flex;
   font-size: 1.5em;
   padding-left: 1.2em;
+  gap: inherit;
 }
 .detail-header {
   display: flex;
@@ -318,6 +320,9 @@ rt {
 /* タグ表示 */
 #tags {
   margin: 1em 0;
+  align-items: center;
+  display: flex;
+  justify-content: flex-start;
 }
 .tag {
   display: inline-block;
