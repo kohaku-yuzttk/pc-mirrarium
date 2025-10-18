@@ -392,7 +392,7 @@ function showSeekerDetail(seeker) {
 		});
 	};
 	// カラータグがあるときのみ表示
-  	if (colors) {
+  	if (colors.length > 0) {
 	  colorTagContainer.style.display = 'block';
   	} else {
 	  colorTagContainer.style.display = 'none';
