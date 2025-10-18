@@ -403,6 +403,33 @@ function showSeekerDetail(seeker) {
 	if (colortags) {
 	  colortags.style.display = colors.length > 0 ? 'block' : 'none';
 	}
+
+	// 技能テーブル生成
+	const skills = Array.isArray(seeker.skill_list) ? seeker.skill_list : [];
+	const skillList = document.getElementById('skill-list');
+	skillList.innerHTML = ''; // 初期化
+
+	if (skills.length > 0) {
+  		const table = document.createElement('table');
+  		table.className = 'skill-table-inner';
+
+  		skills.forEach(skill => {
+    		const row = document.createElement('tr');
+    		const nameCell = document.createElement('td');
+    		nameCell.textContent = skill.skill_text;
+    		nameCell.className = 'skill-name';
+
+    		const valueCell = document.createElement('td');
+    		valueCell.textContent = skill.skill_val;
+    		valueCell.className = 'skill-value';
+
+    		row.appendChild(nameCell);
+    		row.appendChild(valueCell);
+    		table.appendChild(row);
+  		});
+  	skillList.appendChild(table);
+	}
+
 }
 
 // 検索結果一覧画面表示
