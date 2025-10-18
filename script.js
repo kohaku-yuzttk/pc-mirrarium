@@ -191,6 +191,14 @@ async function loadSeekerData() {
       	seeker.scenario_list = [];
     	}
   	}
+  	if (typeof seeker.color_list === 'string') {
+    	try {
+      	seeker.color_list = JSON.parse(seeker.color_list);
+    	} catch (e) {
+      	console.warn(`カラーリストのパースに失敗しました（${seeker.name}）`, e);
+      	seeker.color_list = [];
+    	}
+  	}
 	});
 
   return data;
