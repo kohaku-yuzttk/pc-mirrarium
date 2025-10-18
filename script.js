@@ -110,8 +110,12 @@ document.getElementById('search-button-by-skill').addEventListener('click', () =
 document.getElementById('search-button-by-tag').addEventListener('click', () => {
   const tag = document.getElementById('search-tag').value;
   let filtered;
-  if (!tag) {
+  if (tag === 'non') {
     filtered = sortSeekers(allSeekers, 'yomi', 'asc');
+  } elseif (tag === 'なし') {
+	filtered = allSeekers.filter(seeker =>
+  	　　!(Array.isArray(seeker.tag_list) && seeker.tag_list.length > 0)
+	);
   } else {
     filtered = allSeekers.filter(seeker =>
       (seeker.tag_list || []).includes(tag)
