@@ -309,7 +309,7 @@ function showSeekerDetail(seeker) {
   document.getElementById('occupation').textContent = seeker.job || '―';
   document.getElementById('age').textContent = seeker.age || '―';
   document.getElementById('pl').textContent = seeker.pl || '―';
-  document.getElementById('birthday').textContent = seeker.birthday || '不明';
+  document.getElementById('birthday').textContent = formatBirthday(seeker.birthday);
   // タグ
   const tags = document.getElementById('tags');
   const tagList = Array.isArray(seeker.tag_list) ? seeker.tag_list : [];
@@ -456,4 +456,16 @@ function sortSeekers(seekers, key = 'kana', order = 'asc') {
     return order === 'asc' ? valA - valB : valB - valA;
   });
   return sorted;
+}
+// 誕生日書式変換
+function formatBirthday(dateStr) {
+  if (!dateStr) return '不明';
+
+  const parts = dateStr.split('/');
+  if (parts.length !== 3) return dateStr; // 想定外の形式ならそのまま返す
+
+  const month = parseInt(parts[1], 10);
+  const day = parseInt(parts[2], 10);
+
+  return `${month}月${day}日`;
 }
