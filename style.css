@@ -242,7 +242,7 @@ rt {
 .detail-block {
   display: inline-flex;
   justify-content: space-between;
-  gap: 2em;
+  gap: 2.5em;
 }
 /* ヘッダー部：画像＋基本情報 */
 .name-block {
