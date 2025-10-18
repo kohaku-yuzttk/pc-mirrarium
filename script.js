@@ -370,7 +370,7 @@ function showSeekerDetail(seeker) {
 	const colors = Array.isArray(seeker.color_list) ? seeker.color_list : [];
 	const colortags = document.getElementById('color-tags');
 	// 前回の表示をクリア
-	if (colortags) { colortags.innerHTML = ''; }
+	if (colortags) colortags.innerHTML = '';
 	colors.forEach(code => {
   		const span = document.createElement('span');
   		span.className = 'color-tag';
