@@ -369,16 +369,20 @@ function showSeekerDetail(seeker) {
   // カラータグ生成
 	const colors = Array.isArray(seeker.color_list) ? seeker.color_list : [];
 	const colortags = document.getElementById('color-tags');
+	console.log(colors);
 	// 前回の表示をクリア
 	if (colortags) colortags.innerHTML = '';
 	colors.forEach(code => {
+		console.log('色コード:',code);
   		const span = document.createElement('span');
   		span.className = 'color-tag';
   		span.style.backgroundColor = code;
 		span.style.color = getTextColor(code);
+		console.log('文字色:', getTextColor(code));
   		span.dataset.color = code;
   		span.textContent = code;
   		colortags.appendChild(span);
+		console.log('生成されたタグ:', span);
 	});
 
 }
