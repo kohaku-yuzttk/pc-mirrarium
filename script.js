@@ -26,8 +26,6 @@ document.querySelectorAll('.back-button').forEach(btn => {
 	  consol.log(history.length);
 	if (history.length > 1) {
 		history.back();
-    	const screenId = event.state?.screen || 'home';
-    	showScreen(screenId);
 	} else {
   		showScreen('home');
 	}
