@@ -15,7 +15,6 @@ window.addEventListener('popstate', event => {
 // 戻るボタン押下時、前画面に戻る
 document.querySelectorAll('.back-button').forEach(btn => {
   btn.addEventListener('click', () => {
-	  console.log(history.length);
 	if (history.length > 1) {
 		history.back();
 	} else {
