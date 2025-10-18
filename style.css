@@ -158,20 +158,17 @@ rt {
   background: #f8f6f2;
   border-radius: 1em;
 }
-
 .search-block {
   display: flex;
   align-items: center;
   gap: 0.5em;
-  font-size: 1em;
-  font-family: "Yu Mincho", "游明朝", "Hiragino Mincho ProN", serif;
+  font-size: 1.5em;
+  /*font-family: "Yu Mincho", "游明朝", "Hiragino Mincho ProN", serif;*/
 }
-
 .search-block .label {
   min-width: 10em;
   font-weight: bold;
 }
-
 .search-block select,
 .search-block input {
   padding: 0.4em;
@@ -179,13 +176,13 @@ rt {
   border: 1px solid #ccc;
   border-radius: 0.5em;
 }
-
 .search-block button {
   font-size: 1.2em;
   background: none;
   border: none;
   cursor: pointer;
 }
+
 /* 検索結果一覧エリア */
 .search-container {
   display: flex;
@@ -201,32 +198,28 @@ rt {
   gap: 1em;
   padding: 1em;
 }
-
 .seeker-table {
   width: 100%;
   border-collapse: collapse;
   font-family: 'Cormorant Garamond', serif;
   background: #f9f8f6;
 }
-
 .seeker-table th, .seeker-table td {
   border: 1px solid #ccc;
   padding: 0.6em;
   text-align: center;
 }
-
 .seeker-table th {
   background: #eee;
   font-weight: normal;
 }
-
 .seeker-table tr:hover {
   background: #f0f0f0;
   cursor: pointer;
 }
 .thumb {
-  width: 40px;
-  height: 40px;
+  width: 70px;
+  height: 70px;
   object-fit: cover;
   object-position: center top;
   border-radius: 0.5em;
@@ -248,6 +241,9 @@ rt {
   color: #333;
   font-family: 'Helvetica Neue', sans-serif;
 }
+.detail-block {
+  display: flex;
+}
 /* ヘッダー部：画像＋基本情報 */
 .name-block {
   font-size: 1.5em;
@@ -259,8 +255,8 @@ rt {
   padding: 0 1.5em;
 }
 .portrait {
-  width: 240px;
-  height: 320px;
+  width: 100%;
+  height: 400px;
   object-fit: cover;
   object-position: center top;
   border-radius: 8px;
