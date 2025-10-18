@@ -136,6 +136,16 @@ document.getElementById('search-button-by-name').addEventListener('click', () =>
   }
   showSearchResults(filtered, 'name');
 });
+// カラータグクリック時、カラーコードコピー
+document.querySelectorAll('.color-tag').forEach(tag => {
+  tag.addEventListener('click', () => {
+    const colorCode = tag.dataset.color;
+    navigator.clipboard.writeText(colorCode).then(() => {
+      tag.textContent = 'コピーしました';
+      setTimeout(() => tag.textContent = colorCode, 1500);
+    });
+  });
+});
 
 // ファンクション定義
 // 画面呼び出し
@@ -355,6 +365,22 @@ function showSeekerDetail(seeker) {
     		</div>
   		</li>
 	`).join('');
+
+  // カラータグ生成
+	const colors = seeker.color_codes ?? [];
+	const container = document.createElement('div');
+	container.className = 'color-tags';
+
+	colors.forEach(code => {
+  		const span = document.createElement('span');
+  		span.className = 'color-tag';
+  		span.style.backgroundColor = code;
+  		span.dataset.color = code;
+  		span.textContent = code;
+  		container.appendChild(span);
+	});
+	targetElement.appendChild(container);
+
 }
 
 // 検索結果一覧画面表示
