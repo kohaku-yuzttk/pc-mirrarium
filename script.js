@@ -367,7 +367,7 @@ function showSeekerDetail(seeker) {
 	`).join('');
 
   // カラータグ生成
-	const colors = seeker.color_list ?? [];
+	const colors = Array.isArray(seeker.color_list) ? seeker.color_list : [];
 	const colortags = document.getElementById('color-tags');
 	// 前回の表示をクリア
 	if (colortags) { colortags.innerHTML = ''; }
