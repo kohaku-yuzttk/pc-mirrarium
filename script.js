@@ -367,11 +367,11 @@ function showSeekerDetail(seeker) {
   // カラータグ生成
 	const colors = Array.isArray(seeker.color_list) ? seeker.color_list : [];
 	const colortags = document.getElementById('color-tags');
-	const colorTagContainer = document.getElementById('color-tag');
+	const colortag = document.getElementById('color-tag');
 	/*const colorParagraph = colorTagContainer?.parentElement;*/
 
-	if (colorTagContainer) colorTagContainer.innerHTML = '';
-	if (colors.length > 0 && colorTagContainer) {
+	if (colortag) colortag.innerHTML = '';
+	if (colors.length > 0 && colortag) {
 		colors.forEach(code => {
   			const span = document.createElement('span');
   			span.className = 'color-tag';
@@ -393,9 +393,9 @@ function showSeekerDetail(seeker) {
 	};
 	// カラータグがあるときのみ表示
   	if (colors.length > 0) {
-	  colorTagContainer.style.display = 'block';
+	  colortags.style.display = 'block';
   	} else {
-	  colorTagContainer.style.display = 'none';
+	  colortags.style.display = 'none';
   	}
 }
 
