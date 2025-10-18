@@ -309,6 +309,7 @@ function showSeekerDetail(seeker) {
   document.getElementById('occupation').textContent = seeker.job || '―';
   document.getElementById('age').textContent = seeker.age || '―';
   document.getElementById('pl').textContent = seeker.pl || '―';
+  document.getElementById('birthday').textContent = seeker.birthday || '不明';
   // タグ
   const tags = document.getElementById('tags');
   const tagList = Array.isArray(seeker.tag_list) ? seeker.tag_list : [];
