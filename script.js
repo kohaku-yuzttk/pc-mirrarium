@@ -368,8 +368,7 @@ function showSeekerDetail(seeker) {
 
   // カラータグ生成
 	const colors = seeker.color_codes ?? [];
-	const container = document.createElement('div');
-	container.className = 'color-tags';
+	const colortags = document.getElementById('color-tags');
 
 	colors.forEach(code => {
   		const span = document.createElement('span');
@@ -377,9 +376,8 @@ function showSeekerDetail(seeker) {
   		span.style.backgroundColor = code;
   		span.dataset.color = code;
   		span.textContent = code;
-  		container.appendChild(span);
+  		colortags.appendChild(span);
 	});
-	targetElement.appendChild(container);
 
 }
 
