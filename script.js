@@ -112,7 +112,7 @@ document.getElementById('search-button-by-tag').addEventListener('click', () => 
   let filtered;
   if (tag === 'non') {
     filtered = sortSeekers(allSeekers, 'yomi', 'asc');
-  } elseif (tag === 'なし') {
+  } else if (tag === 'なし') {
 	filtered = allSeekers.filter(seeker =>
   	　　!(Array.isArray(seeker.tag_list) && seeker.tag_list.length > 0)
 	);
