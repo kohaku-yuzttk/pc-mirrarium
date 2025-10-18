@@ -400,7 +400,7 @@ rt {
   gap: 0.4em;
   margin: 0.5em 0;
 }
-.color-tag {
+.color-tag p {
   padding: 0.3em 0.6em;
   gap: 0.4em;
   border-radius: 4px;
