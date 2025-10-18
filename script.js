@@ -24,9 +24,11 @@ window.addEventListener('popstate', event => {
 document.getElementById('back-button').addEventListener('click', () => {
 	console.log(history.length);
 	if (history.length > 1) {
-  	history.back();
+		history.back();
+    	const screenId = event.state?.screen || 'home';
+    	showScreen(screenId);
 	} else {
-  	showScreen('home');
+  		showScreen('home');
 	}
 });
 // ヘッダクリックでホーム画面へ
