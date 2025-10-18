@@ -308,6 +308,7 @@ function showSeekerDetail(seeker) {
   }
   document.getElementById('occupation').textContent = seeker.job || '―';
   document.getElementById('age').textContent = seeker.age || '―';
+  document.getElementById('pl').textContent = seeker.pl || '―';
   // タグ
   const tags = document.getElementById('tags');
   const tagList = Array.isArray(seeker.tag_list) ? seeker.tag_list : [];
