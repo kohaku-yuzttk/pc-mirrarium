@@ -369,8 +369,8 @@ function showSeekerDetail(seeker) {
   // カラータグ生成
 	const colors = seeker.color_list ?? [];
 	const colortags = document.getElementById('color-tags');
-	
-	colortags.innerHTML = ''; // 前回の表示をクリア
+	// 前回の表示をクリア
+	if (colortags) { colortags.innerHTML = ''; }
 	colors.forEach(code => {
   		const span = document.createElement('span');
   		span.className = 'color-tag';
