@@ -369,11 +369,13 @@ function showSeekerDetail(seeker) {
   // カラータグ生成
 	const colors = seeker.color_list ?? [];
 	const colortags = document.getElementById('color-tags');
-
+	
+	colortags.innerHTML = ''; // 前回の表示をクリア
 	colors.forEach(code => {
   		const span = document.createElement('span');
   		span.className = 'color-tag';
   		span.style.backgroundColor = code;
+		span.style.color = getTextColor(code);
   		span.dataset.color = code;
   		span.textContent = code;
   		colortags.appendChild(span);
@@ -492,4 +494,12 @@ function formatBirthday(dateStr) {
   const day = parseInt(parts[2], 10);
 
   return `${month}月${day}日`;
+}
+// 背景色から文字色判定
+function getTextColor(bgColor) {
+  const r = parseInt(bgColor.slice(1, 3), 16);
+  const g = parseInt(bgColor.slice(3, 5), 16);
+  const b = parseInt(bgColor.slice(5, 7), 16);
+  const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+  return brightness > 150 ? '#000' : '#fff';
 }
