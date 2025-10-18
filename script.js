@@ -464,7 +464,8 @@ function showSearchResults(seekers, Key = 'yomi', order = 'asc') {
   	EDU: 'EDU',
   	idea: 'アイデア',
   	luck: '幸運',
-  	know: '知識'
+  	know: '知識',
+	age: '年齢'
   };
   if (Key in labelMap) {
   	columns.push({ key: Key, label: labelMap[Key] });
