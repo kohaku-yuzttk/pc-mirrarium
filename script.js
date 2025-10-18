@@ -369,9 +369,8 @@ function showSeekerDetail(seeker) {
 	const colortags = document.getElementById('color-tags');
 	const colorTagContainer = document.getElementById('color-tag');
 	const colorParagraph = colorTagContainer?.parentElement;
-	// 前回の表示をクリア
+
 	if (colorTagContainer) colorTagContainer.innerHTML = '';
-	if (!colors) colortags.innerHTML = '<P>';
 	if (colors.length > 0 && colorTagContainer) {
 		colors.forEach(code => {
   			const span = document.createElement('span');
@@ -393,7 +392,7 @@ function showSeekerDetail(seeker) {
 		});
 	};
 	// カラータグがあるときのみ表示
-  	if (colortags.childElementCount > 0) {
+  	if (colors) {
 	  colorParagraph.style.display = 'block';
   	} else {
 	  colorParagraph.style.display = 'none';
