@@ -369,7 +369,6 @@ function showSeekerDetail(seeker) {
 	const colortags = document.getElementById('color-tags');
 	const colorTagContainer = document.getElementById('color-tag');
 	const colorParagraph = colorTagContainer?.parentElement;
-
 	// 前回の表示をクリア
 	if (colorTagContainer) colorTagContainer.innerHTML = '';
 	if (!colors) colortags.innerHTML = '<P>';
@@ -392,13 +391,13 @@ function showSeekerDetail(seeker) {
   			});
   			colortags.appendChild(span);
 		});
-	 });
-  // カラータグがあるときのみ表示
-  if (colortags.childElementCount > 0) {
+	};
+	// カラータグがあるときのみ表示
+  	if (colortags.childElementCount > 0) {
 	  colorParagraph.style.display = 'block';
-  } else {
+  	} else {
 	  colorParagraph.style.display = 'none';
-  }
+  	}
 }
 
 // 検索結果一覧画面表示
