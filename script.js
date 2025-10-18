@@ -136,16 +136,6 @@ document.getElementById('search-button-by-name').addEventListener('click', () =>
   }
   showSearchResults(filtered, 'name');
 });
-// カラータグクリック時、カラーコードコピー
-document.querySelectorAll('.color-tag').forEach(tag => {
-  tag.addEventListener('click', () => {
-    const colorCode = tag.dataset.color;
-    navigator.clipboard.writeText(colorCode).then(() => {
-      tag.textContent = 'コピーしました';
-      setTimeout(() => tag.textContent = colorCode, 1500);
-    });
-  });
-});
 
 // ファンクション定義
 // 画面呼び出し
