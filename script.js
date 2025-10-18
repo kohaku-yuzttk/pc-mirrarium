@@ -21,8 +21,8 @@ window.addEventListener('popstate', event => {
   showScreen(screenId);
 });
 // 戻るボタン押下時、前画面に戻る
-document.getElementById('back-button').addEventListener('click', () => {
-	console.log(history.length);
+document.querySelectorAll('.back-button').forEach(btn => {
+  btn.addEventListener('click', () => {
 	if (history.length > 1) {
 		history.back();
     	const screenId = event.state?.screen || 'home';
@@ -30,6 +30,7 @@ document.getElementById('back-button').addEventListener('click', () => {
 	} else {
   		showScreen('home');
 	}
+  });
 });
 // ヘッダクリックでホーム画面へ
 document.getElementById('header-title').addEventListener('click', () => {
