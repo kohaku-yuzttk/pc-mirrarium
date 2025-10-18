@@ -6,15 +6,7 @@ let startX;
 let scrollLeft;
 const isPointerDevice = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
-// 画面呼び出し
-function showScreen(id) {
-  document.querySelectorAll('section').forEach(sec => {
-    sec.style.display = 'none';
-  });
-  document.getElementById(id).style.display = 'block';
-	// 履歴に追加
-  history.pushState({ screen: id }, '', `#${id}`);
-}
+// イベント定義
 // 前の画面に戻る
 window.addEventListener('popstate', event => {
   const screenId = event.state?.screen || 'home';
@@ -35,6 +27,124 @@ document.querySelectorAll('.back-button').forEach(btn => {
 document.getElementById('header-title').addEventListener('click', () => {
   showScreen('home'); // 画面切り替え
 });
+// バックホームボタンクリックでホーム画面へ
+document.getElementById('back-home').addEventListener('click', () => {
+  showScreen('home'); // 画面切り替え
+});
+
+// 画面読み込み時、スクロールイベント定義
+document.addEventListener('DOMContentLoaded', () => {
+  const carousel = document.getElementById('carousel');
+	
+  // スクロールイベント後、アクティブカード更新
+  carousel.addEventListener('scroll', () => {
+  	clearTimeout(scrollTimeout);
+  	scrollTimeout = setTimeout(updateActiveCard, 50);
+  });
+
+  // PCのみ：クリックで中央寄せ
+  if (isPointerDevice) {
+    carousel.addEventListener('click', e => {
+      const card = e.target.closest('.card');
+      if (!card || card.classList.contains('dummy') || card.classList.contains('active')) return;
+
+      document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
+      card.classList.add('active');
+      scrollToActiveCard();
+    });
+
+    // ドラッグスクロール
+    carousel.addEventListener('mousedown', e => {
+      isDown = true;
+      carousel.classList.add('dragging');
+      startX = e.pageX - carousel.offsetLeft;
+      scrollLeft = carousel.scrollLeft;
+    });
+    carousel.addEventListener('mouseleave', () => {
+      isDown = false;
+      carousel.classList.remove('dragging');
+    });
+    carousel.addEventListener('mouseup', () => {
+      isDown = false;
+      carousel.classList.remove('dragging');
+    });
+    carousel.addEventListener('mousemove', e => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - carousel.offsetLeft;
+      const walk = (x - startX) * 1.5;
+      carousel.scrollLeft = scrollLeft - walk;
+    });
+  }
+});
+// 画面リサイズ時、アクティブカード更新
+window.addEventListener('resize', updateActiveCard);
+
+// 📝 一覧から探す 検索ボタンクリックイベント
+document.getElementById('search-button').addEventListener('click', () => {
+  const type = document.getElementById('sort-type').value;
+  const order = document.getElementById('sort-order').value;
+
+  const sorted = sortSeekers(allSeekers, type, order);
+  showSearchResults(sorted, type);
+});
+// 🎲 技能から探す 検索ボタンクリックイベント
+document.getElementById('search-button-by-skill').addEventListener('click', () => {
+  const skill = document.getElementById('search-skill').value;
+  const val = document.getElementById('search-val').value;
+  let filtered;
+  if (skill === 'non' || val === 'non') {
+    filtered = sortSeekers(allSeekers, 'yomi', 'asc');
+  } else {
+    const threshold = {
+      '30up': 30,
+      '50up': 50,
+      '75up': 75,
+      '90up': 90
+    }[val];
+    filtered = allSeekers.filter(seeker => (seeker[skill] ?? 0) >= threshold);
+  }
+  showSearchResults(filtered, skill);
+});
+// 🏷 タグから探す 検索ボタンクリックイベント
+document.getElementById('search-button-by-tag').addEventListener('click', () => {
+  const tag = document.getElementById('search-tag').value;
+  let filtered;
+  if (!tag) {
+    filtered = sortSeekers(allSeekers, 'yomi', 'asc');
+  } else {
+    filtered = allSeekers.filter(seeker =>
+      (seeker.tag_list || []).includes(tag)
+    );
+  }
+  showSearchResults(filtered, 'tag');
+});
+// 👤 名前で探す 検索ボタンクリックイベント
+document.getElementById('search-button-by-name').addEventListener('click', () => {
+  const keyword = document.getElementById('search-name').value.trim();
+  let filtered;
+  if (!keyword) {
+    // 🔍 デフォルト表示（名前順）
+    filtered = sortSeekers(allSeekers, 'yomi', 'asc');
+  } else {
+    filtered = allSeekers.filter(seeker =>
+      seeker.name.includes(keyword) || (seeker.kana || '').includes(keyword)
+    );
+  }
+  showSearchResults(filtered, 'name');
+});
+
+// ファンクション定義
+// 画面呼び出し
+function showScreen(id) {
+  document.querySelectorAll('section').forEach(sec => {
+    sec.style.display = 'none';
+  });
+  document.getElementById(id).style.display = 'block';
+	// 履歴に追加
+  history.pushState({ screen: id }, '', `#${id}`);
+}
+
 // ロード画面
 function showLoading() {
   document.getElementById('loading').style.display = 'flex';
@@ -145,55 +255,6 @@ fetch('pc-data.json')
 	});
 }
 
-
-// 画面読み込み時、スクロールイベント定義
-document.addEventListener('DOMContentLoaded', () => {
-  const carousel = document.getElementById('carousel');
-	
-  // スクロールイベント後、アクティブカード更新
-  carousel.addEventListener('scroll', () => {
-  	clearTimeout(scrollTimeout);
-  	scrollTimeout = setTimeout(updateActiveCard, 50);
-  });
-
-  // PCのみ：クリックで中央寄せ
-  if (isPointerDevice) {
-    carousel.addEventListener('click', e => {
-      const card = e.target.closest('.card');
-      if (!card || card.classList.contains('dummy') || card.classList.contains('active')) return;
-
-      document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
-      card.classList.add('active');
-      scrollToActiveCard();
-    });
-
-    // ドラッグスクロール
-    carousel.addEventListener('mousedown', e => {
-      isDown = true;
-      carousel.classList.add('dragging');
-      startX = e.pageX - carousel.offsetLeft;
-      scrollLeft = carousel.scrollLeft;
-    });
-    carousel.addEventListener('mouseleave', () => {
-      isDown = false;
-      carousel.classList.remove('dragging');
-    });
-    carousel.addEventListener('mouseup', () => {
-      isDown = false;
-      carousel.classList.remove('dragging');
-    });
-    carousel.addEventListener('mousemove', e => {
-      if (!isDown) return;
-      e.preventDefault();
-      const x = e.pageX - carousel.offsetLeft;
-      const walk = (x - startX) * 1.5;
-      carousel.scrollLeft = scrollLeft - walk;
-    });
-  }
-});
-// 画面リサイズ時、アクティブカード更新
-window.addEventListener('resize', updateActiveCard);
-
 // 中央カードに .active を付与
 function updateActiveCard() {
   const container = document.getElementById('carousel');
@@ -291,60 +352,6 @@ function showSeekerDetail(seeker) {
   		</li>
 	`).join('');
 }
-
-// 📝 一覧から探す 検索ボタンクリックイベント
-document.getElementById('search-button').addEventListener('click', () => {
-  const type = document.getElementById('sort-type').value;
-  const order = document.getElementById('sort-order').value;
-
-  const sorted = sortSeekers(allSeekers, type, order);
-  showSearchResults(sorted, type);
-});
-// 🎲 技能から探す 検索ボタンクリックイベント
-document.getElementById('search-button-by-skill').addEventListener('click', () => {
-  const skill = document.getElementById('search-skill').value;
-  const val = document.getElementById('search-val').value;
-  let filtered;
-  if (skill === 'non' || val === 'non') {
-    filtered = sortSeekers(allSeekers, 'yomi', 'asc');
-  } else {
-    const threshold = {
-      '30up': 30,
-      '50up': 50,
-      '75up': 75,
-      '90up': 90
-    }[val];
-    filtered = allSeekers.filter(seeker => (seeker[skill] ?? 0) >= threshold);
-  }
-  showSearchResults(filtered, skill);
-});
-// 🏷 タグから探す 検索ボタンクリックイベント
-document.getElementById('search-button-by-tag').addEventListener('click', () => {
-  const tag = document.getElementById('search-tag').value;
-  let filtered;
-  if (!tag) {
-    filtered = sortSeekers(allSeekers, 'yomi', 'asc');
-  } else {
-    filtered = allSeekers.filter(seeker =>
-      (seeker.tag_list || []).includes(tag)
-    );
-  }
-  showSearchResults(filtered, 'tag');
-});
-// 👤 名前で探す 検索ボタンクリックイベント
-document.getElementById('search-button-by-name').addEventListener('click', () => {
-  const keyword = document.getElementById('search-name').value.trim();
-  let filtered;
-  if (!keyword) {
-    // 🔍 デフォルト表示（名前順）
-    filtered = sortSeekers(allSeekers, 'yomi', 'asc');
-  } else {
-    filtered = allSeekers.filter(seeker =>
-      seeker.name.includes(keyword) || (seeker.kana || '').includes(keyword)
-    );
-  }
-  showSearchResults(filtered, 'name');
-});
 
 // 検索結果一覧画面表示
 function showSearchResults(seekers, Key = 'yomi', order = 'asc') {
