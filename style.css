@@ -240,7 +240,8 @@ rt {
   box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 .detail-block {
-  display: felx;
+  display: inline-flex;
+  justify-content: space-between;
   gap: 2em;
 }
 /* ヘッダー部：画像＋基本情報 */
@@ -252,6 +253,7 @@ rt {
 }
 .detail-header {
   display: flex;
+  width: 70%;
   gap: 3em;
   padding: 0 1.5em;
 }
