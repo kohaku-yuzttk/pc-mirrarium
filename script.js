@@ -368,7 +368,7 @@ function showSeekerDetail(seeker) {
 	const colors = Array.isArray(seeker.color_list) ? seeker.color_list : [];
 	const colortags = document.getElementById('color-tags');
 	const colorTagContainer = document.getElementById('color-tag');
-	const colorParagraph = colorTagContainer?.parentElement;
+	/*const colorParagraph = colorTagContainer?.parentElement;*/
 
 	if (colorTagContainer) colorTagContainer.innerHTML = '';
 	if (colors.length > 0 && colorTagContainer) {
@@ -393,9 +393,9 @@ function showSeekerDetail(seeker) {
 	};
 	// カラータグがあるときのみ表示
   	if (colors) {
-	  colorParagraph.style.display = 'block';
+	  colorTagContainer.style.display = 'block';
   	} else {
-	  colorParagraph.style.display = 'none';
+	  colorTagContainer.style.display = 'none';
   	}
 }
 
