@@ -163,7 +163,6 @@ rt {
   align-items: center;
   gap: 0.5em;
   font-size: 1.2em;
-  /*font-family: "Yu Mincho", "游明朝", "Hiragino Mincho ProN", serif;*/
 }
 .search-block .label {
   min-width: 10em;
@@ -226,20 +225,19 @@ rt {
 }
 
 /* 詳細表示エリア */
-.detail-container {
-  display: block;
-  gap: 2em;
-  margin: 2em;
-  padding: 2em;
-  background: #f9f8f6;
-  font-family: 'Cormorant Garamond', serif;
-}
 /* 詳細画面全体 */
 #detail {
   padding: 1em 5vw;
   background: linear-gradient(to bottom, #f5f3ef, #eae7e2);
   color: #333;
   font-family: 'Helvetica Neue', sans-serif;
+}
+.detail-container {
+  display: block;
+  gap: 2em;
+  margin: 2em;
+  padding: 2em;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 .detail-block {
   display: flex;
