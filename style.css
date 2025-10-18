@@ -240,7 +240,7 @@ rt {
   box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 .detail-block {
-  display: block;
+  display: felx;
   gap: 2em;
 }
 /* ヘッダー部：画像＋基本情報 */
