@@ -240,9 +240,10 @@ rt {
   box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 .detail-block {
+  width: 100%;
   display: inline-flex;
   justify-content: space-between;
-  gap: 2.5em;
+  gap: 2em;
 }
 /* ヘッダー部：画像＋基本情報 */
 .name-block {
