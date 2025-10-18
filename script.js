@@ -392,11 +392,9 @@ function showSeekerDetail(seeker) {
 		});
 	};
 	// カラータグがあるときのみ表示
-  	if (colors.length > 0) {
-	  colortags.style.display = 'block';
-  	} else {
-	  colortags.style.display = 'none';
-  	}
+	if (colortags) {
+	  colortags.style.display = colors.length > 0 ? 'block' : 'none';
+	}
 }
 
 // 検索結果一覧画面表示
