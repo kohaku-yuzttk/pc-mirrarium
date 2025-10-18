@@ -414,3 +414,29 @@ rt {
 .color-tag:hover {
   transform: scale(1.05);
 }
+/* 技能テーブル */
+.skill-table {
+  margin-top: 1em;
+  font-family: 'Yu Mincho', serif;
+  color: #444;
+  background: rgba(250, 250, 255, 0.8);
+  padding: 0.5em 1em;
+  border-radius: 8px;
+  box-shadow: 0 0 4px rgba(0,0,0,0.1);
+}
+.skill-table-inner {
+  width: 100%;
+  border-collapse: collapse;
+}
+.skill-table-inner td {
+  padding: 0.4em 0.8em;
+  border-bottom: 1px solid #ddd;
+}
+.skill-name {
+  text-align: left;
+  font-weight: bold;
+}
+.skill-value {
+  text-align: right;
+  color: #666;
+}
