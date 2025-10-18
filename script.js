@@ -388,7 +388,7 @@ function showSeekerDetail(seeker) {
       				console.error('コピーに失敗しました:', err);
     			});
   			});
-  			colortags.appendChild(span);
+  			colortag.appendChild(span);
 		});
 	};
 	// カラータグがあるときのみ表示
