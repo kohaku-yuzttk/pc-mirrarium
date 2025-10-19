@@ -42,10 +42,10 @@ rt {
   letter-spacing: 0.05em;
 }
 .title-icon {
-  width: 24px;
-  height: 24px;
-  vertical-align: middle;
-  margin-right: 0.5em;
+  width: 37px;
+  height: 37px;
+  vertical-align: bottom;
+  margin-right: 0.2em;
 }
 /* 戻るボタン */
 #detail button {
