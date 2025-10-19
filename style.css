@@ -518,3 +518,32 @@ input[type="range"]:disabled {
   background: #dfefff;
   border-color: #66aaff;
 }
+// 関係値
+.relationship-block {
+  margin-top: 2em;
+  padding: 1em;
+  background: #f9f9f9;
+  border-radius: 8px;
+}
+.relationship-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1em;
+}
+.relationship-card {
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 0.8em 1em;
+  min-width: 120px;
+  box-shadow: 0 0 4px rgba(0,0,0,0.05);
+}
+.relation-type {
+  font-weight: bold;
+  color: #444;
+  display: block;
+}
+.relation-name {
+  color: #666;
+  font-size: 0.95em;
+}
