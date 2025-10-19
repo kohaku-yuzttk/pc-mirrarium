@@ -41,6 +41,12 @@ rt {
   color: #666;
   letter-spacing: 0.05em;
 }
+.title-icon {
+  width: 24px;
+  height: 24px;
+  vertical-align: middle;
+  margin-right: 0.5em;
+}
 /* 戻るボタン */
 #detail button {
   margin: 1em 1em 0 0;
