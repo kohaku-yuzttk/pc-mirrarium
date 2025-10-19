@@ -453,12 +453,13 @@ rt {
   display: flex;
   gap: 2em;
   align-items: flex-start;
-}
-.voice-info {
   background: #f9f9f9;
   border-radius: 8px;
   padding: 1em;
   box-shadow: 0 0 5px rgba(0,0,0,0.1);
+}
+.voice-info {
+  padding: 1em;
 }
 .voice-info h3 {
   margin-bottom: 1em;
@@ -494,10 +495,7 @@ input[type="range"]:disabled {
   cursor: default;
 }
 .voice-samples {
-  background: #f0f0f0;
-  border-radius: 8px;
   padding: 1em;
-  box-shadow: 0 0 5px rgba(0,0,0,0.1);
 }
 .voice-samples h3 {
   margin-bottom: 1em;
