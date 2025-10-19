@@ -254,7 +254,6 @@ rt {
 .detail-container {
   display: block;
   gap: 2em;
-  margin: 1em;
   padding: 1em;
   box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
