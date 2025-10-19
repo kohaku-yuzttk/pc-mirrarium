@@ -197,6 +197,14 @@ async function loadSeekerData() {
       	seeker.color_list = [];
     	}
   	}
+  	if (typeof seeker.relation_list === 'string') {
+    	try {
+      	seeker.relation_list = JSON.parse(seeker.relation_list);
+    	} catch (e) {
+      	console.warn(`関係値リストのパースに失敗しました（${seeker.name}）`, e);
+      	seeker.relation_list = [];
+    	}
+  	}
 	});
 
   return data;
