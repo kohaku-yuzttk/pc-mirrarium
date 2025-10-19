@@ -450,8 +450,7 @@ rt {
 }
 /* ボイス情報 */
 .voice-block {
-  display: flex;
-  gap: 2em;
+  display: block;
   align-items: flex-start;
 }
 .voice-partition {
