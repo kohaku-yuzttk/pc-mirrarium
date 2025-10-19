@@ -376,7 +376,6 @@ function showSeekerDetail(seeker) {
 	const colors = Array.isArray(seeker.color_list) ? seeker.color_list : [];
 	const colortags = document.getElementById('color-tags');
 	const colortag = document.getElementById('color-tag');
-	/*const colorParagraph = colorTagContainer?.parentElement;*/
 
 	if (colortag) colortag.innerHTML = '';
 	if (colors.length > 0 && colortag) {
@@ -431,7 +430,7 @@ function showSeekerDetail(seeker) {
 	}
 
 	// ボイス情報
-	updateVoiceInfo(seeker);
+	createVoiceInfo(seeker);
 }
 
 // 検索結果一覧画面表示
@@ -556,7 +555,8 @@ function getTextColor(bgColor) {
   return brightness > 150 ? '#000' : '#fff';
 }
 // ボイス情報領域更新
-function updateVoiceInfo(data) {
+function createVoiceInfo(data) {
+	if (!voiceBlock) return;
   	const voiceBlock = document.querySelector(".voice-info");
   	const values = [
     	data.voice_h,
