@@ -556,8 +556,8 @@ function getTextColor(bgColor) {
 }
 // ボイス情報領域更新
 function createVoiceInfo(data) {
-	if (!voiceBlock) return;
   	const voiceBlock = document.querySelector(".voice-info");
+	if (!voiceBlock) return;
   	const values = [
     	data.voice_h,
     	data.voice_s,
