@@ -127,6 +127,23 @@
 					<h2>技能値</h2>
 					<div id="skill-list" class="skill-table"></div>
 				</div>
+				<div class="voice-block">
+					<div class="voice-info">
+  					<h3>ボイス情報</h3>
+  					<div class="voice-slider"><label>高さ (低⇔高)</label><input type="range" min="0" max="100" value="50" id="voice-h"></div>
+  					<div class="voice-slider"><label>速さ (遅⇔速)</label><input type="range" min="0" max="100" value="50" id="voice-s"></div>
+  					<div class="voice-slider"><label>位置 (喉⇔鼻)</label><input type="range" min="0" max="100" value="50" id="voice-p"></div>
+  					<div class="voice-slider"><label>深さ (浅⇔深)</label><input type="range" min="0" max="100" value="50" id="voice-d"></div>
+  					<div class="voice-slider"><label>息 (少⇔多)</label><input type="range" min="0" max="100" value="50" id="voice-w"></div>
+					</div>
+					<div class="voice-samples">
+    					<h3>サンプルボイス</h3>
+    					<button class="voice-btn" data-src="sample1.mp3">サンプル①</button>
+    					<button class="voice-btn" data-src="sample2.mp3">サンプル②</button>
+    					<audio id="voice-player"></audio>
+  					</div>
+				</div>
+
 			</div>
 		
   			<div class="timeline-block">
