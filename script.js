@@ -430,6 +430,8 @@ function showSeekerDetail(seeker) {
   	skillList.appendChild(table);
 	}
 
+	// ボイス情報
+	updateVoiceInfo(seeker);
 }
 
 // 検索結果一覧画面表示
@@ -552,4 +554,60 @@ function getTextColor(bgColor) {
   const b = parseInt(bgColor.slice(5, 7), 16);
   const brightness = (r * 299 + g * 587 + b * 114) / 1000;
   return brightness > 150 ? '#000' : '#fff';
+}
+// ボイス情報領域更新
+function updateVoiceInfo(data) {
+  	const voiceBlock = document.querySelector(".voice-info");
+  	const values = [
+    	data.voice_h,
+    	data.voice_s,
+    	data.voice_p,
+    	data.voice_d,
+    	data.voice_w
+  	];
+	const hasInput = values.some(val => val !== "" && val !== null && val !== undefined);
+	
+	if (hasInput) {
+		voiceBlock.classList.remove("hidden");
+		document.getElementById("voice-h").value = data.voice_h;
+  		document.getElementById("voice-s").value = data.voice_s;
+  		document.getElementById("voice-p").value = data.voice_p;
+  		document.getElementById("voice-d").value = data.voice_d;
+  		document.getElementById("voice-w").value = data.voice_w;
+		
+		const buttons = document.querySelectorAll(".voice-btn");
+		const player = document.getElementById("voice-player");
+
+		buttons.forEach(btn => {
+  	  		btn.addEventListener("click", () => {
+    			const src = btn.getAttribute("data-src");
+
+    			if (btn.classList.contains("playing")) {
+      				player.pause();
+      				player.currentTime = 0;
+      				btn.classList.remove("playing");
+      				btn.textContent = btn.textContent.replace("停止", "サンプル");
+    			} else {
+      				buttons.forEach(b => {
+        				b.classList.remove("playing");
+        				b.textContent = b.textContent.replace("停止", "サンプル");
+      				});
+
+      				player.src = src;
+      				player.play();
+      				btn.classList.add("playing");
+      				btn.textContent = btn.textContent.replace("サンプル", "停止");
+    			}
+    		});
+  		});
+
+  		player.addEventListener("ended", () => {
+  			buttons.forEach(b => {
+    			b.classList.remove("playing");
+    			b.textContent = b.textContent.replace("停止", "サンプル");
+  			});
+		});
+	} else {
+    	voiceBlock.classList.add("hidden");
+  	}
 }
