@@ -431,6 +431,8 @@ function showSeekerDetail(seeker) {
 
 	// ボイス情報
 	createVoiceInfo(seeker);
+	// リレイション情報
+	createlationshipBlock(seeker);
 }
 
 // 検索結果一覧画面表示
@@ -554,7 +556,7 @@ function getTextColor(bgColor) {
   const brightness = (r * 299 + g * 587 + b * 114) / 1000;
   return brightness > 150 ? '#000' : '#fff';
 }
-// ボイス情報領域更新
+// ボイス情報生成
 function createVoiceInfo(data) {
   	const voiceBlock = document.querySelector(".voice-info");
 	if (!voiceBlock) return;
@@ -610,4 +612,28 @@ function createVoiceInfo(data) {
 	} else {
     	voiceBlock.classList.add("hidden");
   	}
+}
+// リレイション情報生成
+function createlationshipBlock(data) {
+  const block = document.querySelector(".relationship-block");
+  const list = Array.isArray(data.relation_list) ? data.relation_list : [];
+
+  if (list.length === 0) {
+    block.style.display = "none";
+    return;
+  }
+
+  block.style.display = "block";
+  const container = block.querySelector(".relationship-list");
+  container.innerHTML = "";
+
+  list.forEach(rel => {
+    const card = document.createElement("div");
+    card.className = "relationship-card";
+    card.innerHTML = `
+      <span class="relation-type">${rel.type}</span>
+      <span class="relation-name">${rel.name}</span>
+    `;
+    container.appendChild(card);
+  });
 }
