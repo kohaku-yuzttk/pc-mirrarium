@@ -544,7 +544,7 @@ function populateSkillOptions(seekers) {
   /* ソートは後で実装
   const sortedSkills = Array.from(skillSet).sort((a, b) => a.localeCompare(b, 'ja'));
   */
-  sortedSkills.forEach(text => {
+  skillSet.forEach(text => {
     const option = document.createElement("option");
     option.value = text;
     option.textContent = text;
