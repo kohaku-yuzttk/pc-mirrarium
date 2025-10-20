@@ -513,8 +513,10 @@ function showSearchResults(seekers, Key = 'yomi', order = 'asc') {
     	  : seeker.name;
       } else if (col.key === 'SAN_now') {
         td.textContent = seeker.SAN_now ?? '―';
-      } else if (col.key === 'SAN_ini') {
-        td.textContent = seeker.SAN_ini ?? '―';
+      } else if (col.key === 'HP') {
+        td.textContent = seeker.HP ?? '―';
+  	  } else if (col.key === 'MP') {
+        td.textContent = seeker.MP ?? '―';
   	  } else if (col.key === 'tag_list') {
     	const tags = Array.isArray(seeker.tag_list) ? seeker.tag_list : [];
 		tags.sort();
