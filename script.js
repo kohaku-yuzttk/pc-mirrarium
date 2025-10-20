@@ -593,10 +593,16 @@ function sortSeekers(seekers, key = 'kana', order = 'asc') {
 }
 // 技能フィルタ
 function filterSeekersBySkill(seekers, skillName, threshold = 0) {
-  return seekers.filter(seeker => {
+  const filtered = seekers.filter(seeker => {
     const skills = Array.isArray(seeker.skill_list) ? seeker.skill_list : [];
     const match = skills.find(skill => skill.skill_text === skillName);
     return match && (match.skill_val ?? 0) >= threshold;
+  });
+  // 降順ソート
+  return filtered.sort((a, b) => {
+    const aSkill = a.skill_list?.find(s => s.skill_text === skillName)?.skill_val ?? 0;
+    const bSkill = b.skill_list?.find(s => s.skill_text === skillName)?.skill_val ?? 0;
+    return bSkill - aSkill;
   });
 }
 // 誕生日書式変換
