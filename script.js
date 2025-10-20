@@ -103,7 +103,7 @@ document.getElementById('search-button-by-skill').addEventListener('click', () =
       '75up': 75,
       '90up': 90,
 	  'non': 1
-    }[val] ?? 0;
+    }[val];
     /*filtered = allSeekers.filter(seeker => (seeker[skill] ?? 0) >= threshold);*/
 	filtered = filterSeekersBySkill(allSeekers, skill, threshold);
   }
