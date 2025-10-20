@@ -241,8 +241,12 @@ async function initCarousel() {
         showSeekerDetail(seeker);
       }
     });
-  carousel.appendChild(card);
+	// 【検索用】技能オプション更新
+    populateSkillOptions(seeker.skill_list);
+	
+    carousel.appendChild(card);
   });
+  
   setTimeout(() => {
 	updateActiveCard(); // 初期の中央判定
 	scrollToActiveCard(); // 初期中央寄せ
@@ -459,8 +463,7 @@ function showSearchResults(seekers, Key = 'yomi', order = 'asc') {
     { key: 'tag_list', label: 'タグ' },
     { key: 'HP', label: 'HP' },
     { key: 'MP', label: 'MP' },
-    { key: 'SAN_now', label: '現在SAN' },
-    { key: 'SAN_ini', label: '初期SAN' }
+    { key: 'SAN_now', label: 'SAN' }
   ];
 
   // ✅ 条件に応じて表示項目追加
@@ -476,7 +479,8 @@ function showSearchResults(seekers, Key = 'yomi', order = 'asc') {
   	idea: 'アイデア',
   	luck: '幸運',
   	know: '知識',
-	age: '年齢'
+	age: '年齢',
+	SAN_ini: '初期SAN'
   };
   if (Key in labelMap) {
   	columns.push({ key: Key, label: labelMap[Key] });
@@ -524,6 +528,18 @@ function showSearchResults(seekers, Key = 'yomi', order = 'asc') {
       showSeekerDetail(seeker);
     });
     body.appendChild(row);
+  });
+}
+// 技能オプション更新
+function populateSkillOptions(skillArray) {
+  const select = document.getElementById("skill-search");
+
+  const uniqueSkills = [...new Set(skillArray.map(s => s.skill_text))];
+  uniqueSkills.forEach(text => {
+    const option = document.createElement("option");
+    option.value = skill.skill_text;
+    option.textContent = skill.skill_text;
+    select.appendChild(option);
   });
 }
 // 絞り込み
