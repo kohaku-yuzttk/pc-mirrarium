@@ -227,11 +227,7 @@ async function initCarousel() {
 	// カードタイプ：ダミーの場合ダミークラス適用
 	if (seeker.type === 'dummy') {
 		card.classList.add('dummy');
-	} else {
-		// 【検索用】技能オプション更新
-    	populateSkillOptions(seeker.skill_list);
 	}
-
     // カードの中身をHTMLで構築
     card.innerHTML = `
       <img src="${seeker.image}" alt="${seeker.name}" style="object-position:${focus};">
@@ -246,7 +242,9 @@ async function initCarousel() {
     });
     carousel.appendChild(card);
   });
-  
+  // ✅ 全探索者の技能からオプションを生成
+  populateSkillOptions(seekers);
+
   setTimeout(() => {
 	updateActiveCard(); // 初期の中央判定
 	scrollToActiveCard(); // 初期中央寄せ
@@ -531,15 +529,25 @@ function showSearchResults(seekers, Key = 'yomi', order = 'asc') {
   });
 }
 // 技能オプション更新
-function populateSkillOptions(data) {
+function populateSkillOptions(seekers) {
   const select = document.getElementById("search-skill");
-  const skillArray = Array.isArray(data.skill_list) ? data.skill_list : [];
-	
-  const uniqueSkills = [...new Set(skillArray.map(s => s.skill_text))];
-  uniqueSkills.forEach(text => {
+  const skillSet = new Set();
+
+  seekers.forEach(seeker => {
+    const skills = Array.isArray(seeker.skill_list) ? seeker.skill_list : [];
+    skills.forEach(skill => {
+      if (skill.skill_text) {
+        skillSet.add(skill.skill_text);
+      }
+    });
+  });
+  /* ソートは後で実装
+  const sortedSkills = Array.from(skillSet).sort((a, b) => a.localeCompare(b, 'ja'));
+  */
+  sortedSkills.forEach(text => {
     const option = document.createElement("option");
-    option.value = skill.skill_text;
-    option.textContent = skill.skill_text;
+    option.value = text;
+    option.textContent = text;
     select.appendChild(option);
   });
 }
