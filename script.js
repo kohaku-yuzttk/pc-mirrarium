@@ -484,7 +484,7 @@ function showSearchResults(seekers, Key = 'yomi', order = 'asc') {
   };
   if (Key in labelMap) {
   	columns.push({ key: Key, label: labelMap[Key] });
-  } else if (allSkills.includes(Key)) {
+  } else if (Array.isArray(allSkills) && allSkills.includes(Key))  {
 	columns.push({ key: Key, label: Key });
   }
 
@@ -554,9 +554,8 @@ function extractAllSkills(seekers) {
 
   /* ソートは後で実装
   Array.from(skillSet).sort((a, b) => a.localeCompare(b, 'ja'));*/
-  console.log(skillSet);
 
-  return skillSet;
+  return Array.from(skillSet);
 }
 // 技能オプション更新
 function populateSkillOptions(allSkills) {
