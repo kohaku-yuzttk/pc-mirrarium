@@ -529,7 +529,7 @@ function showSearchResults(seekers, Key = 'yomi', order = 'asc') {
 			 if (col.key === skill.skill_text) {
 				 td.textContent = skill.skill_val ?? '―';
 			 }
-		}
+		});
 	  }
       row.appendChild(td);
     });
