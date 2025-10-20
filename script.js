@@ -484,7 +484,7 @@ function showSearchResults(seekers, Key = 'yomi', order = 'asc') {
   };
   if (Key in labelMap) {
   	columns.push({ key: Key, label: labelMap[Key] });
-  } else if ((Key in allSkills) {
+  } else if (Key in allSkills) {
 	columns.push({ key: Key, label: labelMap[Key] });
   }
 
