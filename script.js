@@ -227,6 +227,9 @@ async function initCarousel() {
 	// カードタイプ：ダミーの場合ダミークラス適用
 	if (seeker.type === 'dummy') {
 		card.classList.add('dummy');
+	} else {
+		// 【検索用】技能オプション更新
+    	populateSkillOptions(seeker.skill_list);
 	}
 
     // カードの中身をHTMLで構築
@@ -241,9 +244,6 @@ async function initCarousel() {
         showSeekerDetail(seeker);
       }
     });
-	// 【検索用】技能オプション更新
-    populateSkillOptions(seeker.skill_list);
-	
     carousel.appendChild(card);
   });
   
@@ -531,9 +531,10 @@ function showSearchResults(seekers, Key = 'yomi', order = 'asc') {
   });
 }
 // 技能オプション更新
-function populateSkillOptions(skillArray) {
+function populateSkillOptions(data) {
   const select = document.getElementById("search-skill");
-
+  const skillArray = Array.isArray(data.skill_list) ? data.skill_list : [];
+	
   const uniqueSkills = [...new Set(skillArray.map(s => s.skill_text))];
   uniqueSkills.forEach(text => {
     const option = document.createElement("option");
