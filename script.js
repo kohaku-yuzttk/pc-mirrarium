@@ -41,9 +41,8 @@ document.addEventListener('DOMContentLoaded', () => {
   	clearTimeout(scrollTimeout);
   	scrollTimeout = setTimeout(updateActiveCard, 50);
   });
-
-  // PCのみ：クリックで中央寄せ
-  if (isPointerDevice) {
+	
+	// クリックで中央寄せ
     carousel.addEventListener('click', e => {
       const card = e.target.closest('.card');
       if (!card || card.classList.contains('dummy') || card.classList.contains('active')) return;
@@ -52,7 +51,9 @@ document.addEventListener('DOMContentLoaded', () => {
       card.classList.add('active');
       scrollToActiveCard();
     });
-
+	
+  // PCのみ
+  if (isPointerDevice) {
     // ドラッグスクロール
     carousel.addEventListener('mousedown', e => {
       isDown = true;
@@ -136,7 +137,7 @@ document.getElementById('search-button-by-HO').addEventListener('click', () => {
   } else {
   	filtered = filterSeekersByHO(allSeekers, hoKeyword);
   }
-  showSearchResults(filtered, 'yomi', 'asc');
+  showSearchResults(filtered, 'HO', 'asc');
 });
 // 👤 名前で探す 検索ボタンクリックイベント
 document.getElementById('search-button-by-name').addEventListener('click', () => {
@@ -494,12 +495,14 @@ function showSearchResults(seekers, Key = 'yomi', order = 'asc') {
   	EDU: 'EDU',
 	age: '年齢',
 	SAN_ini: '初期SAN',
-	HO: 'HO'
   };
   if (Key in labelMap) {
   	columns.push({ key: Key, label: labelMap[Key] });
   } else if (Array.isArray(allSkills) && allSkills.includes(Key))  {
 	columns.push({ key: Key, label: Key });
+  } else if (Key === 'HO') {
+	columns.push({ key: 'scenario_list', label: 'シナリオ' });
+	columns.push({ key: 'HO', label: 'HO' });
   }
 
   // ✅ ヘッダー生成
@@ -539,7 +542,18 @@ function showSearchResults(seekers, Key = 'yomi', order = 'asc') {
 		  : '<span class="tag tag-empty">―</span>';
   	  } else if (Key in labelMap) {
     	td.textContent = seeker[col.key] ?? '―';
-  	  } else {
+  	  } else if (col.key === 'HO') {
+  		td.textContent = seeker.HO ?? '―';
+	  } else if (col.key === 'scenario_list') {
+  		const scenarios = Array.isArray(seeker.scenario_list) ? seeker.scenario_list : [];
+  		td.innerHTML = scenarios.length > 0
+    	? scenarios.map(s => {
+        	const title = s.title ?? '（タイトル不明）';
+        	const ho = s.HO ?? '―';
+        	return `<div class="scenario-entry"><span class="scenario-title">${title}</span> <span class="scenario-ho">[${ho}]</span></div>`;
+     	}).join('')
+    	: '<span class="scenario-empty">―</span>';
+	  } else {
 		const skills = Array.isArray(seeker.skill_list) ? seeker.skill_list : [];
   		const skillMatch = skills.find(skill => col.key === skill.skill_text);
   		td.textContent = skillMatch ? skillMatch.skill_val ?? '―' : '―';
