@@ -1,5 +1,6 @@
 // グローバル要素定義
 let allSeekers = [];
+let allSkills = [];
 let scrollTimeout;
 let isDown = false;
 let startX;
@@ -91,6 +92,7 @@ document.getElementById('search-button').addEventListener('click', () => {
 document.getElementById('search-button-by-skill').addEventListener('click', () => {
   const skill = document.getElementById('search-skill').value;
   const val = document.getElementById('search-val').value;
+
   let filtered;
   if (skill === 'non' || val === 'non') {
     filtered = sortSeekers(allSeekers, 'yomi', 'asc');
@@ -101,7 +103,8 @@ document.getElementById('search-button-by-skill').addEventListener('click', () =
       '75up': 75,
       '90up': 90
     }[val];
-    filtered = allSeekers.filter(seeker => (seeker[skill] ?? 0) >= threshold);
+    /*filtered = allSeekers.filter(seeker => (seeker[skill] ?? 0) >= threshold);*/
+	const filtered = filterSeekersBySkill(allSeekers, skill);
   }
   showSearchResults(filtered, skill);
 });
@@ -243,7 +246,9 @@ async function initCarousel() {
     carousel.appendChild(card);
   });
   // ✅ 全探索者の技能からオプションを生成
-  populateSkillOptions(seekers);
+  allSeekers = seekers;
+  allSkills = extractAllSkills(seekers);
+  populateSkillOptions(allSkills);
 
   setTimeout(() => {
 	updateActiveCard(); // 初期の中央判定
@@ -474,14 +479,13 @@ function showSearchResults(seekers, Key = 'yomi', order = 'asc') {
   	SIZ: 'SIZ',
   	INT: 'INT',
   	EDU: 'EDU',
-  	idea: 'アイデア',
-  	luck: '幸運',
-  	know: '知識',
 	age: '年齢',
 	SAN_ini: '初期SAN'
   };
   if (Key in labelMap) {
   	columns.push({ key: Key, label: labelMap[Key] });
+  } else if ((Key in allSkills) {
+	columns.push({ key: Key, label: labelMap[Key] });
   }
 
   // ✅ ヘッダー生成
@@ -517,9 +521,16 @@ function showSearchResults(seekers, Key = 'yomi', order = 'asc') {
     	td.innerHTML = tags.length > 0
 		  ? tags.map(tag => `<span class="tag">${tag}</span>`).join(' ')
 		  : '<span class="tag tag-empty">―</span>';
-  	  } else {
+  	  } else if (Key in labelMap) {
     	td.textContent = seeker[col.key] ?? '―';
-  	  }
+  	  } else {
+		const skills = Array.isArray(seeker.skill_list) ? seeker.skill_list : [];
+		skills.forEach(skill => {
+			 if (col.key === skill.skill_text) {
+				 td.textContent = skill.skill_val ?? '―';
+			 }
+		}
+	  }
       row.appendChild(td);
     });
     row.addEventListener('click', () => {
@@ -528,9 +539,9 @@ function showSearchResults(seekers, Key = 'yomi', order = 'asc') {
     body.appendChild(row);
   });
 }
-// 技能オプション更新
-function populateSkillOptions(seekers) {
-  const select = document.getElementById("search-skill");
+
+// 全技能読み込み
+function extractAllSkills(seekers) {
   const skillSet = new Set();
 
   seekers.forEach(seeker => {
@@ -541,10 +552,22 @@ function populateSkillOptions(seekers) {
       }
     });
   });
+
   /* ソートは後で実装
-  const sortedSkills = Array.from(skillSet).sort((a, b) => a.localeCompare(b, 'ja'));
+  Array.from(skillSet).sort((a, b) => a.localeCompare(b, 'ja'));*/
+  console.log(skillSet);
+
+  return skillSet;
+}
+// 技能オプション更新
+function populateSkillOptions(allSkills) {
+  const select = document.getElementById("search-skill");
+  const skills = allSkills;
+
+  /* ソートは後で実装
+  const sortedSkills = Array.from(skills).sort((a, b) => a.localeCompare(b, 'ja'));
   */
-  skillSet.forEach(text => {
+  skills.forEach(text => {
     const option = document.createElement("option");
     option.value = text;
     option.textContent = text;
@@ -568,6 +591,15 @@ function sortSeekers(seekers, key = 'kana', order = 'asc') {
     return order === 'asc' ? valA - valB : valB - valA;
   });
   return sorted;
+}
+// 技能フィルタ
+function filterSeekersBySkill(seekers, skillName) {
+  if (!skillName) return seekers;
+
+  return seekers.filter(seeker => {
+    const skills = Array.isArray(seeker.skill_list) ? seeker.skill_list : [];
+    return skills.some(skill => skill.skill_text === skillName);
+  });
 }
 // 誕生日書式変換
 function formatBirthday(dateStr) {
