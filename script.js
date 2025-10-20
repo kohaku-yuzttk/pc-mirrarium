@@ -101,10 +101,11 @@ document.getElementById('search-button-by-skill').addEventListener('click', () =
       '30up': 30,
       '50up': 50,
       '75up': 75,
-      '90up': 90
-    }[val];
+      '90up': 90,
+	  'non': 1
+    }[val] ?? 0;
     /*filtered = allSeekers.filter(seeker => (seeker[skill] ?? 0) >= threshold);*/
-	filtered = filterSeekersBySkill(allSeekers, skill);
+	filtered = filterSeekersBySkill(allSeekers, skill, threshold);
   }
   showSearchResults(filtered, skill);
 });
@@ -591,12 +592,11 @@ function sortSeekers(seekers, key = 'kana', order = 'asc') {
   return sorted;
 }
 // 技能フィルタ
-function filterSeekersBySkill(seekers, skillName) {
-  if (!skillName) return seekers;
-
+function filterSeekersBySkill(seekers, skillName, threshold = 0) {
   return seekers.filter(seeker => {
     const skills = Array.isArray(seeker.skill_list) ? seeker.skill_list : [];
-    return skills.some(skill => skill.skill_text === skillName);
+    const match = skills.find(skill => skill.skill_text === skillName);
+    return match && (match.skill_val ?? 0) >= threshold;
   });
 }
 // 誕生日書式変換
