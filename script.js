@@ -126,6 +126,25 @@ document.getElementById('search-button-by-tag').addEventListener('click', () => 
   }
   showSearchResults(filtered, 'tag');
 });
+// HOから探す　検索ボタンクリックイベント
+document.getElementById('search-button-by-HO').addEventListener('click', () => {
+  const hoValue = document.getElementById('search-HO').value;
+  let filtered;
+  if (hoValue === 'non') {
+    filtered = sortSeekers(allSeekers, 'yomi', 'asc');
+  } else if (hoValue === 'なし') {
+    filtered = allSeekers.filter(seeker => {
+      const currentHO = seeker.HO ?? '';
+      const scenarioHOs = Array.isArray(seeker.scenario_list)
+        ? seeker.scenario_list.map(s => s.HO ?? '').filter(ho => ho !== '')
+        : [];
+      return currentHO === '' && scenarioHOs.length === 0;
+    });
+  } else {
+    filtered = filterSeekersByHO(allSeekers, hoValue);
+  }
+  showSearchResults(filtered, 'yomi', 'asc');
+});
 // 👤 名前で探す 検索ボタンクリックイベント
 document.getElementById('search-button-by-name').addEventListener('click', () => {
   const keyword = document.getElementById('search-name').value.trim();
@@ -481,7 +500,8 @@ function showSearchResults(seekers, Key = 'yomi', order = 'asc') {
   	INT: 'INT',
   	EDU: 'EDU',
 	age: '年齢',
-	SAN_ini: '初期SAN'
+	SAN_ini: '初期SAN',
+	HO: 'HO'
   };
   if (Key in labelMap) {
   	columns.push({ key: Key, label: labelMap[Key] });
@@ -613,6 +633,20 @@ function filterSeekersBySkill(seekers, skillName, threshold = 0) {
     const aSkill = a.skill_list?.find(s => s.skill_text === skillName)?.skill_val ?? 0;
     const bSkill = b.skill_list?.find(s => s.skill_text === skillName)?.skill_val ?? 0;
     return bSkill - aSkill;
+  });
+}
+// HOフィルタ
+function filterSeekersByHO(seekers, hoValue) {
+  if (!hoValue || hoValue === 'non') return seekers;
+
+  return seekers.filter(seeker => {
+    const currentHO = seeker.HO ?? 'なし';
+    const scenarioHOs = Array.isArray(seeker.scenario_list)
+      ? seeker.scenario_list.map(s => s.HO ?? 'なし')
+      : [];
+
+    // HOが現在または過去のシナリオに含まれているか
+    return currentHO === hoValue || scenarioHOs.includes(hoValue);
   });
 }
 // 誕生日書式変換
