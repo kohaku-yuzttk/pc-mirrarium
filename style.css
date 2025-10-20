@@ -242,6 +242,17 @@ rt {
   object-position: center top;
   border-radius: 0.5em;
 }
+.scenario-entry {
+  margin-bottom: 4px;
+  line-height: 1.4;
+}
+.scenario-title {
+  font-weight: bold;
+}
+.scenario-ho {
+  color: #666;
+  font-size: 0.9em;
+}
 
 /* 詳細表示エリア */
 /* 詳細画面全体 */
