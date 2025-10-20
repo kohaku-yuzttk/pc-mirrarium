@@ -290,7 +290,7 @@ rt {
 }
 .portrait {
   width: 100%;
-  height: 400px;
+  height: 100%;
   object-fit: cover;
   object-position: center top;
   border-radius: 8px;
@@ -298,8 +298,13 @@ rt {
 }
 /* 画像＋リンクをまとめる */
 .portrait-block {
+  width: 23vw;
+  height: 400px;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
   padding-top: 1.5em;
 }
 .basic-info h1 {
