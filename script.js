@@ -135,7 +135,7 @@ document.getElementById('search-button-by-name').addEventListener('click', () =>
     filtered = sortSeekers(allSeekers, 'yomi', 'asc');
   } else {
     filtered = allSeekers.filter(seeker =>
-      seeker.name.includes(keyword) || (seeker.kana || '').includes(keyword)
+      seeker.name.includes(keyword) || (seeker.yomi || '').includes(keyword)
     );
   }
   showSearchResults(filtered, 'name');
@@ -582,11 +582,21 @@ function searchSeekers(keyword, allSeekers) {
   );
 }
 // ソート
-function sortSeekers(seekers, key = 'kana', order = 'asc') {
+function sortSeekers(seekers, key = 'yomi', order = 'asc') {
   const sorted = [...seekers];
   sorted.sort((a, b) => {
-    const valA = a[key] ?? 0;
-    const valB = b[key] ?? 0;
+    let valA, valB;
+	  
+    // 🔍 読み仮名ソート（50音順）
+    if (key === 'yomi') {
+      valA = a.yomi ?? a.name ?? '';
+      valB = b.yomi ?? b.name ?? '';
+      const result = valA.localeCompare(valB, 'ja');
+      return order === 'asc' ? result : -result;
+    }
+    // 🔢 数値ソート（年齢、STRなど）
+    valA = a[key] ?? 0;
+    valB = b[key] ?? 0;
     return order === 'asc' ? valA - valB : valB - valA;
   });
   return sorted;
