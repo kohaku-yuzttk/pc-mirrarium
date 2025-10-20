@@ -532,7 +532,7 @@ function showSearchResults(seekers, Key = 'yomi', order = 'asc') {
 }
 // 技能オプション更新
 function populateSkillOptions(skillArray) {
-  const select = document.getElementById("skill-search");
+  const select = document.getElementById("search-skill");
 
   const uniqueSkills = [...new Set(skillArray.map(s => s.skill_text))];
   uniqueSkills.forEach(text => {
