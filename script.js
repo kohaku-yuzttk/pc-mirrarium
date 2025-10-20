@@ -109,7 +109,7 @@ document.getElementById('search-button-by-skill').addEventListener('click', () =
   }
   showSearchResults(filtered, skill);
 });
-// 🏷 タグから探す 検索ボタンクリックイベント
+// 🏷️ タグから探す 検索ボタンクリックイベント
 document.getElementById('search-button-by-tag').addEventListener('click', () => {
   const tag = document.getElementById('search-tag').value;
   let filtered;
@@ -126,22 +126,15 @@ document.getElementById('search-button-by-tag').addEventListener('click', () => 
   }
   showSearchResults(filtered, 'tag');
 });
-// HOから探す　検索ボタンクリックイベント
+// 📄 HOから探す　検索ボタンクリックイベント
 document.getElementById('search-button-by-HO').addEventListener('click', () => {
-  const hoValue = document.getElementById('search-HO').value;
+  const hoKeyword = document.getElementById('search-HO').value.trim();
   let filtered;
-  if (hoValue === 'non') {
+  if (!hoKeyword) {
+    // 🔍 デフォルト表示（名前順）
     filtered = sortSeekers(allSeekers, 'yomi', 'asc');
-  } else if (hoValue === 'なし') {
-    filtered = allSeekers.filter(seeker => {
-      const currentHO = seeker.HO ?? '';
-      const scenarioHOs = Array.isArray(seeker.scenario_list)
-        ? seeker.scenario_list.map(s => s.HO ?? '').filter(ho => ho !== '')
-        : [];
-      return currentHO === '' && scenarioHOs.length === 0;
-    });
   } else {
-    filtered = filterSeekersByHO(allSeekers, hoValue);
+  	filtered = filterSeekersByHO(allSeekers, hoKeyword);
   }
   showSearchResults(filtered, 'yomi', 'asc');
 });
@@ -636,17 +629,18 @@ function filterSeekersBySkill(seekers, skillName, threshold = 0) {
   });
 }
 // HOフィルタ
-function filterSeekersByHO(seekers, hoValue) {
-  if (!hoValue || hoValue === 'non') return seekers;
+function filterSeekersByHO(seekers, keyword) {
+  if (!keyword || keyword === 'non') return seekers;
 
   return seekers.filter(seeker => {
-    const currentHO = seeker.HO ?? 'なし';
+    const currentHO = seeker.HO ?? '';
     const scenarioHOs = Array.isArray(seeker.scenario_list)
-      ? seeker.scenario_list.map(s => s.HO ?? 'なし')
+      ? seeker.scenario_list.map(s => s.HO ?? '')
       : [];
 
-    // HOが現在または過去のシナリオに含まれているか
-    return currentHO === hoValue || scenarioHOs.includes(hoValue);
+    // すべてのHOを結合して部分一致判定
+    const allHOs = [currentHO, ...scenarioHOs];
+    return allHOs.some(ho => ho.includes(keyword));
   });
 }
 // 誕生日書式変換
