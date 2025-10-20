@@ -502,7 +502,6 @@ function showSearchResults(seekers, Key = 'yomi', order = 'asc') {
 	columns.push({ key: Key, label: Key });
   } else if (Key === 'HO') {
 	columns.push({ key: 'scenario_list', label: 'シナリオ' });
-	columns.push({ key: 'HO', label: 'HO' });
   }
 
   // ✅ ヘッダー生成
