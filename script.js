@@ -360,8 +360,19 @@ function showSeekerDetail(seeker) {
   const tagList = Array.isArray(seeker.tag_list) ? seeker.tag_list : [];
   tags.innerHTML = tagList.map(tag => `<span class="tag">${tag}</span>`).join('');
 
-  // 画像とキャラシートURL
-  document.getElementById('portrait').src = seeker.image || 'images/726522_s.jpg';
+  // 立ち絵
+  const portrait = document.getElementById('portrait');
+  portrait.src = seeker.image || 'images/726522_s.jpg';
+  // 🔍 フォーカス値によるトリミング位置調整
+  if (typeof seeker.focus === 'number') {
+    // 数値なら 0〜100 に制限して反映
+    const clamped = Math.max(0, Math.min(100, seeker.focus));
+    portrait.style.objectPosition = `center ${clamped}%`;
+  } else {
+    // 指定がなければ top にフォーカス
+    portrait.style.objectPosition = 'center top';
+  }
+  // キャラシートURL
   const sheetLink = document.querySelector('#sheet-url a');
   if (seeker.ia_url || seeker.bl_url) {
     sheetLink.href = seeker.ia_url || seeker.bl_url;
