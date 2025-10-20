@@ -92,8 +92,8 @@ document.getElementById('search-button').addEventListener('click', () => {
 document.getElementById('search-button-by-skill').addEventListener('click', () => {
   const skill = document.getElementById('search-skill').value;
   const val = document.getElementById('search-val').value;
-
   let filtered;
+	
   if (skill === 'non' || val === 'non') {
     filtered = sortSeekers(allSeekers, 'yomi', 'asc');
   } else {
@@ -104,7 +104,7 @@ document.getElementById('search-button-by-skill').addEventListener('click', () =
       '90up': 90
     }[val];
     /*filtered = allSeekers.filter(seeker => (seeker[skill] ?? 0) >= threshold);*/
-	const filtered = filterSeekersBySkill(allSeekers, skill);
+	filtered = filterSeekersBySkill(allSeekers, skill);
   }
   showSearchResults(filtered, skill);
 });
@@ -484,7 +484,7 @@ function showSearchResults(seekers, Key = 'yomi', order = 'asc') {
   };
   if (Key in labelMap) {
   	columns.push({ key: Key, label: labelMap[Key] });
-  } else if (Key in allSkills) {
+  } else if (allSkills.includes(Key)) {
 	columns.push({ key: Key, label: labelMap[Key] });
   }
 
@@ -527,11 +527,8 @@ function showSearchResults(seekers, Key = 'yomi', order = 'asc') {
     	td.textContent = seeker[col.key] ?? '―';
   	  } else {
 		const skills = Array.isArray(seeker.skill_list) ? seeker.skill_list : [];
-		skills.forEach(skill => {
-			 if (col.key === skill.skill_text) {
-				 td.textContent = skill.skill_val ?? '―';
-			 }
-		});
+  		const skillMatch = skills.find(skill => col.key === skill.skill_text);
+  		td.textContent = skillMatch ? skillMatch.skill_val ?? '―' : '―';
 	  }
       row.appendChild(td);
     });
