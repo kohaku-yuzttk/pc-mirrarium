@@ -94,7 +94,7 @@ document.getElementById('search-button-by-skill').addEventListener('click', () =
   const val = document.getElementById('search-val').value;
   let filtered;
 	
-  if (skill === 'non' || val === 'non') {
+  if (skill === 'non' && val === 'non') {
     filtered = sortSeekers(allSeekers, 'yomi', 'asc');
   } else {
     const threshold = {
