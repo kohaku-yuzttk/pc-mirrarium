@@ -423,7 +423,14 @@ rt {
   gap: 0.4em;
   margin: 0.5em 0;
 }
+.c-tags {
+  display: flex;
+  flex-direction: row;
+  gap: 0.4em;
+  margin: 0.5em 0em 0.5em 0.7em;
+}
 .color-tag {
+  width: max-content;
   padding: 0.3em 0.6em;
   margin: 0 0.2em;
   border-radius: 4px;
@@ -535,7 +542,7 @@ input[type="range"]:disabled {
   background: #dfefff;
   border-color: #66aaff;
 }
-// 関係値
+/* 関係値 */
 .relationship-block {
   margin-top: 2em;
   padding: 1em;

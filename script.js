@@ -239,12 +239,12 @@ async function initCarousel() {
     card.className = 'card';
     card.dataset.id = seeker.id || seeker.name; // 詳細画面用にIDを保持
 	
-	// focusが指定されていれば使い、なければ center top を使う
-	const focus = seeker.focus || 'center top';
-	// カードタイプ：ダミーの場合ダミークラス適用
-	if (seeker.type === 'dummy') {
-		card.classList.add('dummy');
-	}
+	  // focusが指定されていれば使い、なければ center top を使う
+	  const focus = seeker.focus || 'center top';
+	  // カードタイプ：ダミーの場合ダミークラス適用
+	  if (seeker.type === 'dummy') {
+		  card.classList.add('dummy');
+	  }
     // カードの中身をHTMLで構築
     card.innerHTML = `
       <img src="${seeker.image}" alt="${seeker.name}" style="object-position:${focus};">
@@ -265,8 +265,8 @@ async function initCarousel() {
   populateSkillOptions(allSkills);
 
   setTimeout(() => {
-	updateActiveCard(); // 初期の中央判定
-	scrollToActiveCard(); // 初期中央寄せ
+	  updateActiveCard(); // 初期の中央判定
+	  scrollToActiveCard(); // 初期中央寄せ
   }, 100);
   hideLoading(); // ロード画面非表示
   // 履歴に追加
@@ -283,7 +283,7 @@ fetch('pc-data.json')
 		data.forEach(seeker => {
 			const card = document.createElement('div');
 			card.className = 'card';
-      		// focusが指定されていれば使い、なければ center top を使う
+      // focusが指定されていれば使い、なければ center top を使う
 			const focus = seeker.focus || 'center top';
 			// カードタイプ：ダミーの場合ダミークラス適用
 			if (seeker.type === 'dummy') {
@@ -429,10 +429,10 @@ function showSeekerDetail(seeker) {
   			// クリックでコードをコピー
   			span.addEventListener('click', () => {
     			navigator.clipboard.writeText(code).then(() => {
-      				span.textContent = 'コピーしました';
-      				setTimeout(() => span.textContent = code, 1500);
+      			span.textContent = 'コピーしました';
+      			setTimeout(() => span.textContent = code, 1500);
     			}).catch(err => {
-      				console.error('コピーに失敗しました:', err);
+      			console.error('コピーに失敗しました:', err);
     			});
   			});
   			colortag.appendChild(span);
