@@ -285,7 +285,6 @@ rt {
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
-  gap: 2.5em;
   padding-left: 1.5em;
 }
 .portrait {
@@ -306,6 +305,7 @@ rt {
   align-items: center;
   justify-content: flex-start;
   padding-top: 1.5em;
+  margin-right: 2.5em;
 }
 .basic-info h1 {
   font-size: 1.5em;
@@ -474,6 +474,7 @@ rt {
 .voice-block {
   display: block;
   align-items: flex-start;
+  margin: 2em 0em;
 }
 .voice-partition {
   display: flex;
@@ -548,7 +549,7 @@ input[type="range"]:disabled {
 }
 /* 関係値 */
 .relationship-block {
-  margin-top: 2em;
+  width: 50vw;
   padding: 1em;
   border-radius: 8px;
 }
