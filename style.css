@@ -550,7 +550,6 @@ input[type="range"]:disabled {
 .relationship-block {
   margin-top: 2em;
   padding: 1em;
-  background: #f9f9f9;
   border-radius: 8px;
 }
 .relationship-list {
