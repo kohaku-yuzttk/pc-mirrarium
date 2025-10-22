@@ -386,8 +386,7 @@ rt {
 .timeline {
   list-style: none;
   width: 225px;
-  padding-left: 1em;
-  padding-right: 1.5em;
+  padding: 0em 1em;
   border-left: 2px solid #ccc;
   margin: 1em 0;
 }
