@@ -695,18 +695,18 @@ function createVoiceInfo(data) {
     	data.voice_h,
     	data.voice_s,
     	data.voice_p,
-    	data.voice_d,
-    	data.voice_w
+    	data.voice_w,
+    	data.voice_e
   	];
 	const hasInput = values.some(val => val !== "" && val !== null && val !== undefined);
 	
 	if (hasInput) {
 		voiceBlock.classList.remove("hidden");
 		document.getElementById("voice-h").value = data.voice_h;
-  		document.getElementById("voice-s").value = data.voice_s;
-  		document.getElementById("voice-p").value = data.voice_p;
-  		document.getElementById("voice-d").value = data.voice_d;
-  		document.getElementById("voice-w").value = data.voice_w;
+  	document.getElementById("voice-s").value = data.voice_s;
+  	document.getElementById("voice-p").value = data.voice_p;
+  	document.getElementById("voice-w").value = data.voice_w;
+  	document.getElementById("voice-e").value = data.voice_e;
 		
 		const buttons = document.querySelectorAll(".voice-btn");
 		const player = document.getElementById("voice-player");
@@ -741,8 +741,8 @@ function createVoiceInfo(data) {
   			});
 		});
 	} else {
-    	voiceBlock.classList.add("hidden");
-  	}
+    voiceBlock.classList.add("hidden");
+  }
 }
 // リレイション情報生成
 function createlationshipBlock(data) {
