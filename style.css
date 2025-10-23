@@ -307,7 +307,6 @@ rt {
 .portrait-block {
   width: 23vw;
   height: auto;
-  overflow: hidden;
   display: flex;
   flex-direction: column;
   align-items: center;
