@@ -473,6 +473,12 @@ function showSeekerDetail(seeker) {
 	createVoiceInfo(seeker);
 	// リレイション情報
 	createlationshipBlock(seeker);
+  
+  // 画面トップへスクロール
+  window.scrollTo({
+  top: 0,
+  behavior: 'smooth'
+  });
 }
 
 // 検索結果一覧画面表示

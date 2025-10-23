@@ -472,6 +472,7 @@ rt {
 /* ボイス情報 */
 .voice-block {
   display: block;
+  width: 50vw;
   align-items: flex-start;
   margin: 2em 0em;
 }
