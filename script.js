@@ -364,12 +364,9 @@ function showSeekerDetail(seeker) {
   const portrait = document.getElementById('portrait');
   portrait.src = seeker.image || 'images/726522_s.jpg';
   // 🔍 フォーカス値によるトリミング位置調整
-  if (!seeker.focus || seeker.focus === '') {
-    portrait.style.objectPosition = seeker.focus;
-  } else {
-    // 指定がなければ top にフォーカス
-    portrait.style.objectPosition = 'center top';
-  }
+  const focus = seeker.focus?.trim();
+  portrait.style.objectPosition = focus ? focus : 'center top';
+
   // キャラシートURL
   const sheetLink = document.querySelector('#sheet-url a');
   if (seeker.ia_url || seeker.bl_url) {
