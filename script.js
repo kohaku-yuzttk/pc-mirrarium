@@ -364,10 +364,8 @@ function showSeekerDetail(seeker) {
   const portrait = document.getElementById('portrait');
   portrait.src = seeker.image || 'images/726522_s.jpg';
   // 🔍 フォーカス値によるトリミング位置調整
-  if (typeof seeker.focus === 'number') {
-    // 数値なら 0〜100 に制限して反映
-    const clamped = Math.max(0, Math.min(100, seeker.focus));
-    portrait.style.objectPosition = `center ${clamped}%`;
+  if (!seeker.focus || seeker.focus === '') {
+    portrait.style.objectPosition = seeker.focus;
   } else {
     // 指定がなければ top にフォーカス
     portrait.style.objectPosition = 'center top';
@@ -379,6 +377,14 @@ function showSeekerDetail(seeker) {
     sheetLink.style.display = 'inline';
   } else {
   	sheetLink.style.display = 'none';
+  }
+  // 使用メーカー
+  const imageMaker = document.getElementById('image_maker');
+  if (seeker.image_maker && seeker.image_maker !== '') {
+    imageMaker.innerHTML = `<span style="border-bottom: 1px dashed #999;">使用メーカー</span>
+      <br>　${seeker.image_maker}`;
+  } else {
+    imageMaker.style.display = 'none';
   }
 
   // 能力値
@@ -473,7 +479,7 @@ function showSeekerDetail(seeker) {
 	createVoiceInfo(seeker);
 	// リレイション情報
 	createlationshipBlock(seeker);
-  
+
   // 画面トップへスクロール
   window.scrollTo({
   top: 0,

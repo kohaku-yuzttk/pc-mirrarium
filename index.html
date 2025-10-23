@@ -110,17 +110,20 @@
   				<div class="portrait-block">
     				<img id="portrait" class="portrait">
     				<p id="sheet-url"><a href="#" target="_blank">キャラシートを見る</a></p>
-					<p>PL: <span id="pl"></span></p>
+						<div class="meta-info">
+							<p>PL: <span id="pl"></span></p>
+							<span id="image_maker"></span>
+						</div>
   				</div>
   				<div class="basic-info">
     				<h2>基本データ</h2>
     				<p>職業：<span id="occupation"></span></p>
     				<p>年齢：<span id="age"></span></p>
-					<p>誕生日：<span id="birthday"></span></span></p>
-					<p id="color-tags">イメージカラー<span class="c-tags" id="color-tag"></span></p>
-					<p>HP: <span id="HP"></span></p>
-					<p>MP: <span id="MP"></span></p>
-					<p>SAN: <span id="SAN_now"></span> / <span id="SAN_ini"></span></p>
+						<p>誕生日：<span id="birthday"></span></span></p>
+						<p id="color-tags">イメージカラー<span class="c-tags" id="color-tag"></span></p>
+						<p>HP: <span id="HP"></span></p>
+						<p>MP: <span id="MP"></span></p>
+						<p>SAN: <span id="SAN_now"></span> / <span id="SAN_ini"></span></p>
 					
   					<div class="status-block">
     					<h2>能力値</h2>
@@ -130,14 +133,6 @@
 				<div class="relationship-block">
   					<h3>関係性</h3>
   					<div class="relationship-list">
-    				<div class="relationship-card">
-      					<span class="relation-type">腐れ縁</span>
-      					<span class="relation-name">風 樹衣</span>
-    				</div>
-    				<div class="relationship-card">
-      					<span class="relation-type">恋人</span>
-      					<span class="relation-name">柿崎 蘭</span>
-    				</div>
   					</div>
 				</div>
 				<div class="skill-block">
@@ -147,14 +142,14 @@
 				<div class="voice-block">
 					<h3>ボイス情報</h3>
 					<div class="voice-partition">
-					<div class="voice-info">
-  					<div class="voice-slider"><label>高さ： 低</label><input type="range" min="0" max="100" value="50" id="voice-h" disabled><label>高</label></div>
-  					<div class="voice-slider"><label>速さ： 遅</label><input type="range" min="0" max="100" value="50" id="voice-s" disabled><label>速</label></div>
-  					<div class="voice-slider"><label>位置： 胸</label><input type="range" min="0" max="100" value="50" id="voice-p" disabled><label>鼻</label></div>
-  					<div class="voice-slider"><label>息　： 少</label><input type="range" min="0" max="100" value="50" id="voice-w" disabled><label>多</label></div>
-						<div class="voice-slider"><label>抑揚： 無</label><input type="range" min="0" max="100" value="50" id="voice-e" disabled><label>有</label></div>
-					</div>
-					<div class="voice-samples">
+						<div class="voice-info">
+  						<div class="voice-slider"><label>高さ： 低</label><input type="range" min="0" max="100" value="50" id="voice-h" disabled><label>高</label></div>
+  						<div class="voice-slider"><label>速さ： 遅</label><input type="range" min="0" max="100" value="50" id="voice-s" disabled><label>速</label></div>
+  						<div class="voice-slider"><label>位置： 胸</label><input type="range" min="0" max="100" value="50" id="voice-p" disabled><label>鼻</label></div>
+  						<div class="voice-slider"><label>息　： 少</label><input type="range" min="0" max="100" value="50" id="voice-w" disabled><label>多</label></div>
+							<div class="voice-slider"><label>抑揚： 無</label><input type="range" min="0" max="100" value="50" id="voice-e" disabled><label>有</label></div>
+						</div>
+						<div class="voice-samples">
     					<h3>サンプルボイス</h3>
     					<button class="voice-btn" data-src="sample1.mp3">サンプル①</button>
     					<button class="voice-btn" data-src="sample2.mp3">サンプル②</button>
@@ -162,7 +157,6 @@
   					</div>
 					</div>
 				</div>
-
 			</div>
 		
   			<div class="timeline-block">

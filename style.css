@@ -298,7 +298,7 @@ rt {
 /* 画像＋リンクをまとめる */
 .portrait-block {
   width: 23vw;
-  height: 500px;
+  height: auto;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -325,6 +325,18 @@ rt {
   font-size: 0.85em;
   color: #336;
   text-decoration: underline;
+}
+.meta-info {
+  max-height: fit-content;
+  margin: 0em 0em 0em 0.4em;
+  font-size: 1em;
+  align-self: self-start;
+  color: #333;
+}
+.meta-info p {
+  margin: 1.2em 0;
+  font-size: 1em;
+  color: #333;
 }
 /* ステータス部 */
 #status-list {
