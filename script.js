@@ -730,6 +730,7 @@ function createVoiceInfo(data) {
 
     // ボタン生成
     const buttons = [];
+    buttonContainer.innerHTML = '<p>なし</p>';
     if (Array.isArray(data.voice_list)) {
       data.voice_list.forEach(sample => {
         const btn = document.createElement("button");
@@ -739,8 +740,6 @@ function createVoiceInfo(data) {
         buttonContainer.appendChild(btn);
         buttons.push(btn);
       });
-    } else {
-      buttonContainer.innerHTML = '<p>なし</p>';
     }
     // オーディオプレイヤー設定
 		buttons.forEach(btn => {
