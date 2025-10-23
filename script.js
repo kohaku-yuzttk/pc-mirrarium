@@ -222,6 +222,14 @@ async function loadSeekerData() {
       	seeker.relation_list = [];
     	}
   	}
+    	if (typeof seeker.voice_list === 'string') {
+    	try {
+      	seeker.voice_list = JSON.parse(seeker.voice_list);
+    	} catch (e) {
+      	console.warn(`ボイスリストのパースに失敗しました（${seeker.name}）`, e);
+      	seeker.voice_list = [];
+    	}
+  	}
 	});
 
   return data;
@@ -717,9 +725,24 @@ function createVoiceInfo(data) {
   	document.getElementById("voice-w").value = data.voice_w;
   	document.getElementById("voice-e").value = data.voice_e;
 		
-		const buttons = document.querySelectorAll(".voice-btn");
-		const player = document.getElementById("voice-player");
+		const buttonContainer = document.getElementById('voice-buttons');
+		const voicePlayer = document.getElementById('voice-player');
 
+    // ボタン生成
+    const buttons = [];
+    if (Array.isArray(data.voice_list)) {
+      data.voice_list.forEach(sample => {
+        const btn = document.createElement("button");
+        btn.className = "voice-btn";
+        btn.textContent = `サンプル${sample.no}：${sample.text}`;
+        btn.setAttribute("data-src", sample.path);
+        buttonContainer.appendChild(btn);
+        buttons.push(btn);
+      });
+    } else {
+      buttonContainer.innerHTML = '<p>なし</p>';
+    }
+    // オーディオプレイヤー設定
 		buttons.forEach(btn => {
   	  		btn.addEventListener("click", () => {
     			const src = btn.getAttribute("data-src");
