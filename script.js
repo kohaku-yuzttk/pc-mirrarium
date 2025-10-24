@@ -592,6 +592,11 @@ function showSearchResults(seekers, Key = 'yomi', order = 'asc') {
     });
     body.appendChild(row);
   });
+  // 画面トップへスクロール
+  window.scrollTo({
+  top: 0,
+  behavior: 'smooth'
+  });
 }
 
 // 全技能読み込み
@@ -724,9 +729,9 @@ function createVoiceInfo(data) {
     const voicePlayer = document.getElementById('voice-player');
 
     let currentBtn = null;
-    buttonContainer.innerHTML = "　なし";
+    buttonContainer.innerHTML = "";
 
-    if (Array.isArray(data.voice_list)) {
+    if (Array.isArray(data.voice_list) && data.voice_list.length > 0) {
       data.voice_list.forEach(sample => {
         const entry = document.createElement("div");
         entry.className = "voice-entry";
@@ -793,7 +798,7 @@ function createVoiceInfo(data) {
         }
       });
     } else {
-      buttonContainer.innerHTML = "<p>なし</p>";
+      buttonContainer.innerHTML = "　なし";
     }
   } else {
     voiceBlock.classList.add("hidden");

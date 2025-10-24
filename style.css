@@ -504,7 +504,7 @@ rt {
   box-shadow: 0 0 5px rgba(0,0,0,0.1);
 }
 .voice-info {
-  padding: 1em;
+  padding: 1em 0.5em;
   max-height: 500px;
   max-width: 265px;
   overflow: hidden;
@@ -523,7 +523,7 @@ rt {
 .voice-slider {
   display: flex;
   align-items: center;
-  margin-bottom: 1.2em;
+  margin-bottom: 1.4em;
 }
 .voice-slider label {
   width: fit-content;
@@ -566,9 +566,8 @@ input[type="range"]:disabled {
 }
 .voice-line {
   display: flex;
-  align-items: center;
+  flex-direction: column;
   overflow: hidden;
-  gap: 8px;
   margin-bottom: 8px;
 }
 .voice-entry {
@@ -587,7 +586,7 @@ input[type="range"]:disabled {
   display: inline-block;
 }
 .voice-scroll.scroll {
-  animation: scrollText 5.5s linear infinite;
+  animation: scrollText 6s linear infinite;
 }
 @keyframes scrollText {
   0% { transform: translateX(0); }
