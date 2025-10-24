@@ -731,28 +731,28 @@ function createVoiceInfo(data) {
         const entry = document.createElement("div");
         entry.className = "voice-entry";
 
-        const text = document.createElement("div");
-        text.className = "voice-text";
-        text.textContent = sample.text;
-        text.title = sample.text;
-        entry.appendChild(text);
+        // 🔹 テキスト表示（スクロール対応）
+        const textWrapper = document.createElement("div");
+        textWrapper.className = "voice-text";
 
+        const scrollText = document.createElement("div");
+        scrollText.className = "voice-scroll";
+        scrollText.textContent = sample.text;
+        scrollText.title = sample.text;
+
+        textWrapper.appendChild(scrollText);
+        entry.appendChild(textWrapper);
+
+        // 🔊 再生ボタン
         const btn = document.createElement("button");
         btn.className = "voice-play";
         btn.setAttribute("data-src", sample.path);
-        btn.textContent = "🔊";
+        btn.textContent = "▶";
         entry.appendChild(btn);
 
         buttonContainer.appendChild(entry);
 
-        // スクロール判定
-        setTimeout(() => {
-          if (text.scrollWidth > text.clientWidth) {
-            text.classList.add("scroll");
-          }
-        }, 0);
-
-        // 再生制御
+        // 🎧 再生制御
         btn.addEventListener("click", () => {
           const src = btn.getAttribute("data-src");
 
@@ -760,28 +760,35 @@ function createVoiceInfo(data) {
             voicePlayer.pause();
             voicePlayer.currentTime = 0;
             btn.classList.remove("playing");
-            btn.textContent = "🔊";
+            btn.textContent = "▶";
             currentBtn = null;
             return;
           }
 
           if (currentBtn) {
             currentBtn.classList.remove("playing");
-            currentBtn.textContent = "🔊";
+            currentBtn.textContent = "▶";
           }
 
           voicePlayer.src = src;
           voicePlayer.play();
           btn.classList.add("playing");
-          btn.textContent = "⏸";
+          btn.textContent = "⏹";
           currentBtn = btn;
         });
+
+        // 📜 スクロール判定（内側要素に対して）
+        setTimeout(() => {
+          if (scrollText.scrollWidth > textWrapper.clientWidth) {
+            scrollText.classList.add("scroll");
+          }
+        }, 0);
       });
 
       voicePlayer.addEventListener("ended", () => {
         if (currentBtn) {
           currentBtn.classList.remove("playing");
-          currentBtn.textContent = "🔊";
+          currentBtn.textContent = "▶";
           currentBtn = null;
         }
       });

@@ -49,7 +49,7 @@ rt {
 }
 /* 戻るボタン */
 #detail button {
-  margin: 1em 1em 0 0;
+  margin: 1em 0;
   padding: 0.6em 1.2em;
   font-size: 0.9em;
   background: #eee;
@@ -498,7 +498,7 @@ rt {
 .voice-partition {
   display: flex;
   flex-direction: row;
-  gap: 1em;
+  justify-content: space-between;
   background: #f9f9f9;
   border-radius: 8px;
   padding: 1em;
@@ -540,6 +540,16 @@ input[type="range"]:disabled {
   cursor: default;
   width: 9em;
 }
+.voice-samples {
+  padding: 1em 0 0 1em;
+  flex: none;
+}
+.voice-samples h3 {
+  margin-top: 0;
+  margin-bottom: 0.3em;
+  font-size: 1.1em;
+  color: #333;
+}
 .voice-btn {
   display: block;
   margin-bottom: 0.5em;
@@ -557,6 +567,7 @@ input[type="range"]:disabled {
 .voice-line {
   display: flex;
   align-items: center;
+  overflow: hidden;
   gap: 8px;
   margin-bottom: 8px;
 }
@@ -564,23 +575,25 @@ input[type="range"]:disabled {
   display: flex;
   align-items: center;
   gap: 8px;
+  margin-left: 1em;
 }
 .voice-text {
-  width: 180px;
-  white-space: nowrap;
+  width: 9em;
   overflow: hidden;
-  text-overflow: ellipsis;
   position: relative;
-  cursor: pointer;
 }
-.voice-text.scroll {
-  animation: scrollText 8s linear infinite;
+.voice-scroll {
+  white-space: nowrap;
+  display: inline-block;
+}
+.voice-scroll.scroll {
+  animation: scrollText 5.5s linear infinite;
 }
 @keyframes scrollText {
   0% { transform: translateX(0); }
-  10% { transform: translateX(0); }
-  90% { transform: translateX(-100%); }
-  100% { transform: translateX(-100%); }
+  20% { transform: translateX(0); }
+  85% { transform: translateX(calc(-100% + 9em)); }
+  100% { transform: translateX(calc(-100% + 9em)); }
 }
 .voice-play {
   font-size: 1.2em;
