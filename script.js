@@ -724,7 +724,7 @@ function createVoiceInfo(data) {
     const voicePlayer = document.getElementById('voice-player');
 
     let currentBtn = null;
-    buttonContainer.innerHTML = "";
+    buttonContainer.innerHTML = "　なし";
 
     if (Array.isArray(data.voice_list)) {
       data.voice_list.forEach(sample => {
