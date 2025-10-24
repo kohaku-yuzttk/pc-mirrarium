@@ -706,72 +706,89 @@ function getTextColor(bgColor) {
 }
 // ボイス情報生成
 function createVoiceInfo(data) {
-  	const voiceBlock = document.querySelector(".voice-info");
-	if (!voiceBlock) return;
-  	const values = [
-    	data.voice_h,
-    	data.voice_s,
-    	data.voice_p,
-    	data.voice_w,
-    	data.voice_e
-  	];
-	const hasInput = values.some(val => val !== "" && val !== null && val !== undefined);
-	
-	if (hasInput) {
-		voiceBlock.classList.remove("hidden");
-		document.getElementById("voice-h").value = data.voice_h;
-  	document.getElementById("voice-s").value = data.voice_s;
-  	document.getElementById("voice-p").value = data.voice_p;
-  	document.getElementById("voice-w").value = data.voice_w;
-  	document.getElementById("voice-e").value = data.voice_e;
-		
-		const buttonContainer = document.getElementById('voice-buttons');
-		const voicePlayer = document.getElementById('voice-player');
+  const voiceBlock = document.querySelector(".voice-info");
+  if (!voiceBlock) return;
 
-    // ボタン生成
-    const buttons = [];
-    buttonContainer.innerHTML = '<p>なし</p>';
+  const values = [data.voice_h, data.voice_s, data.voice_p, data.voice_w, data.voice_e];
+  const hasInput = values.some(val => val !== "" && val !== null && val !== undefined);
+
+  if (hasInput) {
+    voiceBlock.classList.remove("hidden");
+    document.getElementById("voice-h").value = data.voice_h;
+    document.getElementById("voice-s").value = data.voice_s;
+    document.getElementById("voice-p").value = data.voice_p;
+    document.getElementById("voice-w").value = data.voice_w;
+    document.getElementById("voice-e").value = data.voice_e;
+
+    const buttonContainer = document.getElementById('voice-line');
+    const voicePlayer = document.getElementById('voice-player');
+    buttonContainer.innerHTML = "";
+
+    let currentBtn = null;
+
     if (Array.isArray(data.voice_list)) {
       data.voice_list.forEach(sample => {
+        const entry = document.createElement("div");
+        entry.className = "voice-entry";
+
+        const text = document.createElement("div");
+        text.className = "voice-text";
+        text.textContent = sample.text;
+        text.title = sample.text;
+        entry.appendChild(text);
+
         const btn = document.createElement("button");
-        btn.className = "voice-btn";
-        btn.textContent = `サンプル${sample.no}：${sample.text}`;
+        btn.className = "voice-play";
         btn.setAttribute("data-src", sample.path);
-        buttonContainer.appendChild(btn);
-        buttons.push(btn);
+        btn.textContent = "🔊";
+        entry.appendChild(btn);
+
+        buttonContainer.appendChild(entry);
+
+        // スクロール判定
+        setTimeout(() => {
+          if (text.scrollWidth > text.clientWidth) {
+            text.classList.add("scroll");
+          }
+        }, 0);
+
+        // 再生制御
+        btn.addEventListener("click", () => {
+          const src = btn.getAttribute("data-src");
+
+          if (btn === currentBtn) {
+            voicePlayer.pause();
+            voicePlayer.currentTime = 0;
+            btn.classList.remove("playing");
+            btn.textContent = "🔊";
+            currentBtn = null;
+            return;
+          }
+
+          if (currentBtn) {
+            currentBtn.classList.remove("playing");
+            currentBtn.textContent = "🔊";
+          }
+
+          voicePlayer.src = src;
+          voicePlayer.play();
+          btn.classList.add("playing");
+          btn.textContent = "⏸";
+          currentBtn = btn;
+        });
       });
+
+      voicePlayer.addEventListener("ended", () => {
+        if (currentBtn) {
+          currentBtn.classList.remove("playing");
+          currentBtn.textContent = "🔊";
+          currentBtn = null;
+        }
+      });
+    } else {
+      buttonContainer.innerHTML = "<p>なし</p>";
     }
-    // オーディオプレイヤー設定
-		buttons.forEach(btn => {
-  	  		btn.addEventListener("click", () => {
-    			const src = btn.getAttribute("data-src");
-
-    			if (btn.classList.contains("playing")) {
-      				player.pause();
-      				player.currentTime = 0;
-      				btn.classList.remove("playing");
-      				btn.textContent = btn.textContent.replace("停止", "サンプル");
-    			} else {
-      				buttons.forEach(b => {
-        				b.classList.remove("playing");
-        				b.textContent = b.textContent.replace("停止", "サンプル");
-      				});
-
-      				player.src = src;
-      				player.play();
-      				btn.classList.add("playing");
-      				btn.textContent = btn.textContent.replace("サンプル", "停止");
-    			}
-    		});
-  		});
-
-  		player.addEventListener("ended", () => {
-  			buttons.forEach(b => {
-    			b.classList.remove("playing");
-    			b.textContent = b.textContent.replace("停止", "サンプル");
-  			});
-		});
-	} else {
+  } else {
     voiceBlock.classList.add("hidden");
   }
 }

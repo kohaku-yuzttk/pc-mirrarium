@@ -506,17 +506,15 @@ rt {
 }
 .voice-info {
   padding: 1em;
+  max-height: 500px;
+  max-width: 265px;
+  overflow: hidden;
+  transition: max-height 0.5s ease;
 }
 .voice-info h3 {
   margin-bottom: 1em;
   font-size: 1.2em;
   color: #333;
-}
-.voice-info {
-  max-height: 500px;
-  max-width: 265px;
-  overflow: hidden;
-  transition: max-height 0.5s ease;
 }
 .voice-info.hidden {
   max-height: 0;
@@ -565,6 +563,44 @@ input[type="range"]:disabled {
 .voice-btn.playing {
   background: #dfefff;
   border-color: #66aaff;
+}
+.voice-line {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.voice-entry {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.voice-text {
+  width: 180px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  position: relative;
+  cursor: pointer;
+}
+.voice-text.scroll {
+  animation: scrollText 8s linear infinite;
+}
+@keyframes scrollText {
+  0% { transform: translateX(0); }
+  10% { transform: translateX(0); }
+  90% { transform: translateX(-100%); }
+  100% { transform: translateX(-100%); }
+}
+.voice-play {
+  font-size: 1.2em;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.2em 0.5em;
+}
+.voice-play.playing {
+  color: #66aaff;
 }
 /* 関係値 */
 .relationship-block {
