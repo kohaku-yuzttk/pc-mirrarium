@@ -272,7 +272,6 @@ rt {
   width: 100%;
   display: inline-flex;
   justify-content: space-between;
-  gap: 2em;
 }
 /* ヘッダー部：画像＋基本情報 */
 .name-block {
@@ -491,7 +490,7 @@ rt {
 /* ボイス情報 */
 .voice-block {
   display: block;
-  width: 50vw;
+  width: 53.5vw;
   align-items: flex-start;
   margin: 2em 0em;
 }
