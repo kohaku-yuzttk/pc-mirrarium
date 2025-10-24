@@ -722,9 +722,9 @@ function createVoiceInfo(data) {
 
     const buttonContainer = document.getElementById('voice-line');
     const voicePlayer = document.getElementById('voice-player');
-    buttonContainer.innerHTML = "";
 
     let currentBtn = null;
+    buttonContainer.innerHTML = "";
 
     if (Array.isArray(data.voice_list)) {
       data.voice_list.forEach(sample => {

@@ -540,16 +540,6 @@ input[type="range"]:disabled {
   cursor: default;
   width: 9em;
 }
-.voice-samples {
-  padding: 1em;
-  flex: none;
-}
-.voice-samples h3 {
-  margin-top: 0;
-  margin-bottom: 1em;
-  font-size: 1.1em;
-  color: #333;
-}
 .voice-btn {
   display: block;
   margin-bottom: 0.5em;
