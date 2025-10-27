@@ -457,11 +457,14 @@ function showSeekerDetail(seeker) {
 	// 技能テーブル生成
 	const skills = Array.isArray(seeker.skill_list) ? seeker.skill_list : [];
 	const skillList = document.getElementById('skill-list');
-	skillList.innerHTML = ''; // 初期化
+	skillList.innerHTML = ''; // 初期化  
 
 	if (skills.length > 0) {
   		const table = document.createElement('table');
   		table.className = 'skill-table-inner';
+
+      // ソートキー順に並べ替え
+      skills.sort((a, b) => a.sortKey - b.sortKey);
 
   		skills.forEach(skill => {
     		const row = document.createElement('tr');
@@ -479,8 +482,6 @@ function showSeekerDetail(seeker) {
   		});
   	skillList.appendChild(table);
 	}
-  // ソートキー順に並べ替え
-  skills.sort((a, b) => a.sortKey - b.sortKey);
 
 	// ボイス情報
 	createVoiceInfo(seeker);
