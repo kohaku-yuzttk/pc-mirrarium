@@ -479,6 +479,8 @@ function showSeekerDetail(seeker) {
   		});
   	skillList.appendChild(table);
 	}
+  // ソートキー順に並べ替え
+  skills.sort((a, b) => a.sortKey - b.sortKey);
 
 	// ボイス情報
 	createVoiceInfo(seeker);
@@ -601,34 +603,33 @@ function showSearchResults(seekers, Key = 'yomi', order = 'asc') {
 
 // 全技能読み込み
 function extractAllSkills(seekers) {
-  const skillSet = new Set();
+  const skillMap = new Map();
 
   seekers.forEach(seeker => {
     const skills = Array.isArray(seeker.skill_list) ? seeker.skill_list : [];
     skills.forEach(skill => {
-      if (skill.skill_text) {
-        skillSet.add(skill.skill_text);
-      }
+      const text = skill.skill_text?.trim();
+      if (!text || skillMap.has(text)) return;
+
+      skillMap.set(text, {
+        skill_text: text,
+        group: skill.group || "未分類",
+        sortKey: typeof skill.sortKey === "number" ? skill.sortKey : parseInt(skill.sortKey, 10) || 9999
+      });
     });
   });
 
-  /* ソートは後で実装
-  Array.from(skillSet).sort((a, b) => a.localeCompare(b, 'ja'));*/
-
-  return Array.from(skillSet);
+  return Array.from(skillMap.values()).sort((a, b) => a.sortKey - b.sortKey);
 }
 // 技能オプション更新
 function populateSkillOptions(allSkills) {
   const select = document.getElementById("search-skill");
   const skills = allSkills;
 
-  /* ソートは後で実装
-  const sortedSkills = Array.from(skills).sort((a, b) => a.localeCompare(b, 'ja'));
-  */
   skills.forEach(text => {
     const option = document.createElement("option");
-    option.value = text;
-    option.textContent = text;
+    option.value = text.skill_text;
+    option.textContent = text.skill_text;
     select.appendChild(option);
   });
 }
