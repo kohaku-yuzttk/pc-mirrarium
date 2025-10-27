@@ -529,7 +529,7 @@ function showSearchResults(seekers, Key = 'yomi', order = 'asc') {
   };
   if (Key in labelMap) {
   	columns.push({ key: Key, label: labelMap[Key] });
-  } else if (Array.isArray(allSkills) && allSkills.includes(Key))  {
+  } else if (Array.isArray(allSkills.skill_text) && allSkills.skill_text.includes(Key))  {
 	columns.push({ key: Key, label: Key });
   } else if (Key === 'HO') {
 	columns.push({ key: 'scenario_list', label: 'シナリオ' });
@@ -584,9 +584,9 @@ function showSearchResults(seekers, Key = 'yomi', order = 'asc') {
      	}).join('')
     	: '<span class="scenario-empty">―</span>';
 	  } else {
-		const skills = Array.isArray(seeker.skill_list) ? seeker.skill_list : [];
-  		const skillMatch = skills.find(skill => col.key === skill.skill_text);
-  		td.textContent = skillMatch ? skillMatch.skill_val ?? '―' : '―';
+		  const skills = Array.isArray(seeker.skill_list) ? seeker.skill_list : [];
+      const skillMatch = skills.find(skill => col.key === skill.skill_text);
+      td.textContent = skillMatch?.skill_val ?? '―';
 	  }
       row.appendChild(td);
     });
