@@ -529,8 +529,8 @@ function showSearchResults(seekers, Key = 'yomi', order = 'asc') {
   };
   if (Key in labelMap) {
   	columns.push({ key: Key, label: labelMap[Key] });
-  } else if (Array.isArray(allSkills.skill_text) && allSkills.skill_text.includes(Key))  {
-	columns.push({ key: Key, label: Key });
+  } else if (Array.isArray(allSkills) && allSkills.some(skill => skill.skill_text === Key)) {
+  columns.push({ key: Key, label: Key });
   } else if (Key === 'HO') {
 	columns.push({ key: 'scenario_list', label: 'シナリオ' });
   }
@@ -565,29 +565,29 @@ function showSearchResults(seekers, Key = 'yomi', order = 'asc') {
   	  } else if (col.key === 'MP') {
         td.textContent = seeker.MP ?? '―';
   	  } else if (col.key === 'tag_list') {
-    	const tags = Array.isArray(seeker.tag_list) ? seeker.tag_list : [];
-		tags.sort();
-    	td.innerHTML = tags.length > 0
-		  ? tags.map(tag => `<span class="tag">${tag}</span>`).join(' ')
-		  : '<span class="tag tag-empty">―</span>';
+    	  const tags = Array.isArray(seeker.tag_list) ? seeker.tag_list : [];
+		    tags.sort();
+    	  td.innerHTML = tags.length > 0
+		    ? tags.map(tag => `<span class="tag">${tag}</span>`).join(' ')
+		    : '<span class="tag tag-empty">―</span>';
   	  } else if (Key in labelMap) {
-    	td.textContent = seeker[col.key] ?? '―';
+    	  td.textContent = seeker[col.key] ?? '―';
   	  } else if (col.key === 'HO') {
-  		td.textContent = seeker.HO ?? '―';
-	  } else if (col.key === 'scenario_list') {
-  		const scenarios = Array.isArray(seeker.scenario_list) ? seeker.scenario_list : [];
-  		td.innerHTML = scenarios.length > 0
-    	? scenarios.map(s => {
+  		  td.textContent = seeker.HO ?? '―';
+	    } else if (col.key === 'scenario_list') {
+  		  const scenarios = Array.isArray(seeker.scenario_list) ? seeker.scenario_list : [];
+  		  td.innerHTML = scenarios.length > 0
+    	  ? scenarios.map(s => {
         	const title = s.title ?? '（タイトル不明）';
         	const ho = s.HO ?? '―';
         	return `<div class="scenario-entry"><span class="scenario-title">${title}</span> <span class="scenario-ho">[${ho}]</span></div>`;
-     	}).join('')
-    	: '<span class="scenario-empty">―</span>';
-	  } else {
-		  const skills = Array.isArray(seeker.skill_list) ? seeker.skill_list : [];
-      const skillMatch = skills.find(skill => col.key === skill.skill_text);
-      td.textContent = skillMatch?.skill_val ?? '―';
-	  }
+     	  }).join('')
+    	  : '<span class="scenario-empty">―</span>';
+	    } else {
+		    const skills = Array.isArray(seeker.skill_list) ? seeker.skill_list : [];
+        const skillMatch = skills.find(skill => skill.skill_text === col.key);
+        td.textContent = skillMatch?.skill_val ?? '―';
+	    }
       row.appendChild(td);
     });
     row.addEventListener('click', () => {
