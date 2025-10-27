@@ -620,6 +620,8 @@ function extractAllSkills(seekers) {
     });
   });
 
+  console.log(skillMap);
+
   return Array.from(skillMap.values()).sort((a, b) => a.sortKey - b.sortKey);
 }
 // 技能オプション更新
