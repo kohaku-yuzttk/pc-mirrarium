@@ -271,6 +271,7 @@ async function initCarousel() {
   allSeekers = seekers;
   allSkills = extractAllSkills(seekers);
   populateSkillOptions(allSkills);
+  console.log(allSkills);
 
   setTimeout(() => {
 	  updateActiveCard(); // 初期の中央判定
@@ -619,9 +620,6 @@ function extractAllSkills(seekers) {
       });
     });
   });
-
-  console.log(skillMap);
-
   return Array.from(skillMap.values()).sort((a, b) => a.sortKey - b.sortKey);
 }
 // 技能オプション更新
