@@ -1,5 +1,6 @@
 // グローバル要素定義
 let allSeekers = [];
+let skillMaster = [];
 let allSkills = [];
 let scrollTimeout;
 let isDown = false;
@@ -190,7 +191,7 @@ function hideLoading() {
 }
 // スプレッドシートから探索者情報読み込み
 async function loadSeekerData() {
-  const response = await fetch("https://script.google.com/macros/s/AKfycbyA5hyeyEuZQonR4ZyRjmk1lQIKB9RRFPuObIy0dxksPQPKTU72QrINVnOlhhgzWIQB/exec");
+  const response = await fetch("https://script.google.com/macros/s/AKfycbyA5hyeyEuZQonR4ZyRjmk1lQIKB9RRFPuObIy0dxksPQPKTU72QrINVnOlhhgzWIQB/exec?mode=data");
   const data = await response.json();
   allSeekers = data;
   console.log(data); // データ確認用
@@ -250,10 +251,20 @@ async function loadSeekerData() {
 
   return data;
 }
+// 全技能情報読み込み
+async function loadSkillMasterData() {
+  const response = await fetch("https://script.google.com/macros/s/AKfycbwV6fi1CRCsqkFFgN-fC847s-obhFdBof2fuBUe334l7krZPHT-5wd57MuFwVwnCAVd/exec?mode=skill_master");
+  const data = await response.json();
+  skillMaster = data;
+  console.log(skillMaster); // データ確認用
+
+  return data;
+}
 // カルーセル初期化
 async function initCarousel() {
   loadSeekerData_local(); // ローカルデータ表示
   showLoading(); // ロード画面表示
+  loadSkillMasterData();  // 技能マスタ読み込み
   const seekers = await loadSeekerData();
   const carousel = document.getElementById('carousel');
   carousel.innerHTML = ''; // 既存のカードをクリア
