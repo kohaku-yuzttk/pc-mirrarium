@@ -105,7 +105,6 @@ document.getElementById('search-button-by-skill').addEventListener('click', () =
       '90up': 90,
 	  'non': 1
     }[val];
-    /*filtered = allSeekers.filter(seeker => (seeker[skill] ?? 0) >= threshold);*/
 	filtered = filterSeekersBySkill(allSeekers, skill, threshold);
   }
   showSearchResults(filtered, skill);
@@ -175,6 +174,11 @@ function showScreen(id) {
   document.getElementById(id).style.display = 'block';
 	// 履歴に追加
   history.pushState({ screen: id }, '', `#${id}`);
+  // 画面トップへスクロール
+  window.scrollTo({
+  top: 0,
+  behavior: 'smooth'
+  });
 }
 
 // ロード画面
@@ -408,6 +412,7 @@ function showSeekerDetail(seeker) {
   // 能力値
   document.getElementById('HP').textContent = seeker.HP || '―';
   document.getElementById('MP').textContent = seeker.MP || '―';
+  document.getElementById('DB').textContent = seeker.DB || '―';
   document.getElementById('SAN_now').textContent = seeker.SAN_now || '―';
   document.getElementById('SAN_ini').textContent = seeker.SAN_ini || '―';  
   const statusList = document.getElementById('status-list');
@@ -500,12 +505,6 @@ function showSeekerDetail(seeker) {
 	createVoiceInfo(seeker);
 	// リレイション情報
 	createlationshipBlock(seeker);
-
-  // 画面トップへスクロール
-  window.scrollTo({
-  top: 0,
-  behavior: 'smooth'
-  });
 }
 
 // 検索結果一覧画面表示
@@ -537,8 +536,9 @@ function showSearchResults(seekers, Key = 'yomi', order = 'asc') {
   	SIZ: 'SIZ',
   	INT: 'INT',
   	EDU: 'EDU',
-	age: '年齢',
-	SAN_ini: '初期SAN',
+    DB: 'DB',
+	  age: '年齢',
+	  SAN_ini: '初期SAN',
   };
   if (Key in labelMap) {
   	columns.push({ key: Key, label: labelMap[Key] });
@@ -580,6 +580,8 @@ function showSearchResults(seekers, Key = 'yomi', order = 'asc') {
         td.textContent = seeker.HP ?? '―';
   	  } else if (col.key === 'MP') {
         td.textContent = seeker.MP ?? '―';
+  	  } else if (col.key === 'DB') {
+        td.textContent = seeker.DB ?? '―';
   	  } else if (col.key === 'tag_list') {
     	  const tags = Array.isArray(seeker.tag_list) ? seeker.tag_list : [];
 		    tags.sort();
@@ -610,11 +612,6 @@ function showSearchResults(seekers, Key = 'yomi', order = 'asc') {
       showSeekerDetail(seeker);
     });
     body.appendChild(row);
-  });
-  // 画面トップへスクロール
-  window.scrollTo({
-  top: 0,
-  behavior: 'smooth'
   });
 }
 
@@ -657,6 +654,17 @@ function searchSeekers(keyword, allSeekers) {
     (seeker.tag_list || []).some(tag => tag.toLowerCase().includes(lower))
   );
 }
+// DB期待値計算
+function parseDB(dbString) {
+  if (dbString === "±0") return 0;
+  const match = dbString.match(/([+-])(\d+)D(\d+)/);
+  if (!match) return 0;
+  const sign = match[1] === "+" ? 1 : -1;
+  const diceCount = parseInt(match[2], 10);
+  const diceType = parseInt(match[3], 10);
+  const expected = diceCount * (diceType + 1) / 2;
+  return sign * expected;
+}
 // ソート
 function sortSeekers(seekers, key = 'yomi', order = 'asc') {
   const sorted = [...seekers];
@@ -669,6 +677,12 @@ function sortSeekers(seekers, key = 'yomi', order = 'asc') {
       valB = b.yomi ?? b.name ?? '';
       const result = valA.localeCompare(valB, 'ja');
       return order === 'asc' ? result : -result;
+    }
+    // 🎲 DBソート（期待値ベース）
+    if (key === 'DB') {
+      valA = parseDB(a.DB);
+      valB = parseDB(b.DB);
+      return order === 'asc' ? valA - valB : valB - valA;
     }
     // 🔢 数値ソート（年齢、STRなど）
     valA = a[key] ?? 0;
