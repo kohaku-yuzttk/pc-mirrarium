@@ -94,21 +94,28 @@ document.getElementById('search-button').addEventListener('click', () => {
 document.getElementById('search-button-by-skill').addEventListener('click', () => {
   const skill = document.getElementById('search-skill').value;
   const val = document.getElementById('search-val').value;
-  let filtered;
-	
-  if (skill === 'non' && val === 'non') {
-    filtered = sortSeekers(allSeekers, 'yomi', 'asc');
+  let skillKey, isSortKey;
+
+  if (skill.startsWith("key:")) {
+    skillKey = parseInt(skill.slice(4), 10);
+    isSortKey = true;
+  } else if (skill.startsWith("text:")) {
+    skillKey = skill.slice(5);
+    isSortKey = false;
   } else {
-    const threshold = {
-      '30up': 30,
-      '50up': 50,
-      '75up': 75,
-      '90up': 90,
-	  'non': 1
-    }[val];
-	filtered = filterSeekersBySkill(allSeekers, skill, threshold);
+    skillKey = skill;
+    isSortKey = isNaN(skillKey) ? false : true;
   }
-  showSearchResults(filtered, skill);
+  const threshold = {
+    '30up': 30,
+    '50up': 50,
+    '75up': 75,
+    '90up': 90,
+    'non': 1
+  }[val];
+
+  const filtered = filterSeekersBySkill(allSeekers, skillKey, threshold, isSortKey);
+  showSearchResults(filtered, skillKey);
 });
 // 🏷️ タグから探す 検索ボタンクリックイベント
 document.getElementById('search-button-by-tag').addEventListener('click', () => {
@@ -557,11 +564,15 @@ function showSearchResults(seekers, Key = 'yomi', order = 'asc') {
 	  columns.push({ key: 'scenario_list', label: '参加シナリオ' });
   } else if (Key === 'scenario') {
 	  columns.push({ key: 'scenario_list', label: '参加シナリオ' });
-  } else if (Array.isArray(allSkills) && allSkills.some(skill => skill.sortKey === Key)) {
-    columns.push({ key: Key, label: skill.skill_text });
-  } else if (Array.isArray(allSkills) && allSkills.some(skill => skill.skill_text === Key)) {
-    columns.push({ key: Key, label: Key });
+  } else if (Array.isArray(allSkills)) {
+    const matched = allSkills.find(skill =>
+      skill.sortKey === Key || skill.skill_text === Key
+    );
+    if (matched) {
+      columns.push({ key: matched.sortKey, label: matched.skill_text });
+    }
   }
+
   
 
   // ✅ ヘッダー生成
@@ -679,9 +690,9 @@ function populateSkillOptions(allSkills) {
   skills.forEach(text => {
     const option = document.createElement("option");
     if (text.sortKey === 9999) {
-      option.value = text.skill_text;
+      option.value = `text:${text.skill_text}`;
     } else {
-      option.value = text.sortKey;
+      option.value = `key:${text.sortKey}`;
     }
     option.textContent = text.skill_text;
     select.appendChild(option);
@@ -733,34 +744,32 @@ function sortSeekers(seekers, key = 'yomi', order = 'asc') {
   return sorted;
 }
 // 技能フィルタ
-function filterSeekersBySkill(seekers, skillName, threshold = 0) {
-  if (!isNaN(skillName)){
-    // ソートキーでフィルター
-    const filtered = seekers.filter(seeker => {
-      const skills = Array.isArray(seeker.skill_list) ? seeker.skill_list : [];
-      const match = skills.find(skill => skill.sortKey === skillName);
-      return match && (match.skill_val ?? 0) >= threshold;
+function filterSeekersBySkill(seekers, skillKey, threshold = 0, isSortKey = true) {
+  const filtered = seekers.filter(seeker => {
+    const skills = Array.isArray(seeker.skill_list) ? seeker.skill_list : [];
+    return skills.some(skill => {
+      const matchKey = isSortKey
+        ? parseInt(skill.sortKey, 10)
+        : skill.skill_text;
+      return matchKey === skillKey && (skill.skill_val ?? 0) >= threshold;
     });
-    // 降順ソート
-    return filtered.sort((a, b) => {
-      const aSkill = a.skill_list?.find(s => s.skill_text === skillName)?.skill_val ?? 0;
-      const bSkill = b.skill_list?.find(s => s.skill_text === skillName)?.skill_val ?? 0;
-      return bSkill - aSkill;
-    });
-  } else {
-    // 未分類の場合テキストでフィルター
-    const filtered = seekers.filter(seeker => {
-      const skills = Array.isArray(seeker.skill_list) ? seeker.skill_list : [];
-      const match = skills.find(skill => skill.skill_text === skillName);
-      return match && (match.skill_val ?? 0) >= threshold;
-    });
-    // 降順ソート
-    return filtered.sort((a, b) => {
-      const aSkill = a.skill_list?.find(s => s.skill_text === skillName)?.skill_val ?? 0;
-      const bSkill = b.skill_list?.find(s => s.skill_text === skillName)?.skill_val ?? 0;
-      return bSkill - aSkill;
-    });
-  }
+  });
+  return filtered.sort((a, b) => {
+    const aSkill = a.skill_list?.find(skill => {
+      const matchKey = isSortKey
+        ? parseInt(skill.sortKey, 10)
+        : skill.skill_text;
+      return matchKey === skillKey;
+    })?.skill_val ?? 0;
+    const bSkill = b.skill_list?.find(skill => {
+      const matchKey = isSortKey
+        ? parseInt(skill.sortKey, 10)
+        : skill.skill_text;
+      return matchKey === skillKey;
+    })?.skill_val ?? 0;
+
+    return bSkill - aSkill;
+  });
 }
 // シナリオフィルタ
 function filterSeekersByscenario(seekers, keyword) {
