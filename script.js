@@ -127,7 +127,7 @@ document.getElementById('search-button-by-tag').addEventListener('click', () => 
   }
   showSearchResults(filtered, 'tag');
 });
-// 📄 HOから探す　検索ボタンクリックイベント
+// 📄 参加シナリオから探す　検索ボタンクリックイベント
 document.getElementById('search-button-by-HO').addEventListener('click', () => {
   const hoKeyword = document.getElementById('search-HO').value.trim();
   let filtered;
@@ -138,6 +138,18 @@ document.getElementById('search-button-by-HO').addEventListener('click', () => {
   	filtered = filterSeekersByHO(allSeekers, hoKeyword);
   }
   showSearchResults(filtered, 'HO', 'asc');
+});
+// 📄 HOから探す　検索ボタンクリックイベント
+document.getElementById('search-button-by-scenario').addEventListener('click', () => {
+  const scenarioKeyword = document.getElementById('search-scenario').value.trim();
+  let filtered;
+  if (!scenarioKeyword) {
+    // 🔍 デフォルト表示（名前順）
+    filtered = sortSeekers(allSeekers, 'yomi', 'asc');
+  } else {
+  	filtered = filterSeekersByscenario(allSeekers, scenarioKeyword);
+  }
+  showSearchResults(filtered, 'scenario', 'asc');
 });
 // 👤 名前で探す 検索ボタンクリックイベント
 document.getElementById('search-button-by-name').addEventListener('click', () => {
@@ -533,8 +545,11 @@ function showSearchResults(seekers, Key = 'yomi', order = 'asc') {
   } else if (Array.isArray(allSkills) && allSkills.some(skill => skill.skill_text === Key)) {
   columns.push({ key: Key, label: Key });
   } else if (Key === 'HO') {
-	columns.push({ key: 'scenario_list', label: 'シナリオ' });
+	columns.push({ key: 'scenario_list', label: '参加シナリオ' });
+  } else if (Key === 'scenario') {
+	columns.push({ key: 'scenario_list', label: '参加シナリオ' });
   }
+  
 
   // ✅ ヘッダー生成
   const headerRow = document.createElement('tr');
@@ -674,6 +689,21 @@ function filterSeekersBySkill(seekers, skillName, threshold = 0) {
     const aSkill = a.skill_list?.find(s => s.skill_text === skillName)?.skill_val ?? 0;
     const bSkill = b.skill_list?.find(s => s.skill_text === skillName)?.skill_val ?? 0;
     return bSkill - aSkill;
+  });
+}
+// シナリオフィルタ
+function filterSeekersByscenario(seekers, keyword) {
+  if (!keyword || keyword === 'non') return seekers;
+
+  return seekers.filter(seeker => {
+    const currentscenario = seeker.scenario ?? '';
+    const scenarios = Array.isArray(seeker.scenario_list)
+      ? seeker.scenario_list.map(s => s.scenario ?? '')
+      : [];
+
+    // すべてのHOを結合して部分一致判定
+    const allscenarios = [currentscenario, ...scenarios];
+    return allscenarios.some(scenario => scenario.includes(keyword));
   });
 }
 // HOフィルタ
