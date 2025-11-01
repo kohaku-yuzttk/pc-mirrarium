@@ -399,7 +399,7 @@ function showSeekerDetail(seeker) {
   // 立ち絵
   const portrait = document.getElementById('portrait');
   portrait.src = seeker.image || 'images/726522_s.jpg';
-  // 🔍 フォーカス値によるトリミング位置調整
+  // フォーカス値によるトリミング位置調整
   const focus = seeker.focus?.trim();
   portrait.style.objectPosition = focus ? focus : 'center top';
 
@@ -553,12 +553,14 @@ function showSearchResults(seekers, Key = 'yomi', order = 'asc') {
   };
   if (Key in labelMap) {
   	columns.push({ key: Key, label: labelMap[Key] });
-  } else if (Array.isArray(allSkills) && allSkills.some(skill => skill.skill_text === Key)) {
-  columns.push({ key: Key, label: Key });
   } else if (Key === 'HO') {
-	columns.push({ key: 'scenario_list', label: '参加シナリオ' });
+	  columns.push({ key: 'scenario_list', label: '参加シナリオ' });
   } else if (Key === 'scenario') {
-	columns.push({ key: 'scenario_list', label: '参加シナリオ' });
+	  columns.push({ key: 'scenario_list', label: '参加シナリオ' });
+  } else if (Array.isArray(allSkills) && allSkills.some(skill => skill.sortKey === Key)) {
+    columns.push({ key: Key, label: skill.skill_text });
+  } else if (Array.isArray(allSkills) && allSkills.some(skill => skill.skill_text === Key)) {
+    columns.push({ key: Key, label: Key });
   }
   
 
@@ -612,6 +614,10 @@ function showSearchResults(seekers, Key = 'yomi', order = 'asc') {
         	return `<div class="scenario-entry"><span class="scenario-title">${title}</span> <span class="scenario-ho">[${ho}]</span></div>`;
      	  }).join('')
     	  : '<span class="scenario-empty">―</span>';
+	    } else if (!isNaN(col.key)) {
+		    const skills = Array.isArray(seeker.skill_list) ? seeker.skill_list : [];
+        const skillMatch = skills.find(skill => skill.sortKey === col.key);
+        td.textContent = skillMatch?.skill_val ?? '―';
 	    } else {
 		    const skills = Array.isArray(seeker.skill_list) ? seeker.skill_list : [];
         const skillMatch = skills.find(skill => skill.skill_text === col.key);
@@ -628,22 +634,42 @@ function showSearchResults(seekers, Key = 'yomi', order = 'asc') {
 
 // 全技能読み込み
 function extractAllSkills(seekers) {
-  const skillMap = new Map();
-
+  // skillMasterをsort用Map化
+  const sortKeyMap = new Map();
+  skillMaster.forEach(skill => {
+    const key = parseInt(skill.sortKey, 10);
+    if (!sortKeyMap.has(key)) {
+      sortKeyMap.set(key, {
+        skill_text: skill.skill,
+        group: skill.group,
+        sortKey: key
+      });
+    }
+  });
+  // 探索者の技能をallskilsに格納
+  const matchedSkills = [];
   seekers.forEach(seeker => {
     const skills = Array.isArray(seeker.skill_list) ? seeker.skill_list : [];
     skills.forEach(skill => {
-      const text = skill.skill_text?.trim();
-      if (!text || skillMap.has(text)) return;
+      const key = typeof skill.sortKey === "number" ? skill.sortKey : parseInt(skill.sortKey, 10);
+      const master = sortKeyMap.get(key);
 
-      skillMap.set(text, {
-        skill_text: text,
-        group: skill.group || "未分類",
-        sortKey: typeof skill.sortKey === "number" ? skill.sortKey : parseInt(skill.sortKey, 10) || 9999
-      });
+      if (master && key !== 9999) {
+        // 表記ゆれを吸収し、masterのテキストで統一
+        if (!matchedSkills.some(s => s.sortKey === key)) {
+          matchedSkills.push(master);
+        }
+      } else {
+        // 未分類はそのまま追加（重複許容）
+        matchedSkills.push({
+          skill_text: skill.skill_text?.trim(),
+          group: skill.group || "未分類",
+          sortKey: 9999
+        });
+      }
     });
   });
-  return Array.from(skillMap.values()).sort((a, b) => a.sortKey - b.sortKey);
+  return matchedSkills.sort((a, b) => a.sortKey - b.sortKey);
 }
 // 技能オプション更新
 function populateSkillOptions(allSkills) {
@@ -652,7 +678,11 @@ function populateSkillOptions(allSkills) {
 
   skills.forEach(text => {
     const option = document.createElement("option");
-    option.value = text.skill_text;
+    if (text.sortKey === 9999) {
+      option.value = text.skill_text;
+    } else {
+      option.value = text.sortKey;
+    }
     option.textContent = text.skill_text;
     select.appendChild(option);
   });
@@ -704,17 +734,33 @@ function sortSeekers(seekers, key = 'yomi', order = 'asc') {
 }
 // 技能フィルタ
 function filterSeekersBySkill(seekers, skillName, threshold = 0) {
-  const filtered = seekers.filter(seeker => {
-    const skills = Array.isArray(seeker.skill_list) ? seeker.skill_list : [];
-    const match = skills.find(skill => skill.skill_text === skillName);
-    return match && (match.skill_val ?? 0) >= threshold;
-  });
-  // 降順ソート
-  return filtered.sort((a, b) => {
-    const aSkill = a.skill_list?.find(s => s.skill_text === skillName)?.skill_val ?? 0;
-    const bSkill = b.skill_list?.find(s => s.skill_text === skillName)?.skill_val ?? 0;
-    return bSkill - aSkill;
-  });
+  if (!isNaN(skillName)){
+    // ソートキーでフィルター
+    const filtered = seekers.filter(seeker => {
+      const skills = Array.isArray(seeker.skill_list) ? seeker.skill_list : [];
+      const match = skills.find(skill => skill.sortKey === skillName);
+      return match && (match.skill_val ?? 0) >= threshold;
+    });
+    // 降順ソート
+    return filtered.sort((a, b) => {
+      const aSkill = a.skill_list?.find(s => s.skill_text === skillName)?.skill_val ?? 0;
+      const bSkill = b.skill_list?.find(s => s.skill_text === skillName)?.skill_val ?? 0;
+      return bSkill - aSkill;
+    });
+  } else {
+    // 未分類の場合テキストでフィルター
+    const filtered = seekers.filter(seeker => {
+      const skills = Array.isArray(seeker.skill_list) ? seeker.skill_list : [];
+      const match = skills.find(skill => skill.skill_text === skillName);
+      return match && (match.skill_val ?? 0) >= threshold;
+    });
+    // 降順ソート
+    return filtered.sort((a, b) => {
+      const aSkill = a.skill_list?.find(s => s.skill_text === skillName)?.skill_val ?? 0;
+      const bSkill = b.skill_list?.find(s => s.skill_text === skillName)?.skill_val ?? 0;
+      return bSkill - aSkill;
+    });
+  }
 }
 // シナリオフィルタ
 function filterSeekersByscenario(seekers, keyword) {
