@@ -87,11 +87,9 @@ rt {
   color: #666;
   z-index: 9999;
 }
-
 .loading-text {
   animation: fadeInOut 2s infinite;
 }
-
 @keyframes fadeInOut {
   0%, 100% { opacity: 0.3; }
   50% { opacity: 1; }
@@ -311,6 +309,14 @@ rt {
   object-position: center top;
   transform: scale(1.3);
   transform-origin: center top;
+}
+.portrait-contain {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  transform: none;
+  padding: 55px 0;
 }
 /* 画像＋リンクをまとめる */
 .portrait-block {

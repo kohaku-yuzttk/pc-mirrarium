@@ -409,6 +409,7 @@ function showSeekerDetail(seeker) {
   // フォーカス値によるトリミング位置調整
   const focus = seeker.focus?.trim();
   portrait.style.objectPosition = focus ? focus : 'center top';
+  adjustPortraitClass(portrait,700);
 
   // キャラシートURL
   const sheetLink = document.querySelector('#sheet-url a');
@@ -572,8 +573,6 @@ function showSearchResults(seekers, Key = 'yomi', order = 'asc') {
       columns.push({ key: matched.sortKey, label: matched.skill_text });
     }
   }
-
-  
 
   // ✅ ヘッダー生成
   const headerRow = document.createElement('tr');
@@ -800,6 +799,18 @@ function filterSeekersByHO(seekers, keyword) {
     const allHOs = [currentHO, ...scenarioHOs];
     return allHOs.some(ho => ho.includes(keyword));
   });
+}
+// 立ち絵クラス調整
+function adjustPortraitClass(imgElement, minSize = 300) {
+  const img = new Image();
+  img.src = imgElement.src;
+
+  img.onload = () => {
+    const isLarge = img.width >= minSize && img.height >= minSize;
+
+    imgElement.classList.remove('portrait', 'portrait-contain');
+    imgElement.classList.add(isLarge ? 'portrait' : 'portrait-contain');
+  };
 }
 // 誕生日書式変換
 function formatBirthday(dateStr) {
