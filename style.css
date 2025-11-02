@@ -662,3 +662,38 @@ input[type="range"]:disabled {
   color: #666;
   font-size: 0.95em;
 }
+
+/* ツールページ */
+/* コードブロック */
+.code-block {
+  position: relative;
+  background: #f9f9f9;
+  border: 1px solid #ccc;
+  padding: 1em;
+  border-radius: 8px;
+  overflow-x: auto;
+  max-height: 500px;
+}
+
+.code-block pre {
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-family: monospace;
+  font-size: 0.9em;
+}
+
+.copy-button {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: #eee;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.8em;
+}
+.copy-button:hover {
+  background: #ddd;
+}
