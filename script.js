@@ -269,9 +269,9 @@ async function loadSkillMasterData() {
 }
 // カルーセル初期化
 async function initCarousel() {
+  loadSkillMasterData();  // 技能マスタ読み込み
   loadSeekerData_local(); // ローカルデータ表示
   showLoading(); // ロード画面表示
-  loadSkillMasterData();  // 技能マスタ読み込み
   const seekers = await loadSeekerData();
   const carousel = document.getElementById('carousel');
   carousel.innerHTML = ''; // 既存のカードをクリア
@@ -407,7 +407,7 @@ function showSeekerDetail(seeker) {
   portrait.src = seeker.image || 'images/726522_s.jpg';
   const focus = seeker.focus?.trim();
   portrait.style.objectPosition = focus ? focus : 'center top';
-  adjustPortraitClass(portrait,700);
+  adjustPortraitClass(portrait,630);
 
   // キャラシートURL
   const sheetLink = document.querySelector('#sheet-url a');
@@ -427,15 +427,24 @@ function showSeekerDetail(seeker) {
   }
 
   // 能力値
-  if (seeker.st_hidden && seeker.st_hidden !== '') {
-    document.getElementById('status-block').style.display = 'none';
+  if (seeker.st_hidden !== '') {
     document.getElementById('HP').textContent = '？';
     document.getElementById('MP').textContent = '？';
     document.getElementById('DB').textContent = '？';
     document.getElementById('SAN_now').textContent = '？';
     document.getElementById('SAN_ini').textContent = '？'; 
+    const statusList = document.getElementById('status-list');
+    statusList.innerHTML = `
+      <li class="str">STR: ${'？'}</li>
+      <li class="app">APP: ${'？'}</li>
+      <li class="con">CON: ${'？'}</li>
+      <li class="siz">SIZ: ${'？'}</li>
+      <li class="pow">POW: ${'？'}</li>
+      <li class="int">INT: ${'？'}</li>
+      <li class="dex">DEX: ${'？'}</li>
+      <li class="edu">EDU: ${'？'}</li>
+    `;
   } else {
-    document.getElementById('status-block').style.display = 'block';
     document.getElementById('HP').textContent = seeker.HP || '―';
     document.getElementById('MP').textContent = seeker.MP || '―';
     document.getElementById('DB').textContent = seeker.DB || '―';
@@ -597,7 +606,7 @@ function showSearchResults(seekers, Key = 'yomi', order = 'asc') {
 
     columns.forEach(col => {
 	  if (seeker.type === 'dummy') return; // ダミーなら何もせず次へ
-    if (!seeker.st_hidden === '') return; // 非公開PCなら何もせず次へ
+    if (seeker.st_hidden !== '') return; // 非公開PCなら何もせず次へ
 
       const td = document.createElement('td');
       if (col.key === 'image') {
@@ -815,7 +824,7 @@ function adjustPortraitClass(imgElement, minSize = 300) {
   img.src = imgElement.src;
 
   img.onload = () => {
-    const isLarge = img.width >= minSize && img.height >= minSize;
+    const isLarge = img.width >= minSize;
 
     imgElement.classList.remove('portrait', 'portrait-contain');
     imgElement.classList.add(isLarge ? 'portrait' : 'portrait-contain');
