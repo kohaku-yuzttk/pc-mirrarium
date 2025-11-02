@@ -54,14 +54,15 @@ rt {
 .title-block {
   display: flex;
   align-items: center;
-  justify-content: center;
 }
 .title-icon {
   width: 37px;
   height: 37px;
   vertical-align: bottom;
-  margin-right: 0.2em;
+  margin: 0 0.2em;
   font-size: x-large;
+  align-content: center;
+  cursor: pointer;
 }
 .header-title {
 	font-family: 'Cormorant Garamond', serif;
