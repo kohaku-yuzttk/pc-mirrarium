@@ -370,7 +370,6 @@ function updateActiveCard() {
   cards.forEach(card => card.classList.remove('active'));
   if (closestCard) closestCard.classList.add('active');
 }
-
 // アクティブカードを中央にスクロール
 function scrollToActiveCard() {
   const activeCard = document.querySelector('.card.active');
@@ -406,7 +405,6 @@ function showSeekerDetail(seeker) {
   // 立ち絵
   const portrait = document.getElementById('portrait');
   portrait.src = seeker.image || 'images/726522_s.jpg';
-  // フォーカス値によるトリミング位置調整
   const focus = seeker.focus?.trim();
   portrait.style.objectPosition = focus ? focus : 'center top';
   adjustPortraitClass(portrait,700);
@@ -429,23 +427,32 @@ function showSeekerDetail(seeker) {
   }
 
   // 能力値
-  document.getElementById('HP').textContent = seeker.HP || '―';
-  document.getElementById('MP').textContent = seeker.MP || '―';
-  document.getElementById('DB').textContent = seeker.DB || '―';
-  document.getElementById('SAN_now').textContent = seeker.SAN_now || '―';
-  document.getElementById('SAN_ini').textContent = seeker.SAN_ini || '―';  
-  const statusList = document.getElementById('status-list');
-  statusList.innerHTML = `
-    <li class="str">STR: ${seeker.STR ?? '―'}</li>
-    <li class="app">APP: ${seeker.APP ?? '―'}</li>
-    <li class="con">CON: ${seeker.CON ?? '―'}</li>
-    <li class="siz">SIZ: ${seeker.SIZ ?? '―'}</li>
-    <li class="pow">POW: ${seeker.POW ?? '―'}</li>
-    <li class="int">INT: ${seeker.INT ?? '―'}</li>
-    <li class="dex">DEX: ${seeker.DEX ?? '―'}</li>
-    <li class="edu">EDU: ${seeker.EDU ?? '―'}</li>
-  `;
-	
+  if (seeker.st_hidden && seeker.st_hidden !== '') {
+    document.getElementById('status-block').style.display = 'none';
+    document.getElementById('HP').textContent = '？';
+    document.getElementById('MP').textContent = '？';
+    document.getElementById('DB').textContent = '？';
+    document.getElementById('SAN_now').textContent = '？';
+    document.getElementById('SAN_ini').textContent = '？'; 
+  } else {
+    document.getElementById('status-block').style.display = 'block';
+    document.getElementById('HP').textContent = seeker.HP || '―';
+    document.getElementById('MP').textContent = seeker.MP || '―';
+    document.getElementById('DB').textContent = seeker.DB || '―';
+    document.getElementById('SAN_now').textContent = seeker.SAN_now || '―';
+    document.getElementById('SAN_ini').textContent = seeker.SAN_ini || '―';  
+    const statusList = document.getElementById('status-list');
+    statusList.innerHTML = `
+      <li class="str">STR: ${seeker.STR ?? '―'}</li>
+      <li class="app">APP: ${seeker.APP ?? '―'}</li>
+      <li class="con">CON: ${seeker.CON ?? '―'}</li>
+      <li class="siz">SIZ: ${seeker.SIZ ?? '―'}</li>
+      <li class="pow">POW: ${seeker.POW ?? '―'}</li>
+      <li class="int">INT: ${seeker.INT ?? '―'}</li>
+      <li class="dex">DEX: ${seeker.DEX ?? '―'}</li>
+      <li class="edu">EDU: ${seeker.EDU ?? '―'}</li>
+    `;
+  }
   // タイムライン生成
 	const timeline = document.getElementById('scenario-timeline');
 	const list = Array.isArray(seeker.scenario_list) ? seeker.scenario_list : [];
@@ -495,8 +502,9 @@ function showSeekerDetail(seeker) {
 	const skills = Array.isArray(seeker.skill_list) ? seeker.skill_list : [];
 	const skillList = document.getElementById('skill-list');
 	skillList.innerHTML = ''; // 初期化  
-
-	if (skills.length > 0) {
+  if (seeker.st_hidden && seeker.st_hidden !== '') {
+    skillList.innerHTML = '非公開';
+  } else if (skills.length > 0) {
   		const table = document.createElement('table');
   		table.className = 'skill-table-inner';
 
@@ -570,7 +578,7 @@ function showSearchResults(seekers, Key = 'yomi', order = 'asc') {
       skill.sortKey === Key || skill.skill_text === Key
     );
     if (matched) {
-      columns.push({ key: matched.sortKey, label: matched.skill_text });
+      columns.push({ key: parseInt(matched.sortKey, 10), label: matched.skill_text });
     }
   }
 
@@ -589,6 +597,7 @@ function showSearchResults(seekers, Key = 'yomi', order = 'asc') {
 
     columns.forEach(col => {
 	  if (seeker.type === 'dummy') return; // ダミーなら何もせず次へ
+    if (!seeker.st_hidden === '') return; // 非公開PCなら何もせず次へ
 
       const td = document.createElement('td');
       if (col.key === 'image') {
