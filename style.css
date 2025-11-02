@@ -51,11 +51,24 @@ rt {
   color: #666;
   letter-spacing: 0.05em;
 }
+.title-block {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .title-icon {
   width: 37px;
   height: 37px;
   vertical-align: bottom;
   margin-right: 0.2em;
+  font-size: x-large;
+}
+.header-title {
+	font-family: 'Cormorant Garamond', serif;
+	text-align: left;
+	font-size: 2em;
+	letter-spacing: 0.05em;
+  padding: 0 0.2em;
 }
 /* 戻るボタン */
 #detail button {

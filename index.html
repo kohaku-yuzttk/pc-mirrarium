@@ -10,10 +10,17 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <header class="fixed-header">
-	<h1 id="header-title">
+	<div class="title-block">
+		<div class="title-icon" id="menu-toggle">☰</div>
 		<!--<img src="icon/favicon-48.png" alt="アイコン" class="title-icon"> -->
-		うちの子ミラリウム
-	</h1>
+		<div class="header-title" id="header-title">うちの子ミラリウム</div>
+	</div>
+  <nav id="menu" style="display:none;">
+    <ul>
+      <li><a href="#tool">便利ツール</a></li>
+      <!-- 他のセクションも追加可能 -->
+    </ul>
+  </nav>
 </header>
 <body>
 <!-- 🏠 ホーム画面 -->
@@ -175,11 +182,62 @@
 	</div>
   <button class="back-button">戻る</button>
 </section>
+<!-- ツール案内ページ -->
+<section id="tool" style="display:none;">
+	<h2>ツール</h2>
+	<p>このページでは、うちの子ミラリウムでの記録や整理を助ける便利なツールをご紹介します。  </p>
+	<div class="tool-container">
+		<div class="tool-block">
+			<h2>チャットパレット生成ブックマークレット</h2>
+			<p>キャラクター保管所のキャラシートから、チャットパレットを自動生成してクリップボードにコピーするツールです。</p>
 
+			<ol>
+  			<li>ブラウザのブックマークを新規作成</li>
+  			<li>名前を「キャラクター保管所チャットパレット生成」などに設定</li>
+				<li>URL欄に以下のコードを貼り付けて保存</li>
+				<li>キャラクター保管所のキャラシートを開く</li>
+				<li>追加したブックマークをクリックする</li>
+				<li>チャットパレットが自動生成され、クリップボードにコピーされます。</li>
+			</ol>
+
+			<a href="javascript:void(function(){ try { if (location.hostname !== 'charasheet.vampire-blood.net') { alert('このサイトでは使用できません'); return; } /** 技能名取得関数（3種の構造に対応） */ function getSkillName(cell) { const input = cell.querySelector('input'); if (input && cell.childNodes.length === 1) { return input.value.trim(); /** 種類③：inputのみ */ } if (input && cell.childNodes.length > 1) { const base = cell.childNodes[0]?.textContent?.trim() || %27%27; const suffix = input.value.trim(); return suffix ? `${base}(${suffix})` : base; /** 種類②：補足あり */ } return cell.textContent.trim(); /** 種類①：テキストのみ */ } let chatPalette = %27%27; const idea = parseInt(document.getElementById(%27NP12%27)?.value || %270%27, 10); const luck = parseInt(document.getElementById(%27NP13%27)?.value || %270%27, 10); const knowledge = parseInt(document.getElementById(%27NP14%27)?.value || %270%27, 10); chatPalette += `\nCCB<=${idea} アイデア`; chatPalette += `\nCCB<=${luck} 幸運`; chatPalette += `\nCCB<=${knowledge} 知識`; /** 技能テーブル一覧 */ const tables = [ %27Table_battle_arts%27, %27Table_find_arts%27, %27Table_act_arts%27, %27Table_commu_arts%27, %27Table_know_arts%27 ]; tables.forEach(id => { const table = document.getElementById(id); if (!table) return; for (let i = 1; i < table.rows.length; i++) { const row = table.rows[i]; const cell = row.cells[1]; const ini = row.cells[2]?.children[0]?.value; const sum = row.cells[7]?.children[0]?.value; if (ini !== sum) { const name = getSkillName(cell); chatPalette += `\nCCB<=${sum} ${name}`; } } }); /** クリップボードにコピー */ const listener = function(e) { e.clipboardData.setData(%27text/plain%27, chatPalette); e.preventDefault(); document.removeEventListener(%27copy%27, listener); }; document.addEventListener(%27copy%27, listener); document.execCommand(%27copy%27); /** 完了メッセージ */ alert(%27チャットパレットをクリップボードにコピーしました%27); } catch(e) { alert(%27失敗しました\n%27 + e); } })();">
+  			チャットパレット生成ブックマークレット
+			</a>
+		</div>
+		<div class="tool-block">
+			<h2>今後追加予定のツール</h2>
+			<ul>
+				<li>キャラクター保管所PCココフォリア駒作成ツール</li>
+				<li>意味はないけどダイスロールしたい！</li>
+				<li>その他、便利なツールを随時追加予定</li>
+			</ul>
+			<p>ご要望やアイデアがありましたら、お気軽にお問い合わせください。</p>
+		</div>
+	</div>
+  <button class="back-button">戻る</button>
+</section>
 <!-- JavaScript -->
 <script src="script.js"></script>
 <script>
   window.addEventListener('DOMContentLoaded', initCarousel);
+</script>
+<script>
+  document.getElementById('menu-toggle').addEventListener('click', function() {
+    const menu = document.getElementById('menu');
+    menu.style.display = (menu.style.display === 'none') ? 'block' : 'none';
+  });
+
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth' });
+        document.getElementById('menu').style.display = 'none'; /** メニューを閉じる */
+      }
+			showScreen('tool');
+    });
+  });
 </script>
 </body>
 <footer class="copyright">
