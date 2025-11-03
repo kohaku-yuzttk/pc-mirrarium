@@ -214,12 +214,15 @@
 			</div>
 		</div>
 		<div class="tool-block">
-			<section id="dice-tool">
   			<h2>🎲 ダイスロールツール</h2>
   			<label for="dice-size">ダイスの面数：</label>
 				<select id="dice-size">
-    			<option value="6">1d6</option>
     			<option value="100">1d100</option>
+    			<option value="2">1d2</option>
+					<option value="3">1d3</option>
+    			<option value="6">1d6</option>
+					<option value="10">1d10</option>
+					<option value="20">1d20</option>
     			<option value="custom">1d(任意)</option>
   			</select>
   			<input type="number" id="custom-dice" min="2" max="99" placeholder="2〜99" style="display:none;">
@@ -228,7 +231,6 @@
 
   			<div id="dice-result" class="dice-result"></div>
   			<ul id="dice-history" class="dice-history"></ul>
-			</section>
 		</div>
 		<div class="tool-block">
 			<h2>今後追加予定のツール</h2>

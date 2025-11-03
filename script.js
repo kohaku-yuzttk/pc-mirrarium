@@ -176,6 +176,7 @@ document.getElementById('search-button-by-name').addEventListener('click', () =>
 });
 // 🎲 ダイスロールツール イベント定義
 document.getElementById('dice-size').addEventListener('change', () => {
+  const diceSize = document.getElementById('dice-size');
   const customInput = document.getElementById('custom-dice');
   customInput.style.display = (diceSize.value === 'custom') ? 'inline-block' : 'none';
 });
@@ -202,8 +203,8 @@ document.getElementById('roll-button').addEventListener('click', () => {
     const now = new Date().toLocaleString();
     resultDisplay.textContent = `🎲 ${roll}`;
 
-    d_history.unshift(`${now} → ${roll}`);
-    if (d_history.length > 10) d_history.pop();
+    d_history.unshift(`${now}  1D${sides} → ${roll}`);
+    if (d_history.length > 15) d_history.pop();
 
     historyList.innerHTML = '';
     d_history.forEach(entry => {

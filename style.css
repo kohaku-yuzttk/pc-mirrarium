@@ -706,7 +706,7 @@ input[type="range"]:disabled {
 }
 .tool-block {
   padding: 0 1em 1em 1em;
-  margin-bottom: 3em;
+  margin-bottom: 2em;
   background: #fff;
 	border: 1px solid #ccc;
 	box-shadow: 0 2px 6px rgba(0,0,0,0.1);
