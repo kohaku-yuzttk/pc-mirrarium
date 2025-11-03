@@ -765,3 +765,22 @@ input[type="range"]:disabled {
   font-family: monospace;
   font-size: 0.9em;
 }
+#dice-tool {
+  background: #f9f9f9;
+  padding: 1em;
+  border-radius: 8px;
+  margin-top: 2em;
+}
+
+.dice-result {
+  font-size: 2em;
+  margin: 1em 0;
+  color: #333;
+}
+
+.dice-history {
+  list-style: none;
+  padding: 0;
+  font-size: 0.9em;
+  color: #666;
+}

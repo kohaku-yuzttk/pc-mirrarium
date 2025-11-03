@@ -8,6 +8,14 @@ let startX;
 let scrollLeft;
 const isPointerDevice = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
+const diceSizeSelect = document.getElementById('dice-size');
+const customDiceInput = document.getElementById('custom-dice');
+const rollButton = document.getElementById('roll-button');
+const diceSound = document.getElementById('dice-sound');
+const resultDisplay = document.getElementById('dice-result');
+const historyList = document.getElementById('dice-history');
+let d_history = [];
+
 // イベント定義
 // 前の画面に戻る
 window.addEventListener('popstate', event => {
@@ -171,6 +179,38 @@ document.getElementById('search-button-by-name').addEventListener('click', () =>
     );
   }
   showSearchResults(filtered, 'name');
+});
+diceSizeSelect.addEventListener('change', () => {
+  customDiceInput.style.display = (diceSizeSelect.value === 'custom') ? 'inline-block' : 'none';
+});
+rollButton.addEventListener('click', () => {
+  let sides = parseInt(diceSizeSelect.value);
+  if (diceSizeSelect.value === 'custom') {
+    sides = parseInt(customDiceInput.value);
+    if (isNaN(sides) || sides < 2 || sides > 99) {
+      alert('2〜99の間で指定してください');
+      return;
+    }
+  }
+
+  diceSound.currentTime = 0;
+  diceSound.play();
+
+  diceSound.onended = () => {
+    const roll = Math.floor(Math.random() * sides) + 1;
+    const now = new Date().toLocaleString();
+    resultDisplay.textContent = `🎲 ${roll}`;
+
+    d_history.unshift(`${now} → ${roll}`);
+    if (d_history.length > 10) d_history.pop();
+
+    historyList.innerHTML = '';
+    d_history.forEach(entry => {
+      const li = document.createElement('li');
+      li.textContent = entry;
+      historyList.appendChild(li);
+    });
+  };
 });
 
 // ファンクション定義
