@@ -243,9 +243,8 @@ rt {
 .search-container {
   display: flex;
   gap: 2em;
-  margin: 2em 0;
-  padding: 2em;
-  background: #f9f8f6;
+  margin: 1em 0;
+  padding: 0 1em 1em 1em;
   font-family: 'Cormorant Garamond', serif;
 }	
 .results-list {
