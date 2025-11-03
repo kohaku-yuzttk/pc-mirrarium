@@ -671,7 +671,7 @@ input[type="range"]:disabled {
 /* 関係値 */
 .relationship-block {
   width: 53.5vw;
-  padding: 1em;
+  padding: 1em 0;
   border-radius: 8px;
 }
 .relationship-list {
