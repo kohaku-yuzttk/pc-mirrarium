@@ -196,6 +196,9 @@ function showLoading() {
 function hideLoading() {
   document.getElementById('loading').style.display = 'none';
 }
+function showLoadingStep(message) {
+  document.querySelector('.loading-text').textContent = message;
+}
 // スプレッドシートから探索者情報読み込み
 async function loadSeekerData() {
   const response = await fetch("https://script.google.com/macros/s/AKfycbwV6fi1CRCsqkFFgN-fC847s-obhFdBof2fuBUe334l7krZPHT-5wd57MuFwVwnCAVd/exec?mode=data");
@@ -269,10 +272,13 @@ async function loadSkillMasterData() {
 }
 // カルーセル初期化
 async function initCarousel() {
-  loadSkillMasterData();  // 技能マスタ読み込み
   loadSeekerData_local(); // ローカルデータ表示
   showLoading(); // ロード画面表示
-  const seekers = await loadSeekerData();
+
+  await loadSkillMasterData();  // 技能マスタ読み込み
+  showLoadingStep('技能マスタを読み込んでいます…');
+  const seekers = await loadSeekerData();  // 探索者データ読み込み
+  showLoadingStep('探索者データを読み込んでいます…');
   const carousel = document.getElementById('carousel');
   carousel.innerHTML = ''; // 既存のカードをクリア
 
@@ -302,6 +308,7 @@ async function initCarousel() {
     carousel.appendChild(card);
   });
   // ✅ 全探索者の技能からオプションを生成
+  showLoadingStep('技能リストを準備しています…');
   allSeekers = seekers;
   allSkills = extractAllSkills(seekers);
   populateSkillOptions(allSkills);
