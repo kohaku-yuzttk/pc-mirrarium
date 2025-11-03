@@ -325,12 +325,22 @@ rt {
   padding-left: 1.5em;
 }
 #portrait-wrapper {
+  display: grid;
+  place-items: center;
+  align-content: space-around;
   width: 100%;
   height: 350px;
   overflow: hidden;
   position: relative;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+.portrait-contain {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  transform: none;
 }
 .portrait {
   width: 100%;
@@ -339,14 +349,6 @@ rt {
   object-position: center top;
   transform: scale(1.3);
   transform-origin: center top;
-}
-.portrait-contain {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  object-position: center;
-  transform: none;
-  padding: 60px 0;
 }
 /* 画像＋リンクをまとめる */
 .portrait-block {
