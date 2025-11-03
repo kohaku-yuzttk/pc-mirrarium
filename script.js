@@ -514,40 +514,72 @@ function showSeekerDetail(seeker) {
 	  colortags.style.display = colors.length > 0 ? 'block' : 'none';
 	}
 
-	// 技能テーブル生成
-	const skills = Array.isArray(seeker.skill_list) ? seeker.skill_list : [];
-	const skillList = document.getElementById('skill-list');
-	skillList.innerHTML = ''; // 初期化  
-  if (seeker.st_hidden && seeker.st_hidden !== '') {
-    skillList.innerHTML = '非公開';
-  } else if (skills.length > 0) {
-  		const table = document.createElement('table');
-  		table.className = 'skill-table-inner';
-
-      // ソートキー順に並べ替え
-      skills.sort((a, b) => a.sortKey - b.sortKey);
-
-  		skills.forEach(skill => {
-    		const row = document.createElement('tr');
-    		const nameCell = document.createElement('td');
-    		nameCell.textContent = skill.skill_text;
-    		nameCell.className = 'skill-name';
-
-    		const valueCell = document.createElement('td');
-    		valueCell.textContent = skill.skill_val;
-    		valueCell.className = 'skill-value';
-
-    		row.appendChild(nameCell);
-    		row.appendChild(valueCell);
-    		table.appendChild(row);
-  		});
-  	skillList.appendChild(table);
-	}
-
+  // 技能表示
+  renderSkillIndex(seeker);
 	// ボイス情報
 	createVoiceInfo(seeker);
 	// リレイション情報
 	createlationshipBlock(seeker);
+}
+// 技能表示
+function renderSkillIndex(seeker) {
+  const indexContainer = document.getElementById('skill-index');
+  const displayContainer = document.getElementById('skill-display');
+  indexContainer.innerHTML = '';
+  displayContainer.innerHTML = '';
+  const skills = seeker.skill_list || [];
+  /** 分類ごとに技能を整理 */
+  const grouped = {};
+  const unclassified = [];
+  skills.forEach(skill => {
+    const category = skill.group || null;
+    if (category) {
+      if (!grouped[category]) grouped[category] = [];
+      grouped[category].push(skill);
+    } else {
+      unclassified.push(skill);
+    }
+  });
+  /** インデックス一覧（ALL + 各分類 + 未分類） */
+  const categories = ['ALL', ...Object.keys(grouped)];
+  if (unclassified.length > 0) categories.push('未分類');
+  categories.forEach(cat => {
+    const button = document.createElement('button');
+    button.textContent = cat;
+    button.className = 'index-button';
+    button.addEventListener('click', () => {
+      displayContainer.innerHTML = '';
+      let list = [];
+      if (cat === 'ALL') {
+        list = skills;
+      } else if (cat === '未分類') {
+        list = unclassified;
+      } else {
+        list = grouped[cat] || [];
+      }
+      renderSkillList(list, displayContainer);
+    });
+    indexContainer.appendChild(button);
+  });
+  /** 初期表示：ALL */
+  renderSkillList(skills, displayContainer);
+}
+function renderSkillList(skills, container) {
+  skills.sort((a, b) => a.sortKey - b.sortKey);
+  skills.forEach(skill => {
+    const line = document.createElement('div');
+    line.className = 'skill-line';
+    const name = document.createElement('span');
+    name.className = 'skill-name';
+    name.textContent = skill.skill_text;
+    const value = document.createElement('span');
+    value.className = 'skill-value';
+    value.textContent = skill.skill_val;
+
+    line.appendChild(name);
+    line.appendChild(value);
+    container.appendChild(line);
+  });
 }
 
 // 検索結果一覧画面表示
