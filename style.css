@@ -434,7 +434,8 @@ rt {
   padding: 0.3em 0.6em;
   margin: 0.2em;
   border-radius: 4px;
-  font-size: 0.85em;
+  font-size: 0.8em;
+  font-family: 'Helvetica Neue', sans-serif;
 }
 .tag-empty {
   background: transparent;
@@ -515,16 +516,15 @@ rt {
   padding: 0 0.5em;
 }
 .index-button {
-  background: #eee;
-  border: none;
-  padding: 6px 12px;
-  margin: 0;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 0.85em;
+  margin: 0 !important;
 }
 .index-button:hover {
   background: #ddd;
+}
+.index-button.active {
+  background-color: #a83434 !important;
+  color: #fff;
+  font-weight: bold;
 }
 .skill-display{
   font-family: 'Yu Mincho', serif;

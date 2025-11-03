@@ -529,7 +529,7 @@ function renderSkillIndex(seeker) {
   displayContainer.innerHTML = '';
   const skills = seeker.skill_list || [];
   skills.sort((a, b) => a.sortKey - b.sortKey);
-  
+
   /** 分類ごとに技能を整理 */
   const grouped = {};
   const unclassified = [];
@@ -548,8 +548,15 @@ function renderSkillIndex(seeker) {
   categories.forEach(cat => {
     const button = document.createElement('button');
     button.textContent = cat;
+    button.id = `index-${cat}`;
     button.className = 'index-button';
+    
     button.addEventListener('click', () => {
+      document.querySelectorAll('.index-button').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      button.classList.add('active');
+
       displayContainer.innerHTML = '';
       let list = [];
       if (cat === 'ALL') {
@@ -565,6 +572,7 @@ function renderSkillIndex(seeker) {
   });
   /** 初期表示：ALL */
   renderSkillList(skills, displayContainer);
+  document.getElementById('index-ALL')?.classList.add('active');
 }
 function renderSkillList(skills, container) {
   skills.sort((a, b) => a.sortKey - b.sortKey);
