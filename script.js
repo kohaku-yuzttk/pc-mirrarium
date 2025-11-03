@@ -198,7 +198,7 @@ function hideLoading() {
 }
 // スプレッドシートから探索者情報読み込み
 async function loadSeekerData() {
-  const response = await fetch("https://script.google.com/macros/s/AKfycbwUfJSba6KMV8bp27GsCD113P5FZNYYH9oSYXVpc8GyX4khWI-c8XjxIMkhrwgcLXfp/exec?mode=data");
+  const response = await fetch("https://script.google.com/macros/s/AKfycbwV6fi1CRCsqkFFgN-fC847s-obhFdBof2fuBUe334l7krZPHT-5wd57MuFwVwnCAVd/exec?mode=data");
   const data = await response.json();
   allSeekers = data;
   console.log(data); // データ確認用
@@ -260,7 +260,7 @@ async function loadSeekerData() {
 }
 // 全技能情報読み込み
 async function loadSkillMasterData() {
-  const response = await fetch("https://script.google.com/macros/s/AKfycbwUfJSba6KMV8bp27GsCD113P5FZNYYH9oSYXVpc8GyX4khWI-c8XjxIMkhrwgcLXfp/exec?mode=skill_master");
+  const response = await fetch("https://script.google.com/macros/s/AKfycbwV6fi1CRCsqkFFgN-fC847s-obhFdBof2fuBUe334l7krZPHT-5wd57MuFwVwnCAVd/exec?mode=skill_master");
   const data = await response.json();
   skillMaster = data;
   console.log(skillMaster); // データ確認用
