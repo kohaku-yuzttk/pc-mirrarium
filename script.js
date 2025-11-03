@@ -528,6 +528,8 @@ function renderSkillIndex(seeker) {
   indexContainer.innerHTML = '';
   displayContainer.innerHTML = '';
   const skills = seeker.skill_list || [];
+  skills.sort((a, b) => a.sortKey - b.sortKey);
+  
   /** 分類ごとに技能を整理 */
   const grouped = {};
   const unclassified = [];
