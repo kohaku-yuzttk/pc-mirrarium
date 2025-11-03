@@ -705,7 +705,7 @@ input[type="range"]:disabled {
   font-family: 'Helvetica Neue', sans-serif;
 }
 .tool-block {
-  padding: 0 1em;
+  padding: 0 1em 1em 1em;
   margin-bottom: 3em;
   background: #fff;
 	border: 1px solid #ccc;
@@ -770,14 +770,13 @@ input[type="range"]:disabled {
   padding: 1em;
   border-radius: 8px;
   margin-top: 2em;
+  display : block;
 }
-
 .dice-result {
   font-size: 2em;
   margin: 1em 0;
   color: #333;
 }
-
 .dice-history {
   list-style: none;
   padding: 0;

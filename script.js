@@ -8,12 +8,6 @@ let startX;
 let scrollLeft;
 const isPointerDevice = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
-const diceSizeSelect = document.getElementById('dice-size');
-const customDiceInput = document.getElementById('custom-dice');
-const rollButton = document.getElementById('roll-button');
-const diceSound = document.getElementById('dice-sound');
-const resultDisplay = document.getElementById('dice-result');
-const historyList = document.getElementById('dice-history');
 let d_history = [];
 
 // イベント定義
@@ -180,19 +174,26 @@ document.getElementById('search-button-by-name').addEventListener('click', () =>
   }
   showSearchResults(filtered, 'name');
 });
-diceSizeSelect.addEventListener('change', () => {
-  customDiceInput.style.display = (diceSizeSelect.value === 'custom') ? 'inline-block' : 'none';
+// 🎲 ダイスロールツール イベント定義
+document.getElementById('dice-size').addEventListener('change', () => {
+  const customInput = document.getElementById('custom-dice');
+  customInput.style.display = (diceSize.value === 'custom') ? 'inline-block' : 'none';
 });
-rollButton.addEventListener('click', () => {
-  let sides = parseInt(diceSizeSelect.value);
-  if (diceSizeSelect.value === 'custom') {
-    sides = parseInt(customDiceInput.value);
+document.getElementById('roll-button').addEventListener('click', () => {
+  const diceSize = document.getElementById('dice-size');
+  const customInput = document.getElementById('custom-dice');
+  const diceSound = document.getElementById('dice-sound');
+  const resultDisplay = document.getElementById('dice-result');
+  const historyList = document.getElementById('dice-history');
+
+  let sides = parseInt(diceSize.value);
+  if (diceSize.value === 'custom') {
+    sides = parseInt(customInput.value);
     if (isNaN(sides) || sides < 2 || sides > 99) {
       alert('2〜99の間で指定してください');
       return;
     }
   }
-
   diceSound.currentTime = 0;
   diceSound.play();
 
