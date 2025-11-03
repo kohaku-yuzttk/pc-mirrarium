@@ -664,7 +664,57 @@ input[type="range"]:disabled {
 }
 
 /* ツールページ */
-/* コードブロック */
+.tool-container {
+  padding: 2em 5vw;
+  background: linear-gradient(to bottom, #f5f3ef, #eae7e2);
+  color: #333;
+  font-family: 'Helvetica Neue', sans-serif;
+}
+.tool-block {
+  padding: 0 1em;
+  margin-bottom: 3em;
+  background: #fff;
+	border: 1px solid #ccc;
+	box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+.code-container {
+  background: #1e1e1e;
+  color: #ccc;
+  width: 48em;
+  border-radius: 8px;
+  padding: 1em;
+  margin: 1em 3.5em;
+  font-family: monospace;
+  position: relative;
+}
+.code-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9em;
+  padding-bottom: 0.8em;
+  margin-bottom: 0.3em;
+  border-bottom: 1px solid #555;
+}
+.copy-button, .toggle-button {
+  background: #333;
+  color: #ccc;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.8em;
+}
+.copy-button:hover, .toggle-button:hover {
+  background: #555;
+}
+.code-body {
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-size: 0.85em;
+  line-height: 1.4;
+  overflow-x: auto;
+}
 .code-block {
   position: relative;
   background: #f9f9f9;
@@ -674,26 +724,10 @@ input[type="range"]:disabled {
   overflow-x: auto;
   max-height: 500px;
 }
-
 .code-block pre {
   margin: 0;
   white-space: pre-wrap;
   word-break: break-word;
   font-family: monospace;
   font-size: 0.9em;
-}
-
-.copy-button {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  background: #eee;
-  border: none;
-  padding: 6px 12px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 0.8em;
-}
-.copy-button:hover {
-  background: #ddd;
 }

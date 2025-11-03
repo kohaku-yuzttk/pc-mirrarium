@@ -184,9 +184,10 @@
 </section>
 <!-- ツール案内ページ -->
 <section id="tool" style="display:none;">
-	<h2>ツール</h2>
-	<p>このページでは、うちの子ミラリウムでの記録や整理を助ける便利なツールをご紹介します。  </p>
 	<div class="tool-container">
+		<h2>ツール</h2>
+		<p>このページでは、うちの子ミラリウムでの記録や整理を助ける便利なツールをご紹介します。  </p>
+
 		<div class="tool-block">
 			<h2>チャットパレット生成ブックマークレット</h2>
 			<p>キャラクター保管所のキャラシートから、チャットパレットを自動生成してクリップボードにコピーするツールです。</p>
@@ -200,13 +201,13 @@
 				<li>チャットパレットが自動生成され、クリップボードにコピーされます。</li>
 			</ol>
 
-			<div class="code-block">
-			<button class="copy-button">コピー</button>
-			<pre>
-				<code id="bookmarklet-code">
-					javascript:void(function(){ try { if (location.hostname !== 'charasheet.vampire-blood.net') { alert('このサイトでは使用できません'); return; } /** 技能名取得関数（3種の構造に対応） */ function getSkillName(cell) { const input = cell.querySelector('input'); if (input && cell.childNodes.length === 1) { return input.value.trim(); /** 種類③：inputのみ */ } if (input && cell.childNodes.length > 1) { const base = cell.childNodes[0]?.textContent?.trim() || %27%27; const suffix = input.value.trim(); return suffix ? `${base}(${suffix})` : base; /** 種類②：補足あり */ } return cell.textContent.trim(); /** 種類①：テキストのみ */ } let chatPalette = %27%27; const idea = parseInt(document.getElementById(%27NP12%27)?.value || %270%27, 10); const luck = parseInt(document.getElementById(%27NP13%27)?.value || %270%27, 10); const knowledge = parseInt(document.getElementById(%27NP14%27)?.value || %270%27, 10); chatPalette += `\nCCB<=${idea} アイデア`; chatPalette += `\nCCB<=${luck} 幸運`; chatPalette += `\nCCB<=${knowledge} 知識`; /** 技能テーブル一覧 */ const tables = [ %27Table_battle_arts%27, %27Table_find_arts%27, %27Table_act_arts%27, %27Table_commu_arts%27, %27Table_know_arts%27 ]; tables.forEach(id => { const table = document.getElementById(id); if (!table) return; for (let i = 1; i < table.rows.length; i++) { const row = table.rows[i]; const cell = row.cells[1]; const ini = row.cells[2]?.children[0]?.value; const sum = row.cells[7]?.children[0]?.value; if (ini !== sum) { const name = getSkillName(cell); chatPalette += `\nCCB<=${sum} ${name}`; } } }); /** クリップボードにコピー */ const listener = function(e) { e.clipboardData.setData(%27text/plain%27, chatPalette); e.preventDefault(); document.removeEventListener(%27copy%27, listener); }; document.addEventListener(%27copy%27, listener); document.execCommand(%27copy%27); /** 完了メッセージ */ alert(%27チャットパレットをクリップボードにコピーしました%27); } catch(e) { alert(%27失敗しました\n%27 + e); } })();
-				</code>
-			</pre>
+			<div class="code-container">
+				<div class="code-header">
+					<button class="toggle-button">表示</button>
+					<button class="copy-button">コピー</button>
+				</div>
+				<pre class="code-body" id="bookmarklet-code" style="display:none;">javascript:void(function(){ try { if (location.hostname !== 'charasheet.vampire-blood.net') { alert('このサイトでは使用できません'); return; } /** 技能名取得関数（3種の構造に対応） */ function getSkillName(cell) { const input = cell.querySelector('input'); if (input && cell.childNodes.length === 1) { return input.value.trim(); /** 種類③：inputのみ */ } if (input && cell.childNodes.length > 1) { const base = cell.childNodes[0]?.textContent?.trim() || %27%27; const suffix = input.value.trim(); return suffix ? `${base}(${suffix})` : base; /** 種類②：補足あり */ } return cell.textContent.trim(); /** 種類①：テキストのみ */ } let chatPalette = %27%27; const idea = parseInt(document.getElementById(%27NP12%27)?.value || %270%27, 10); const luck = parseInt(document.getElementById(%27NP13%27)?.value || %270%27, 10); const knowledge = parseInt(document.getElementById(%27NP14%27)?.value || %270%27, 10); chatPalette += `\nCCB<=${idea} アイデア`; chatPalette += `\nCCB<=${luck} 幸運`; chatPalette += `\nCCB<=${knowledge} 知識`; /** 技能テーブル一覧 */ const tables = [ %27Table_battle_arts%27, %27Table_find_arts%27, %27Table_act_arts%27, %27Table_commu_arts%27, %27Table_know_arts%27 ]; tables.forEach(id => { const table = document.getElementById(id); if (!table) return; for (let i = 1; i < table.rows.length; i++) { const row = table.rows[i]; const cell = row.cells[1]; const ini = row.cells[2]?.children[0]?.value; const sum = row.cells[7]?.children[0]?.value; if (ini !== sum) { const name = getSkillName(cell); chatPalette += `\nCCB<=${sum} ${name}`; } } }); /** クリップボードにコピー */ const listener = function(e) { e.clipboardData.setData(%27text/plain%27, chatPalette); e.preventDefault(); document.removeEventListener(%27copy%27, listener); }; document.addEventListener(%27copy%27, listener); document.execCommand(%27copy%27); /** 完了メッセージ */ alert(%27チャットパレットをクリップボードにコピーしました%27); } catch(e) { alert(%27失敗しました\n%27 + e); } })();</pre>
+			</div>
 		</div>
 		<div class="tool-block">
 			<h2>今後追加予定のツール</h2>
@@ -247,9 +248,15 @@
   document.querySelector('.copy-button').addEventListener('click', function() {
     const code = document.getElementById('bookmarklet-code').innerText;
     navigator.clipboard.writeText(code).then(() => {
-      this.textContent = 'コピーしました';
+      this.textContent = 'コピーしました！';
       setTimeout(() => this.textContent = 'コピー', 2000);
     });
+  });
+  document.querySelector('.toggle-button').addEventListener('click', function() {
+    const codeBlock = document.getElementById('bookmarklet-code');
+    const isVisible = codeBlock.style.display !== 'none';
+    codeBlock.style.display = isVisible ? 'none' : 'block';
+    this.textContent = isVisible ? '表示' : '非表示';
   });
 </script>
 </body>
