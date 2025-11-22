@@ -434,6 +434,14 @@ function scrollToActiveCard() {
 // 探索者データ照会画面表示
 function showSeekerDetail(seeker) {
   showScreen('detail');
+  // 🔹 ボイス情報を初期化
+  const buttonContainer = document.getElementById('voice-line');
+  const voicePlayer = document.getElementById('voice-player');
+  buttonContainer.innerHTML = "";
+  voicePlayer.pause();
+  voicePlayer.src = "";
+  document.querySelector(".voice-info").classList.add("hidden");
+
 
   // 基本情報
   const nameElem = document.getElementById('name');
@@ -943,32 +951,49 @@ function getTextColor(bgColor) {
 }
 // ボイス情報生成
 function createVoiceInfo(data) {
-  const voiceBlock = document.querySelector(".voice-info");
-  if (!voiceBlock) return;
+  const voiceBlock = document.querySelector(".voice-block");
+  const voiceInfo = document.querySelector(".voice-info");
+  const voiceSamples = document.querySelector(".voice-samples");
 
+  // 🔹 初期化
+  const buttonContainer = document.getElementById('voice-line');
+  const voicePlayer = document.getElementById('voice-player');
+  buttonContainer.innerHTML = "";
+  voicePlayer.pause();
+  voicePlayer.src = "";
+
+  // 🔹 ボイス情報の有無を判定
   const values = [data.voice_h, data.voice_s, data.voice_p, data.voice_w, data.voice_e];
-  const hasInput = values.some(val => val !== "" && val !== null && val !== undefined);
+  const hasInfo = values.some(val => val !== "" && val !== null && val !== undefined);
+  const hasSamples = Array.isArray(data.voice_list) && data.voice_list.length > 0;
 
-  if (hasInput) {
+  if (hasInfo || hasSamples) {
     voiceBlock.classList.remove("hidden");
-    document.getElementById("voice-h").value = data.voice_h;
-    document.getElementById("voice-s").value = data.voice_s;
-    document.getElementById("voice-p").value = data.voice_p;
-    document.getElementById("voice-w").value = data.voice_w;
-    document.getElementById("voice-e").value = data.voice_e;
 
-    const buttonContainer = document.getElementById('voice-line');
-    const voicePlayer = document.getElementById('voice-player');
+    // ボイス情報がある場合のみ反映
+    if (hasInfo) {
+      voiceInfo.classList.remove("hidden");
+      document.getElementById("voice-h").value = data.voice_h ?? 50;
+      document.getElementById("voice-s").value = data.voice_s ?? 50;
+      document.getElementById("voice-p").value = data.voice_p ?? 50;
+      document.getElementById("voice-w").value = data.voice_w ?? 50;
+      document.getElementById("voice-e").value = data.voice_e ?? 50;
+    } else {
+      voiceInfo.classList.add("hidden");     // 🔹 情報がなければ非表示
+      document.getElementById("voice-h").value = 50;
+      document.getElementById("voice-s").value = 50;
+      document.getElementById("voice-p").value = 50;
+      document.getElementById("voice-w").value = 50;
+      document.getElementById("voice-e").value = 50;
+    }
 
-    let currentBtn = null;
-    buttonContainer.innerHTML = "";
-
-    if (Array.isArray(data.voice_list) && data.voice_list.length > 0) {
+    // サンプルボイスがある場合のみ生成
+    if (hasSamples) {
+      voiceSamples.classList.remove("hidden");
       data.voice_list.forEach(sample => {
         const entry = document.createElement("div");
         entry.className = "voice-entry";
 
-        // 🔹 テキスト表示（スクロール対応）
         const textWrapper = document.createElement("div");
         textWrapper.className = "voice-text";
 
@@ -980,7 +1005,6 @@ function createVoiceInfo(data) {
         textWrapper.appendChild(scrollText);
         entry.appendChild(textWrapper);
 
-        // 🔊 再生ボタン
         const btn = document.createElement("button");
         btn.className = "voice-play";
         btn.setAttribute("data-src", sample.path);
@@ -989,32 +1013,21 @@ function createVoiceInfo(data) {
 
         buttonContainer.appendChild(entry);
 
-        // 🎧 再生制御
         btn.addEventListener("click", () => {
           const src = btn.getAttribute("data-src");
-
-          if (btn === currentBtn) {
+          if (voicePlayer.src === src && !voicePlayer.paused) {
             voicePlayer.pause();
             voicePlayer.currentTime = 0;
             btn.classList.remove("playing");
             btn.textContent = "▶";
-            currentBtn = null;
-            return;
+          } else {
+            voicePlayer.src = src;
+            voicePlayer.play();
+            btn.classList.add("playing");
+            btn.textContent = "⏹";
           }
-
-          if (currentBtn) {
-            currentBtn.classList.remove("playing");
-            currentBtn.textContent = "▶";
-          }
-
-          voicePlayer.src = src;
-          voicePlayer.play();
-          btn.classList.add("playing");
-          btn.textContent = "⏹";
-          currentBtn = btn;
         });
 
-        // 📜 スクロール判定（内側要素に対して）
         setTimeout(() => {
           if (scrollText.scrollWidth > textWrapper.clientWidth) {
             scrollText.classList.add("scroll");
@@ -1022,18 +1035,23 @@ function createVoiceInfo(data) {
         }, 0);
       });
 
-      voicePlayer.addEventListener("ended", () => {
-        if (currentBtn) {
-          currentBtn.classList.remove("playing");
-          currentBtn.textContent = "▶";
-          currentBtn = null;
-        }
-      });
+      voicePlayer.removeEventListener("ended", onVoiceEnded);
+      voicePlayer.addEventListener("ended", onVoiceEnded);
+
     } else {
-      buttonContainer.innerHTML = "　なし";
+      voiceSamples.classList.add("hidden");
     }
   } else {
+    // 🔹 ボイス情報もサンプルもない → 非表示
     voiceBlock.classList.add("hidden");
+  }
+}
+// ボイス再生終了処理
+function onVoiceEnded() {
+  const playingBtn = document.querySelector(".voice-play.playing");
+  if (playingBtn) {
+    playingBtn.classList.remove("playing");
+    playingBtn.textContent = "▶";
   }
 }
 // リレイション情報生成
