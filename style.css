@@ -17,6 +17,25 @@ footer.copyright {
   background: #f8f6f2;
   border-top: 1px solid #ddd;
 }
+.popup-message {
+  position: fixed;
+  top: 70px;
+  left: 50%;
+  transform: translateX(-50%); /* ← 中央寄せ */
+  background: rgba(60, 60, 60, 0.9);
+  color: #fff;
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-family: 'Helvetica Neue', sans-serif;
+  font-size: 0.9em;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 9999;
+}
+.popup-message.show {
+  opacity: 1;
+}
 body {
 	background-color: #f5f3ef;
 	font-family: 'Georgia', serif;

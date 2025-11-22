@@ -6,6 +6,7 @@ let scrollTimeout;
 let isDown = false;
 let startX;
 let scrollLeft;
+let currentSeeker = null;
 const isPointerDevice = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
 let d_history = [];
@@ -214,6 +215,18 @@ document.getElementById('roll-button').addEventListener('click', () => {
     });
   };
 });
+// 📄 ココフォリア駒データ出力ボタンクリックイベント
+document.getElementById("export-cocoforia").addEventListener("click", () => {
+  const cocoforiaData = convertToCocoforia(currentSeeker);
+  const jsonText = JSON.stringify(cocoforiaData, null, 2);
+
+  navigator.clipboard.writeText(jsonText).then(() => {
+    showPopupMessage("ココフォリア駒データをコピーしました！");
+  }).catch(err => {
+    console.error("コピー失敗:", err);
+    showPopupMessage("コピーに失敗しました");
+  });
+});
 
 // ファンクション定義
 // 画面呼び出し
@@ -229,6 +242,16 @@ function showScreen(id) {
   top: 0,
   behavior: 'smooth'
   });
+}
+// ポップアップメッセージ表示
+function showPopupMessage(text) {
+  const popup = document.getElementById("popup-message");
+  popup.textContent = text;
+  popup.classList.add("show");
+
+  setTimeout(() => {
+    popup.classList.remove("show");
+  }, 3000); // 3秒後に消える
 }
 
 // ロード画面
@@ -434,6 +457,7 @@ function scrollToActiveCard() {
 // 探索者データ照会画面表示
 function showSeekerDetail(seeker) {
   showScreen('detail');
+  currentSeeker = seeker; // 🔹 表示中の探索者を保持
   // 🔹 ボイス情報を初期化
   const buttonContainer = document.getElementById('voice-line');
   const voicePlayer = document.getElementById('voice-player');
@@ -1077,4 +1101,66 @@ function createlationshipBlock(data) {
     `;
     container.appendChild(card);
   });
+}
+// ココフォリア駒データ変換
+function convertToCocoforia(seeker) {
+  let externalUrl = "";
+  if (seeker.ia_url && seeker.ia_url.trim() !== "") {
+    externalUrl = seeker.ia_url;
+  } else if (seeker.bl_url && seeker.bl_url.trim() !== "") {
+    externalUrl = seeker.bl_url;
+  } else {
+    externalUrl = ""; // URL指定なし
+  }
+  return {
+    kind: "character",
+    data: {
+      name: seeker.name,
+      initiative: seeker.DEX || 0,
+      externalUrl: externalUrl,
+      memo: `職業：${seeker.job}, 年齢：${seeker.age}, 性別：${seeker.gender}`,
+      status: [
+        { label: "HP", value: seeker.HP, max: seeker.HP },
+        { label: "MP", value: seeker.MP, max: seeker.MP },
+        { label: "SAN", value: seeker.SAN_now, max: seeker.SAN_ini }
+      ],
+      params: [
+        { label: "STR", value: String(seeker.STR) },
+        { label: "CON", value: String(seeker.CON) },
+        { label: "POW", value: String(seeker.POW) },
+        { label: "DEX", value: String(seeker.DEX) },
+        { label: "APP", value: String(seeker.APP) },
+        { label: "SIZ", value: String(seeker.SIZ) },
+        { label: "INT", value: String(seeker.INT) },
+        { label: "EDU", value: String(seeker.EDU) },
+        { label: "DB", value: seeker.DB }
+      ],
+      commands: buildCommands(seeker)
+    }
+  };
+}
+function buildCommands(seeker) {
+  let commands = "";
+  commands += `CCB<={SAN} SANチェック\n`;
+  commands += `:SAN-1\n`;
+  commands += `1d3+{DB} ダメージ判定\n`;
+
+  // 技能リストを追加
+  commands += "\n";
+  seeker.skill_list
+    .slice() // 🔹 元の配列を壊さないためコピー
+    .sort((a, b) => a.sortKey - b.sortKey) // 🔹 昇順ソート
+    .forEach(skill => {
+      commands += `CCB<=${skill.skill_val} ${skill.skill_text}\n`;
+  });
+  commands += "\n";
+  commands += `CCB<={STR}*5 STR*5\n`;
+  commands += `CCB<={CON}*5 CON*5\n`;
+  commands += `CCB<={DEX}*5 DEX*5\n`;
+  commands += `CCB<={APP}*5 APP*5\n`;
+  commands += `CCB<={SIZ}*5 SIZ*5\n`;
+  commands += `CCB<={INT}*5 INT*5\n`;
+  commands += `CCB<={EDU}*5 EDU*5\n`;
+
+  return commands;
 }
