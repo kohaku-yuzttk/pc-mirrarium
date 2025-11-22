@@ -36,6 +36,15 @@ footer.copyright {
 .popup-message.show {
   opacity: 1;
 }
+.menu {
+  font-size: 1.2em;
+}
+.menu a {
+  display: inline-block;
+  margin: 0 1em;
+  font-size: 1.1em;
+}
+
 body {
 	background-color: #f5f3ef;
 	font-family: 'Georgia', serif;
@@ -94,7 +103,7 @@ rt {
 #detail button {
   margin: 1em 0;
   padding: 0.6em 1.2em;
-  font-size: 0.9em;
+  font-size: 1.2em;
   background: #eee;
   border: none;
   border-radius: 4px;
@@ -788,6 +797,7 @@ input[type="range"]:disabled {
 #dice-tool {
   background: #f9f9f9;
   padding: 1em;
+  font-size: 1.2em;
   border-radius: 8px;
   margin-top: 2em;
   display : block;
