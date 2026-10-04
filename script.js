@@ -230,15 +230,14 @@ document.getElementById("export-cocoforia").addEventListener("click", () => {
 // 📄 怪談白物語ココフォリア駒データ出力ボタンクリックイベント
 document.getElementById("kaidan-export-cocoforia").addEventListener("click", () => {
   const kaidanJob = document.getElementById('kaidan-job');
-  const myNumber = document.getElementById('kaidan-number');
+  const kaidanNumber = document.getElementById('kaidan-number');
   const kaidanName = document.getElementById('kaidan-name');
   const kaidanAge = document.getElementById('kaidan-age');
   const kaidanHeki = document.getElementById('kaidan-heki');
   const kaidanFanta = document.getElementById('kaidan-fanta');
 
-  const cocoforiaData = kaidanConvertToCocoforia(kaidanName.value, myNumber.value, kaidanJob.value, kaidanAge.value, kaidanHeki.value, kaidanFanta.value);
+  const cocoforiaData = kaidanConvertToCocoforia(kaidanName.value, kaidanNumber.options[kaidanNumber.selectedIndex].value, kaidanJob.options[kaidanJob.selectedIndex].text, kaidanAge.value, kaidanHeki.value, kaidanFanta.value);
   const jsonText = JSON.stringify(cocoforiaData, null, 2);
-
   navigator.clipboard.writeText(jsonText).then(() => {
     showPopupMessage("ココフォリア駒データをコピーしました！");
   }).catch(err => {
@@ -1190,7 +1189,7 @@ function kaidanConvertToCocoforia(kaidanName, kaidanNumber, kaidanJob, kaidanAge
   let chatpalette = "";
 
     // memo欄作成
-    memo += `職業：${kaidanJob}\n`;
+    memo += `職業：${String(kaidanJob)}\n`;
     memo += `好きな数字：${kaidanNumber}\n`;
     memo += `年齢：${kaidanAge}\n`;
     memo += `性癖：${kaidanHeki}\n`;
@@ -1242,13 +1241,14 @@ function kaidanConvertToCocoforia(kaidanName, kaidanNumber, kaidanJob, kaidanAge
     else {
       kaidanNumber = 0;
       kaidanSAN = 0;
+      chatpalette += `【特殊能力】なし\n`;
     }
 
   return {  
     kind: "character",
     data: {
       name: kaidanName,
-      initiative: String(kaidanNumber),
+      initiative: Number(kaidanNumber) || 0,
       memo: memo,
       status: [
         { label: "恐怖耐久値", value: String(kaidanSAN), max: String(kaidanSAN) }
