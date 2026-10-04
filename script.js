@@ -227,6 +227,25 @@ document.getElementById("export-cocoforia").addEventListener("click", () => {
     showPopupMessage("コピーに失敗しました");
   });
 });
+// 📄 怪談白物語ココフォリア駒データ出力ボタンクリックイベント
+document.getElementById("kaidan-export-cocoforia").addEventListener("click", () => {
+  const kaidanJob = document.getElementById('kaidan-job');
+  const myNumber = document.getElementById('kaidan-number');
+  const kaidanName = document.getElementById('kaidan-name');
+  const kaidanAge = document.getElementById('kaidan-age');
+  const kaidanHeki = document.getElementById('kaidan-heki');
+  const kaidanFanta = document.getElementById('kaidan-fanta');
+
+  const cocoforiaData = kaidanConvertToCocoforia(kaidanName.value, myNumber.value, kaidanJob.value, kaidanAge.value, kaidanHeki.value, kaidanFanta.value);
+  const jsonText = JSON.stringify(cocoforiaData, null, 2);
+
+  navigator.clipboard.writeText(jsonText).then(() => {
+    showPopupMessage("ココフォリア駒データをコピーしました！");
+  }).catch(err => {
+    console.error("コピー失敗:", err);
+    showPopupMessage("コピーに失敗しました");
+  });
+});
 
 // ファンクション定義
 // 画面呼び出し
@@ -1163,4 +1182,81 @@ function buildCommands(seeker) {
   commands += `CCB<={EDU}*5 EDU*5\n`;
 
   return commands;
+}
+// 怪談白物語用ココフォリア駒データ変換
+function kaidanConvertToCocoforia(kaidanName, kaidanNumber, kaidanJob, kaidanAge, kaidanHeki, kaidanFanta) {
+  let kaidanSAN = "";
+  let memo = "";
+  let commands = "";
+
+    // memo欄作成
+    memo += `職業：${kaidanJob}\n`;
+    memo += `好きな数字：${kaidanNumber}\n`;
+    memo += `年齢：${kaidanAge}\n`;
+    memo += `性癖：${kaidanHeki}\n`;
+    memo += `好きなファンタの味：${kaidanFanta}\n`;
+
+    // 脚本家PC用
+    if(kaidanJob === "脚本家") {
+      kaidanSAN = 3;
+      commands += `【能力】判定に関わらず内容を修正できる\n`;
+      commands += `1d6 【修正判定】〇〇→△△：${kaidanNumber}以外成功\n`;
+      commands += `:恐怖耐久値-1\n`;
+    }
+    // 霊媒師PC用
+    else if(kaidanJob === "霊媒師") {
+      kaidanSAN = 4;
+      commands += `【能力】他PCをかばい、恐怖耐久値減少を引き受けることができる\n`;
+      commands += `1d6 【修正判定】〇〇→△△：${kaidanNumber}以外成功\n`;
+      commands += `:恐怖耐久値-1\n`;
+    }
+    // 編集者PC用
+    else if(kaidanJob === "編集者") {
+      kaidanSAN = 3;
+      commands += `【能力】判定失敗時、ランダムなキーワードを1つ公表させることができる\n`;
+      commands += `1d6 【修正判定】〇〇→△△：${kaidanNumber}以外成功\n`;
+      commands += `:恐怖耐久値-1\n`;
+    }
+    // 科学者PC用
+    else if(kaidanJob === "科学者") {
+      kaidanSAN = 2;
+      commands += `【能力】一度の判定で同時に2つまで修正点を指摘できる\n`;
+      commands += `1d6 【修正判定】〇〇→△△：${kaidanNumber}以外成功\n`;
+      commands += `:恐怖耐久値-1\n`;
+    }
+    // 呪術師PC用
+    else if(kaidanJob === "呪術師") {
+      kaidanSAN = 6;
+      commands += `【能力】判定成功時、出た目の数字を選択している他PCにダメージ\n`;
+      commands += `1d6 【修正判定】〇〇→△△：${kaidanNumber}以外成功\n`;
+      commands += `:恐怖耐久値-1\n`;
+    }
+    // 無職PC用
+    else if(kaidanJob === "無職") {
+      kaidanSAN = 5;
+      commands += `【能力】事あるごとに皆から「お前、むーしょく！」といじられる\n`;
+      commands += `1d6 【修正判定】〇〇→△△：${kaidanNumber}以外成功\n`;
+      commands += `:恐怖耐久値-1\n`;
+    }
+    // GM用
+    else {
+      kaidanNumber = 0;
+      kaidanSAN = 0;
+    }
+
+  return {  
+    kind: "character",
+    data: {
+      name: kaidanName,
+      initiative: kaidanNumber || 0,
+      memo: memo,
+      status: [
+        { label: "恐怖耐久値", value: kaidanSAN || 0, max: kaidanSAN || 0 }
+      ],
+      params: [
+        { label: "好きな数字", value: kaidanNumber || 0 }
+      ],
+      commands: commands
+    }
+  };
 }
