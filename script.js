@@ -1187,7 +1187,7 @@ function buildCommands(seeker) {
 function kaidanConvertToCocoforia(kaidanName, kaidanNumber, kaidanJob, kaidanAge, kaidanHeki, kaidanFanta) {
   let kaidanSAN = "";
   let memo = "";
-  let commands = "";
+  let chatpalette = "";
 
     // memo欄作成
     memo += `職業：${kaidanJob}\n`;
@@ -1199,44 +1199,44 @@ function kaidanConvertToCocoforia(kaidanName, kaidanNumber, kaidanJob, kaidanAge
     // 脚本家PC用
     if(kaidanJob === "脚本家") {
       kaidanSAN = 3;
-      commands += `【能力】判定に関わらず内容を修正できる\n`;
-      commands += `1d6 【修正判定】〇〇→△△：${kaidanNumber}以外成功\n`;
-      commands += `:恐怖耐久値-1\n`;
+      chatpalette += `【能力】判定に関わらず内容を修正できる\n`;
+      chatpalette += `1d6 【修正判定】〇〇→△△：${kaidanNumber}以外成功\n`;
+      chatpalette += `:恐怖耐久値-1\n`;
     }
     // 霊媒師PC用
     else if(kaidanJob === "霊媒師") {
       kaidanSAN = 4;
-      commands += `【能力】他PCをかばい、恐怖耐久値減少を引き受けることができる\n`;
-      commands += `1d6 【修正判定】〇〇→△△：${kaidanNumber}以外成功\n`;
-      commands += `:恐怖耐久値-1\n`;
+      chatpalette += `【能力】他PCをかばい、恐怖耐久値減少を引き受けることができる\n`;
+      chatpalette += `1d6 【修正判定】〇〇→△△：${kaidanNumber}以外成功\n`;
+      chatpalette += `:恐怖耐久値-1\n`;
     }
     // 編集者PC用
     else if(kaidanJob === "編集者") {
       kaidanSAN = 3;
-      commands += `【能力】判定失敗時、ランダムなキーワードを1つ公表させることができる\n`;
-      commands += `1d6 【修正判定】〇〇→△△：${kaidanNumber}以外成功\n`;
-      commands += `:恐怖耐久値-1\n`;
+      chatpalette += `【能力】判定失敗時、ランダムなキーワードを1つ公表させることができる\n`;
+      chatpalette += `1d6 【修正判定】〇〇→△△：${kaidanNumber}以外成功\n`;
+      chatpalette += `:恐怖耐久値-1\n`;
     }
     // 科学者PC用
     else if(kaidanJob === "科学者") {
       kaidanSAN = 2;
-      commands += `【能力】一度の判定で同時に2つまで修正点を指摘できる\n`;
-      commands += `1d6 【修正判定】〇〇→△△：${kaidanNumber}以外成功\n`;
-      commands += `:恐怖耐久値-1\n`;
+      chatpalette += `【能力】一度の判定で同時に2つまで修正点を指摘できる\n`;
+      chatpalette += `1d6 【修正判定】〇〇→△△：${kaidanNumber}以外成功\n`;
+      chatpalette += `:恐怖耐久値-1\n`;
     }
     // 呪術師PC用
     else if(kaidanJob === "呪術師") {
       kaidanSAN = 6;
-      commands += `【能力】判定成功時、出た目の数字を選択している他PCにダメージ\n`;
-      commands += `1d6 【修正判定】〇〇→△△：${kaidanNumber}以外成功\n`;
-      commands += `:恐怖耐久値-1\n`;
+      chatpalette += `【能力】判定成功時、出た目の数字を選択している他PCにダメージ\n`;
+      chatpalette += `1d6 【修正判定】〇〇→△△：${kaidanNumber}以外成功\n`;
+      chatpalette += `:恐怖耐久値-1\n`;
     }
     // 無職PC用
     else if(kaidanJob === "無職") {
       kaidanSAN = 5;
-      commands += `【能力】事あるごとに皆から「お前、むーしょく！」といじられる\n`;
-      commands += `1d6 【修正判定】〇〇→△△：${kaidanNumber}以外成功\n`;
-      commands += `:恐怖耐久値-1\n`;
+      chatpalette += `【能力】事あるごとに皆から「お前、むーしょく！」といじられる\n`;
+      chatpalette += `1d6 【修正判定】〇〇→△△：${kaidanNumber}以外成功\n`;
+      chatpalette += `:恐怖耐久値-1\n`;
     }
     // GM用
     else {
@@ -1248,15 +1248,15 @@ function kaidanConvertToCocoforia(kaidanName, kaidanNumber, kaidanJob, kaidanAge
     kind: "character",
     data: {
       name: kaidanName,
-      initiative: kaidanNumber || 0,
+      initiative: String(kaidanNumber),
       memo: memo,
       status: [
-        { label: "恐怖耐久値", value: kaidanSAN || 0, max: kaidanSAN || 0 }
+        { label: "恐怖耐久値", value: String(kaidanSAN), max: String(kaidanSAN) }
       ],
       params: [
-        { label: "好きな数字", value: kaidanNumber || 0 }
+        { label: "好きな数字", value: String(kaidanNumber) }
       ],
-      commands: commands
+      commands: chatpalette
     }
   };
 }

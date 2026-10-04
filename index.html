@@ -237,13 +237,13 @@
 		<div class="tool-block">
 			<h2>怪談白物語ココフォリア駒生成</h2>
 			<p>画面に入力した内容から、ココフォリア駒用データを生成してクリップボードにコピーするツールです。</p>
+			<p>⚠注意⚠　入力したPC情報は保存されません。</p>
 
 			<ol>
   			<li>職業および好きな数字を選択</li>
   			<li>必要事項（名前、年齢、性癖、好きなファンタの味）を記入</li>
 				<li>『ココフォリア駒出力』ボタンをクリック</li>
 				<li>ココフォリア駒用データを生成し、クリップボードにコピーされます。</li>
-				<li>⚠注意⚠　入力したPC情報は保存されません。</li>
 			</ol>
 			<label for="kaidan-job">職業：</label>
 			<select id="kaidan-job">
@@ -254,7 +254,7 @@
 				<option value="4">科学者</option>
 				<option value="5">呪術師</option>
 				<option value="6">語り部</option>
-  		</select>
+  		</select><br>
 			<label for="kaidan-number">好きな数字：</label>
 			<select id="kaidan-number">
 				<option value="1">1</option>
@@ -263,16 +263,16 @@
 				<option value="4">4</option>
 				<option value="5">5</option>
 				<option value="6">6</option>
-  		</select>
+  		</select><br>
 			<label for="kaidan-name">名前：</label>
-			<input type="text" id="kaidan-name" placeholder="名前を入力">
+			<input type="text" id="kaidan-name" placeholder="名前を入力"><br>
 			<label for="kaidan-age">年齢：</label>
-			<input type="number" id="kaidan-age" placeholder="年齢を入力">
+			<input type="text" id="kaidan-age" placeholder="年齢を入力"><br>
 			<label for="kaidan-heki">性癖：</label>
-			<input type="text" id="kaidan-heki" placeholder="性癖を入力">
+			<input type="text" id="kaidan-heki" placeholder="性癖を入力"><br>
 			<label for="kaidan-fanta">好きなファンタの味：</label>
-			<input type="text" id="kaidan-fanta" placeholder="好きなファンタの味を入力">
-
+			<input type="text" id="kaidan-fanta" placeholder="好きなファンタの味を入力"><br>
+			<br>
 			<button id="kaidan-export-cocoforia">ココフォリア駒出力</button>
 		</div>
 		<div class="tool-block">
