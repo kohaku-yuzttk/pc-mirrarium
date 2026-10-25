@@ -137,7 +137,7 @@ document.getElementById('search-button-by-tag').addEventListener('click', () => 
   }
   showSearchResults(filtered, 'tag');
 });
-// 📄 参加シナリオから探す　検索ボタンクリックイベント
+// 📄 HOから探す　検索ボタンクリックイベント
 document.getElementById('search-button-by-HO').addEventListener('click', () => {
   const hoKeyword = document.getElementById('search-HO').value.trim();
   let filtered;
@@ -149,7 +149,7 @@ document.getElementById('search-button-by-HO').addEventListener('click', () => {
   }
   showSearchResults(filtered, 'HO', 'asc');
 });
-// 📄 HOから探す　検索ボタンクリックイベント
+// 📄 参加シナリオから探す　検索ボタンクリックイベント
 document.getElementById('search-button-by-scenario').addEventListener('click', () => {
   const scenarioKeyword = document.getElementById('search-scenario').value.trim();
   let filtered;
@@ -936,12 +936,12 @@ function filterSeekersByscenario(seekers, keyword) {
   return seekers.filter(seeker => {
     const currentscenario = seeker.scenario ?? '';
     const scenarios = Array.isArray(seeker.scenario_list)
-      ? seeker.scenario_list.map(s => s.scenario ?? '')
+      ? seeker.scenario_list.map(s => s.title ?? '')
       : [];
 
-    // すべてのHOを結合して部分一致判定
-    const allscenarios = [currentscenario, ...scenarios];
-    return allscenarios.some(scenario => scenario.includes(keyword));
+    // すべてのシナリオを結合して部分一致判定
+    const alltitles = [currentscenario, ...scenarios];
+    return alltitles.some(title => title.includes(keyword));
   });
 }
 // HOフィルタ
