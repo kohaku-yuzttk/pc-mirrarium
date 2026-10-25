@@ -475,7 +475,8 @@ function scrollToActiveCard() {
 // 探索者データ照会画面表示
 function showSeekerDetail(seeker) {
   showScreen('detail');
-  currentSeeker = seeker; // 🔹 表示中の探索者を保持
+  // 🔹 表示中の探索者を保持
+  currentSeeker = seeker;
   // 🔹 ボイス情報を初期化
   const buttonContainer = document.getElementById('voice-line');
   const voicePlayer = document.getElementById('voice-player');
